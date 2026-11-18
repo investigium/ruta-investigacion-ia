@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-sitio="ruta">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -390,6 +390,35 @@ nav.top ul b{display:inline-grid;place-items:center;width:18px;height:18px;borde
 @media (max-width:760px){.paso-r>a{grid-template-columns:36px minmax(0,1fr)}}
 [tabindex="-1"]:focus{outline:none}
 .apoyo-pie a,.ini-pie a,footer a{display:inline-block;padding:4px 0;min-height:24px}
+
+/* ===== Asistente de ayuda ===== */
+.bot-abrir{position:fixed;right:20px;bottom:20px;z-index:40;display:flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:.92rem;color:#fff;background:#2b6693;border:0;border-radius:999px;padding:12px 18px;box-shadow:0 8px 24px rgba(20,32,43,.22);cursor:pointer}
+.bot-abrir svg{width:22px;height:22px}
+.bot-abrir:focus-visible{outline:3px solid #8fb3d1;outline-offset:2px}
+.bot-panel{position:fixed;right:20px;bottom:84px;z-index:41;width:380px;max-width:calc(100vw - 24px);height:min(560px,calc(100vh - 120px));display:flex;flex-direction:column;background:#fff;color:#14202b;border:1px solid #dde3ea;border-radius:16px;box-shadow:0 18px 48px rgba(20,32,43,.24);overflow:hidden}
+.bot-panel[hidden]{display:none}
+.bot-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:14px 16px;background:#2b6693;color:#fff}
+.bot-cab b{display:block;font-size:1rem}.bot-cab small{display:block;font-size:.74rem;opacity:.85;margin-top:2px;line-height:1.3}
+.bot-cerrar{font:inherit;font-size:1.5rem;line-height:1;background:transparent;color:#fff;border:0;cursor:pointer;padding:0 4px;min-width:32px;min-height:32px}
+.bot-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f7f9fb}
+.bot-msg{max-width:92%;border-radius:12px;padding:10px 12px;font-size:.9rem;line-height:1.45}
+.bot-msg p{margin:0 0 6px}.bot-msg p:last-child{margin-bottom:0}
+.bot-msg.bot{background:#fff;border:1px solid #dde3ea;align-self:flex-start}
+.bot-msg.yo{background:#2b6693;color:#fff;align-self:flex-end}
+.bot-t{font-weight:700;color:#14202b}
+.bot-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bot-links a{display:inline-block;font-weight:600;font-size:.84rem;color:#2b6693;background:#edf3f8;border-radius:999px;padding:6px 12px;text-decoration:none;min-height:24px}
+.bot-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bot-chips button{font:inherit;font-size:.82rem;text-align:left;color:#2b6693;background:#fff;border:1px solid #cfdbe6;border-radius:999px;padding:6px 12px;cursor:pointer;min-height:28px}
+.bot-chips button:hover{border-color:#2b6693}
+.bot-nota{font-size:.82rem;color:#5b6878}.bot-nota a{color:#2b6693}
+.bot-form{display:flex;gap:8px;padding:10px;border-top:1px solid #dde3ea;background:#fff}
+.bot-form input{flex:1;font:inherit;font-size:.92rem;border:1px solid #dde3ea;border-radius:10px;padding:10px 12px;min-width:0;color:#14202b;background:#fff}
+.bot-form input:focus{outline:none;border-color:#2b6693;box-shadow:0 0 0 2px #edf3f8}
+.bot-form button{font:inherit;font-weight:700;color:#fff;background:#2b6693;border:0;border-radius:10px;padding:0 14px;cursor:pointer}
+@media (max-width:900px){body.app .bot-abrir{bottom:calc(82px + env(safe-area-inset-bottom));right:12px;padding:12px}body.app .bot-abrir span{display:none}body.app .bot-panel{bottom:calc(140px + env(safe-area-inset-bottom));right:12px;height:min(520px,calc(100vh - 170px))}}
+@media (max-width:760px){.bot-abrir span{display:none}.bot-abrir{padding:12px}}
+@media print{.bot-abrir,.bot-panel{display:none!important}}
 </style>
 </head>
 <body>
@@ -1630,6 +1659,79 @@ b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorag
     const ac=document.querySelector("nav.top ul a[aria-current]");if(ac&&ac.scrollIntoView)ac.scrollIntoView({block:"nearest",inline:"center"});
   }
   addEventListener("hashchange",mostrar);mostrar();
+})();
+
+
+/* ---------- Asistente de ayuda (sin IA, funciona en el navegador) ---------- */
+(function(){
+  const SITIO=document.documentElement.getAttribute("data-sitio")||(location.pathname.indexOf("libro")>-1?"libro":"ruta");
+  const BASE={ruta:"https://investigium.github.io/ruta-investigacion-ia/",libro:"https://investigium.github.io/libro-prompts-matriz/"};
+  const enlace=(s,h)=>s===SITIO?"#"+h:BASE[s]+"#"+h;
+  const KB=[
+   {id:"que-es",k:["que es","curso","gratis","gratuito","certificado","inscripcion","para que sirve","de que se trata","caja de herramientas"],t:"¿Qué es este sitio?",r:"Es una caja de herramientas gratuita para planear su tesis de maestría o doctorado con IA. No es un curso: no tiene inscripción, tutor ni certificado. Usted escoge la herramienta que necesita, trabaja a su ritmo y descarga sus documentos en Word.",l:[["ruta","inicio","Ver el recorrido"]]},
+   {id:"empezar",k:["empiezo","empezar","comenzar","inicio","primer paso","orden","recorrido","pasos","por donde"],t:"¿Por dónde empiezo?",r:"Siga el recorrido de siete pasos en orden: 1 conocer el proceso, 2 construir la matriz de coherencia, 3 revisar la literatura, 4 ajustar la matriz con el mapa, 5 planear el cronograma, 6 armar el resumen y 7 evaluar la coherencia. Si ya tiene un proyecto avanzado, puede entrar directo al paso que necesite.",l:[["ruta","ruta","Paso 1 · Conocer el proceso"],["ruta","inicio","Ver los siete pasos"]]},
+   {id:"matriz",k:["matriz","coherencia","matriz de coherencia","que es la matriz","coherencia interna"],t:"¿Qué es la matriz de coherencia?",r:"Es un instrumento de diseño metodológico que articula en una sola estructura el objeto de estudio, la pregunta, los objetivos, las categorías o variables, la población, las técnicas e instrumentos y el análisis. Permite examinar si cada componente se desprende del anterior antes de ir a campo.",l:[["libro","que-es","Leer más en el Libro"],["libro","ficha1","Empezar la matriz"]]},
+   {id:"cuando-matriz",k:["cuando","etapa","momento","ideacion","antes","despues","se hace la matriz"],t:"¿En qué momento se hace la matriz?",r:"Se construye al formular la pregunta, después de la idea inicial y de una primera lectura exploratoria. Se ajusta después de la revisión de literatura y sirve de referencia hasta la escritura final.",l:[["libro","que-es","Ver la línea de tiempo"]]},
+   {id:"libro",k:["libro","prompts","prompt","ficha","fichas","ficha 0","instrucciones fijas","como uso el libro"],t:"¿Cómo se usa el Libro de prompts?",r:"Prepare una sola IA de chat, una carpeta con su matriz y sus lecturas, y pegue la Ficha 0 como instrucciones fijas. Luego avance ficha por ficha: copie el prompt, trabájelo con su IA y escriba en los recuadros la versión que usted decidió.",l:[["libro","kit","Antes de empezar"],["libro","ficha0","Ficha 0"]]},
+   {id:"que-ia",k:["que ia","chatgpt","claude","gemini","copilot","cual ia","inteligencia artificial usar","herramienta de ia"],t:"¿Qué IA debo usar?",r:"Cualquier IA de chat sirve (Claude, ChatGPT, Gemini, Copilot u otra). Lo importante es usar la misma durante todo el proyecto, para que el rastro sea comparable, y aplicar siempre las reglas de la Ficha 0.",l:[["libro","ficha0","Ver la Ficha 0"]]},
+   {id:"informe",k:["informe","evaluar matriz","evaluacion de la matriz","criterios","ocho criterios","nivel","coherente","debil","parcial"],t:"¿Cómo obtengo el informe de coherencia?",r:"En la sección Informe del Libro, la matriz se evalúa con ocho criterios en cuatro niveles: ausente, débil, parcial o coherente. Si trabaja con otra IA, copie el prompt de evaluación, pegue la respuesta y descargue el informe en Word.",l:[["libro","informe","Ir al informe"]]},
+   {id:"rsl",k:["revision","literatura","sistematica","estado del arte","prisma","revision de literatura","antecedentes"],t:"¿Cómo hago la revisión de literatura?",r:"La Ruta guía una revisión sistemática según PRISMA 2020: protocolo, búsquedas, cribado, tabla de evidencia, calidad metodológica y síntesis. Al final descarga el reporte en Word y el diagrama PRISMA.",l:[["ruta","rsl","Paso 3 · Revisión de literatura"]]},
+   {id:"marco",k:["pico","spider","peo","marco","protocolo","criterios de inclusion","inclusion","exclusion"],t:"¿Qué marco uso en el protocolo?",r:"PICO sirve para preguntas de intervención; PEO para exposición o experiencia; SPIDER para estudios cualitativos o mixtos. Escriba los criterios de inclusión y exclusión antes de buscar, no después de ver los resultados.",l:[["ruta","rsl","Abrir el protocolo"]]},
+   {id:"doi",k:["doi","verificar","crossref","referencia","referencias","citas","cita","fuente","fuentes"],t:"¿Cómo verifico las referencias?",r:"En la tabla de evidencia pulse «Verificar DOI»: el sitio consulta Crossref y marca las referencias que no existen o no coinciden. La referencia que no se verificó no se cita.",l:[["ruta","rsl","Ir a la tabla de evidencia"]]},
+   {id:"prisma-error",k:["numeros negativos","diagrama prisma","no descarga prisma","flujo prisma","exclusiones"],t:"El diagrama PRISMA no se descarga",r:"Revise los números: las exclusiones no pueden superar los registros de la fase anterior. Cuando el flujo no tiene números negativos, el diagrama se descarga en PNG.",l:[["ruta","rsl","Revisar el cribado"]]},
+   {id:"ejemplo",k:["ejemplo","ejemplo resuelto","demostracion","ver funcionando","modelo"],t:"¿Hay un ejemplo resuelto?",r:"Sí. El tema es el uso de la IA en la escritura académica y sus efectos en los procesos creativos, con 13 estudios reales y sus DOI verificados. Cargarlo reemplaza lo que tenga escrito en ese navegador; descargue antes un respaldo.",l:[["ruta","rsl","Ejemplo de revisión"],["libro","que-es","Ejemplo de matriz"]]},
+   {id:"mapa",k:["mapa","red","grafo","obsidian","mapa mental","conexiones","visualizar"],t:"¿Para qué sirve el mapa del proyecto?",r:"Muestra su matriz como una red: cada punto es un componente y cada línea una relación. Al tocar un punto ve su contenido y sus conexiones; los puntos con borde rojo están vacíos. Se descarga como imagen.",l:[["libro","mapa","Abrir el mapa"]]},
+   {id:"cronograma",k:["cronograma","gantt","minciencias","actividades","meses","plan de trabajo","calendario"],t:"¿Cómo hago el cronograma?",r:"Pulse «Proponer actividades desde mi matriz»: se crean actividades por objetivo específico. Ajuste las barras tocando los meses y complete responsable, producto, indicador y medio de verificación. Se descarga en Excel y en Word.",l:[["libro","cronograma","Abrir el cronograma"]]},
+   {id:"resumen",k:["resumen","brief","falta","una pagina","resumen del proyecto"],t:"¿Qué es el resumen del proyecto?",r:"Reúne su proyecto en una página para el director. Lo que aún no está escrito aparece como [FALTA]: esa es su lista de tareas. Se descarga en Word.",l:[["ruta","engranaje","Paso 6 · Resumen"]]},
+   {id:"rubrica",k:["rubrica","autoevaluacion","jurado","coherencia vertical","coherencia horizontal","evaluar proyecto"],t:"¿Cómo evalúo mi proyecto?",r:"La rúbrica revisa la coherencia vertical (pregunta y objetivos), la horizontal (objetivos, técnicas y análisis) y la coherencia con el modelo y las categorías. Úsela antes de cada entrega.",l:[["ruta","rubrica","Paso 7 · Evaluación"]]},
+   {id:"carpetas",k:["carpetas","organizar","archivos","casillas","sistema"],t:"¿Cómo organizo mis archivos?",r:"El sitio propone seis carpetas para el proyecto, de modo que usted, su director y la IA encuentren todo en el mismo lugar y cada paso lea lo que dejó el anterior.",l:[["ruta","sistema","Organizar los archivos"]]},
+   {id:"zip",k:["zip","paquete","entrega","mis archivos","subir archivos","adjuntar"],t:"¿Cómo preparo una entrega?",r:"En «Mis archivos» reúne los documentos de una entrega; quedan en su navegador y se descargan en un .zip ordenado.",l:[["ruta","entradas","Mis archivos"]]},
+   {id:"plantillas",k:["plantilla","plantillas","formato","formatos","word"],t:"¿Hay plantillas?",r:"Sí, hay plantillas en Word listas para diligenciar.",l:[["ruta","salidas","Ver plantillas"]]},
+   {id:"respaldo",k:["respaldo","guardar","otro computador","perdi","perder","se borro","recuperar","json","exportar","importar","copia"],t:"¿Cómo guardo mi trabajo o lo llevo a otro equipo?",r:"Todo se guarda solo en su navegador. Use «Descargar respaldo» con frecuencia y «Cargar respaldo» en el otro equipo. La Ruta y el Libro tienen cada uno su propio respaldo.",l:[["ruta","rsl","Respaldo de la revisión"],["libro","kit","Respaldo del Libro"]]},
+   {id:"privacidad",k:["privacidad","datos","quien ve","seguro","servidor","se envia","habeas","1581"],t:"¿Quién ve lo que escribo?",r:"Nadie: lo que escribe se guarda en su navegador y no se envía a ningún servidor, ni siquiera al autor. Solo salen las referencias que usted verifica (a Crossref), un conteo anónimo de visitas y los mensajes del buzón. Este asistente tampoco guarda ni envía lo que usted escribe aquí.",l:[["ruta","privacidad","Aviso de privacidad"]]},
+   {id:"compartido",k:["compartido","sala de computo","borrar","biblioteca","publico","eliminar mis datos"],t:"Uso un computador compartido",r:"Al terminar, descargue su respaldo y use «Borrar todo lo mío de este navegador». Así nadie más verá su proyecto.",l:[["ruta","ruta","Borrar mis datos"]]},
+   {id:"etica",k:["etica","comite","consentimiento","aval","participantes","menores","riesgo"],t:"¿Qué aspectos éticos debo cuidar?",r:"Obtenga el consentimiento informado y el aval del comité de ética antes de recoger datos, proteja la identidad de los participantes y declare cómo usó la IA. El cronograma incluye el aval ético como actividad.",l:[["ruta","reglas","Uso responsable"]]},
+   {id:"anonimizar",k:["anonimizar","anonimo","entrevistas","transcripciones","pegar datos","datos personales","nombres","sensibles"],t:"¿Puedo pegar mis datos de campo en una IA?",r:"Solo después de anonimizarlos: retire nombres, lugares y cualquier dato que permita identificar a alguien. En Colombia la Ley 1581 de 2012 protege los datos personales, y los datos sensibles exigen cuidado adicional. Revise también lo que autorizó el consentimiento informado.",l:[["ruta","reglas","Reglas de uso responsable"]]},
+   {id:"limites",k:["inventa referencias","referencias falsas","alucina","alucinaciones","inventa","inventar","error","confiable","limitaciones","limites","sesgo","sesgos","puede la ia","verdad"],t:"¿Qué tan confiable es la IA?",r:"La IA propone, ordena y señala rupturas, pero genera textos probables, no verificados: puede inventar autores, cifras y referencias con total seguridad. Tiene fecha de corte, sesgos y responde distinto cada vez. Todo lo que afirme es una hipótesis que usted debe verificar.",l:[["ruta","reglas","Uso responsable de la IA"]]},
+   {id:"autoria",k:["autoria","autor","escribir la tesis","redactar","plagio","declarar","citar la ia","integridad"],t:"¿Puede la IA escribir mi tesis?",r:"No debe: la IA no puede ser autora, y los argumentos, las decisiones y la responsabilidad son suyas. Úsela para auditar lo que usted escribió y declare su uso según las normas de su programa y de la revista.",l:[["ruta","reglas","Uso responsable"]]},
+   {id:"maestria-doctorado",k:["doctorado","maestria","diferencia","aporte original","tesis doctoral"],t:"¿Sirve igual para maestría y doctorado?",r:"Sí. La lógica de la coherencia es la misma; en el doctorado se espera más profundidad teórica y que cada fila de la matriz sostenga el aporte original de la tesis.",l:[["libro","que-es","Qué es la matriz"]]},
+   {id:"idioma",k:["idioma","ingles","portugues","traducir","traduccion","english"],t:"¿Está en otros idiomas?",r:"Use los botones ES, EN y PT de la parte superior: la traducción es automática de Google. Los documentos en Word y los prompts se generan en español.",l:[]},
+   {id:"celular",k:["celular","movil","telefono","app","aplicacion","tablet"],t:"¿Funciona en el celular?",r:"Sí. En el celular la Ruta tiene una barra inferior (Inicio, Proceso, Literatura, Resumen, Más) y el Libro una barra con Anterior, Índice y Siguiente.",l:[]},
+   {id:"version",k:["no veo","no cambia","version anterior","desactualizado","actualizar","cache","recargar"],t:"Veo una versión anterior",r:"Recargue con Ctrl+F5 (en Mac, Cmd+Shift+R) o abra el sitio en una ventana de incógnito. El sitio puede tardar hasta 10 minutos en actualizarse.",l:[]},
+   {id:"word",k:["no descarga","descargar word","error word","docx","no funciona la descarga","descarga"],t:"No se descarga el Word",r:"Los documentos en Word necesitan internet para cargar el generador. Revise su conexión, recargue la página y vuelva a intentarlo. Si sigue fallando, escríbanos por el buzón.",l:[["ruta","comentarios","Escribir al buzón"]]},
+   {id:"contacto",k:["contacto","sugerencia","comentario","buzon","error","reportar","falla","escribir"],t:"¿Cómo reporto un error o hago una sugerencia?",r:"Use el buzón de comentarios: el mensaje llega al correo de Investigium.",l:[["ruta","comentarios","Ir al buzón"]]},
+   {id:"mentoria",k:["mentoria","mentorias","asesoria","asesor","consultoria","acompanamiento","ayuda personalizada","whatsapp","precio","costo"],t:"¿Ofrecen acompañamiento?",r:"Sí. Investigium ofrece mentorías y consultorías en investigación. Use el botón «Mentorías y consultorías» junto al logo: puede escribir por WhatsApp o por correo.",l:[]},
+   {id:"licencia",k:["licencia","creative commons","usar el material","compartir","citar el sitio","derechos"],t:"¿Puedo usar y compartir el material?",r:"Sí, bajo licencia Creative Commons BY-NC-SA 4.0: cite al autor, sin fines comerciales y compartiendo bajo la misma licencia. En sus trabajos cite las fuentes originales, no el portal.",l:[]}
+  ];
+  const INICIALES=["empezar","matriz","rsl","respaldo","limites","anonimizar"];
+  const STOP=new Set("el la los las un una unos unas de del al a en y o u que como para por con sin se me mi mis su sus lo le les es son esta este eso esa hay puedo puede debo quiero necesito tengo hacer donde cual cuales cuando porque pero mas muy ya no si yo usted ustedes nos tu".split(" "));
+  const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9ñ ]+/g," ").replace(/\s+/g," ").trim();
+  const raiz=w=>w.length>5?w.replace(/(es|s)$/,""):w;
+  const tokens=s=>norm(s).split(" ").filter(w=>w.length>2&&!STOP.has(w)).map(raiz);
+  const KBN=KB.map(e=>({e,frases:e.k.map(norm),toks:new Set([].concat(...e.k.map(tokens),tokens(e.t)))}));
+  function buscar(q){const nq=" "+norm(q)+" ",tq=tokens(q);return KBN.map(x=>{let s=0;x.frases.forEach(f=>{if(f.indexOf(" ")>-1&&nq.indexOf(" "+f+" ")>-1)s+=4});tq.forEach(t=>{if(x.toks.has(t))s+=2;else{for(const k of x.toks){if(k.length>=5&&t.length>=5&&(k.startsWith(t.slice(0,5))||t.startsWith(k.slice(0,5)))){s+=1;break}}}});return {e:x.e,s}}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s)}
+  const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const btn=document.createElement("button");btn.type="button";btn.className="bot-abrir";btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-controls","botPanel");btn.setAttribute("aria-label","¿Necesita ayuda? Abrir el asistente");
+  btn.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.6 1.3c0 1.7-2.1 2-2.1 3.2"/><path d="M12 17h.01"/></svg><span>¿Necesita ayuda?</span>';
+  const panel=document.createElement("div");panel.className="bot-panel";panel.id="botPanel";panel.hidden=true;panel.setAttribute("role","dialog");panel.setAttribute("aria-label","Asistente de ayuda");
+  panel.innerHTML='<div class="bot-cab"><div><b>Asistente de ayuda</b><small>Responde con la información del sitio · no usa IA ni guarda lo que escribe</small></div><button type="button" class="bot-cerrar" aria-label="Cerrar el asistente">×</button></div><div class="bot-log" role="log" aria-live="polite"></div><form class="bot-form"><label class="sr" for="botIn">Escriba su pregunta</label><input id="botIn" type="text" autocomplete="off" maxlength="300" placeholder="Escriba su pregunta…"><button type="submit">Enviar</button></form>';
+  document.body.appendChild(btn);document.body.appendChild(panel);
+  const log=panel.querySelector(".bot-log"),inp=panel.querySelector("#botIn");
+  const chips=ids=>'<div class="bot-chips">'+ids.map(id=>{const e=KB.find(x=>x.id===id);return e?`<button type="button" data-id="${e.id}">${esc(e.t)}</button>`:""}).join("")+"</div>";
+  function decir(html,quien){const d=document.createElement("div");d.className="bot-msg "+(quien||"bot");d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+  function responder(e){const links=(e.l||[]).map(([s,h,t])=>`<a href="${esc(enlace(s,h))}">${esc(t)}${s!==SITIO?" ↗":""}</a>`).join("");decir(`<p class="bot-t">${esc(e.t)}</p><p>${esc(e.r)}</p>${links?'<div class="bot-links">'+links+"</div>":""}`)}
+  function preguntar(q){q=String(q||"").trim().slice(0,300);if(!q)return;decir(`<p>${esc(q)}</p>`,"yo");const r=buscar(q);
+    if(r.length&&r[0].s>=2){responder(r[0].e);const otras=r.slice(1,4).filter(x=>x.s>=2).map(x=>x.e.id);if(otras.length)decir("<p>También puede interesarle:</p>"+chips(otras))}
+    else decir('<p>No encontré una respuesta para eso en el sitio. Pruebe con otras palabras o elija un tema:</p>'+chips(INICIALES)+`<p class="bot-nota">Si su duda es sobre su proyecto, escríbanos en el <a href="${esc(enlace("ruta","comentarios"))}">buzón</a> o pida una mentoría.</p>`)}
+  let iniciado=false;
+  function abrir(){panel.hidden=false;btn.setAttribute("aria-expanded","true");document.body.classList.add("bot-abierto");if(!iniciado){iniciado=true;decir("<p>Hola. Respondo dudas sobre cómo usar la Ruta y el Libro de prompts. Escriba su pregunta o elija un tema:</p>"+chips(INICIALES))}setTimeout(()=>inp.focus(),30)}
+  function cerrar(){panel.hidden=true;btn.setAttribute("aria-expanded","false");document.body.classList.remove("bot-abierto");btn.focus()}
+  btn.addEventListener("click",()=>panel.hidden?abrir():cerrar());
+  panel.querySelector(".bot-cerrar").addEventListener("click",cerrar);
+  panel.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
+  panel.querySelector(".bot-form").addEventListener("submit",e=>{e.preventDefault();const q=inp.value;inp.value="";preguntar(q)});
+  log.addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b){const en=KB.find(x=>x.id===b.dataset.id);if(en){decir(`<p>${esc(en.t)}</p>`,"yo");responder(en)}return}const a=e.target.closest("a[href^='#']");if(a&&window.matchMedia("(max-width:760px)").matches)setTimeout(cerrar,50)});
+  window.__botBuscar=buscar;
 })();
 </script>
 </body>
