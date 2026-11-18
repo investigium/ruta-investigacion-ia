@@ -1037,7 +1037,7 @@ $$("[data-doc]").forEach(b=>b.addEventListener("click",async()=>{if(!window.docx
   const d=new Date(),dia=`dia-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   let nueva=true;try{nueva=!sessionStorage.getItem("ruta-visita")}catch(e){}
   const espera=ms=>new Promise(r=>setTimeout(r,ms));
-  async function pedir(k,modo){for(let i=0;i<3;i++){try{const r=await fetch(`${API}/${modo}/${NS}/${k}`);if(r.status===404)return 0;if(r.ok){const j=await r.json();if(typeof j.value==="number")return j.value}}catch(e){}await espera(500*(i+1))}return null}
+  async function pedir(k,modo){for(let i=0;i<2;i++){const c=new AbortController();const to=setTimeout(()=>c.abort(),8000);try{const r=await fetch(`${API}/${modo}/${NS}/${k}`,{signal:c.signal});clearTimeout(to);if(r.status===404)return 0;if(r.ok){const j=await r.json();if(typeof j.value==="number")return j.value}}catch(e){clearTimeout(to)}await espera(600)}return null}
   async function contar(k){let v=nueva?await pedir(k,"hit"):null;if(v==null)v=await pedir(k,"get");return v}
   const fmt=n=>n.toLocaleString("es-CO");
   const vals={};
@@ -1045,8 +1045,13 @@ $$("[data-doc]").forEach(b=>b.addEventListener("click",async()=>{if(!window.docx
     if(matchMedia("(prefers-reduced-motion: reduce)").matches){el.textContent=fmt(n);return}
     const t0=performance.now(),dur=1600;cancelAnimationFrame(el._raf);
     const paso=t=>{const p=Math.min(1,(t-t0)/dur);el.textContent=fmt(Math.round(n*(1-Math.pow(1-p,3))));if(p<1)el._raf=requestAnimationFrame(paso)};el._raf=requestAnimationFrame(paso)}
-  const els=[$("#visTotal"),$("#visHoy")];els.forEach(e=>e.textContent="0");
-  (async()=>{vals.t=await contar("visitas");vals.h=await contar(dia);try{if(vals.t!=null)sessionStorage.setItem("ruta-visita","1")}catch(e){}
+  const els=[$("#visTotal"),$("#visHoy")];
+  /* muestra al instante la última cifra conocida y la actualiza cuando llega el dato */
+  let cache={};try{cache=JSON.parse(localStorage.getItem("ruta-contador")||"{}")||{}}catch(e){}
+  vals.t=typeof cache.t==="number"?cache.t:null;vals.h=cache.dia===dia&&typeof cache.h==="number"?cache.h:null;
+  if(vals.t!=null){animar(els[0],vals.t);animar(els[1],vals.h??0)}else els.forEach(e=>e.textContent="0");
+  (async()=>{const [t,h]=await Promise.all([contar("visitas"),contar(dia)]);
+    if(t!=null){vals.t=t;vals.h=h??vals.h;try{sessionStorage.setItem("ruta-visita","1");localStorage.setItem("ruta-contador",JSON.stringify({t:vals.t,h:vals.h,dia}))}catch(e){}}
     animar(els[0],vals.t);animar(els[1],vals.h);
     /* se vuelve a animar cada vez que el contador entra en pantalla */
     if("IntersectionObserver" in window){let primera=true;new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting){if(primera){primera=false;return}animar(els[0],vals.t);animar(els[1],vals.h)}})},{threshold:.6}).observe($(".contador"))}
