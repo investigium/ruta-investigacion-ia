@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruta de investigación con IA · Guía de trabajo para posgrado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: portada con hilo azul, secciones numeradas con separador, tarjetas y bandas; misma gramática visual de la presentación de referencia */
+:root{
+  --ink:#141821; --text:#4b5563; --muted:#78818f; --soft:#9aa2ad; --line:#d9dee4;
+  --bg:#ffffff; --panel:#f2f4f6; --blue:#1b44cc; --blue-soft:#eef2fe; --red:#c81e4a; --red-soft:#fdeef2;
+  --f-display:"Inter Tight", Inter, "Helvetica Neue", Arial, sans-serif;
+  --f-body:Inter, "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#eef1f6; --text:#b8c0cc; --muted:#8b95a3; --soft:#6f7988; --line:#2b313b;
+  --bg:#0f1218; --panel:#181c24; --blue:#7c9bff; --blue-soft:#1a2340; --red:#ff7a9a; --red-soft:#3a1822; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#eef1f6; --text:#b8c0cc; --muted:#8b95a3; --soft:#6f7988; --line:#2b313b;
+  --bg:#0f1218; --panel:#181c24; --blue:#7c9bff; --blue-soft:#1a2340; --red:#ff7a9a; --red-soft:#3a1822; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:16px;line-height:1.5}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);letter-spacing:-.026em;line-height:1.08;margin:0;text-wrap:balance}
+.eb{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);display:block;margin:0 0 .6rem}
+.eb.azul{color:var(--blue)}
+nav.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:6px;align-items:center;justify-content:space-between;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+nav.top .brand{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav.top ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;flex-wrap:wrap}
+nav.top a{display:block;padding:6px 10px;border-radius:99px;text-decoration:none;color:var(--text);font-size:.86rem}
+nav.top a:hover{background:var(--blue-soft);color:var(--blue)}
+/* portada */
+.portada{padding:56px 0 40px}
+.portada .fila{display:flex;gap:22px;align-items:stretch}
+.portada .hilo{width:4px;background:var(--blue);border-radius:2px;flex:none}
+.portada h1{font-size:clamp(2.1rem,5vw,3.4rem);margin:.1em 0 .35em}
+.portada .sub{font-size:1.1rem;max-width:62ch;margin:0}
+.portada .autor{margin:1.2rem 0 0;font-size:.95rem;color:var(--ink);font-weight:600}
+.portada .autor span{display:block;font-weight:400;color:var(--text)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.35em .8em;border-radius:99px;background:var(--blue-soft);color:var(--blue)}
+/* separador */
+.sep{padding:44px 0 18px;border-top:1px solid var(--line)}
+.sep .fila{display:flex;align-items:center;gap:18px}
+.sep .num{font-family:var(--f-display);font-weight:800;font-size:clamp(3.4rem,8vw,5.2rem);color:var(--blue-soft);line-height:.85;flex:none}
+.sep .vr{width:3px;background:var(--blue);align-self:stretch;border-radius:2px;flex:none}
+.sep h2{font-size:clamp(1.5rem,3vw,2rem);margin:.1em 0 .25em}
+.sep p{margin:0;max-width:64ch}
+section.bloque{padding-bottom:28px;scroll-margin-top:64px}
+/* rejillas y tarjetas */
+.rej{display:grid;gap:14px}
+.rej.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.rej.c3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.tj{background:var(--panel);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.tj.azul{background:var(--blue-soft)}
+.tj .rot{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+.tj .t{font-family:var(--f-display);font-weight:700;font-size:1.25rem;color:var(--ink);margin:0}
+.tj.azul .t{color:var(--blue)}
+.tj p{margin:0}
+.tj ul{margin:.2em 0 0;padding-left:1.1em}
+.tj li{margin-bottom:.3em}
+.tj li::marker{color:var(--blue)}
+.tj .acc{margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:.88rem;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn.primario{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primario:hover{filter:brightness(1.08);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.banda{background:var(--blue);color:#fff;border-radius:12px;padding:14px 18px;font-family:var(--f-display);font-weight:600;margin-top:16px}
+.banda strong{font-weight:800}
+.banda.tinta{background:var(--ink);color:var(--bg)}
+.pasos{display:grid;gap:10px;counter-reset:p}
+.paso{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;background:var(--panel);border-radius:12px;padding:14px 16px}
+.paso::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-family:var(--f-display);font-weight:800;font-size:1.6rem;color:var(--blue);line-height:1}
+.paso b{color:var(--ink);display:block}
+.cita{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 10px 10px 0;padding:12px 16px;color:var(--ink);margin-top:16px}
+/* tabla */
+.scroll{overflow-x:auto;border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem}
+thead th{background:var(--ink);color:var(--bg);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;padding:10px 12px;text-align:left}
+thead th:last-child{background:var(--blue);color:#fff}
+tbody td{padding:10px 12px;vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--panel)}
+tbody td:first-child{color:var(--blue);font-weight:600}
+/* entradas */
+.drop{border:2px dashed var(--line);border-radius:14px;padding:26px;text-align:center;background:var(--panel);transition:border-color .15s}
+.drop.on{border-color:var(--blue);background:var(--blue-soft)}
+.drop p{margin:.3em 0}
+.lista{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+.lista li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.lista .nm{font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+.lista .md{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.lista .ac{display:flex;gap:6px}
+.lista .ac .btn{padding:6px 10px;font-size:.8rem}
+.vacio{color:var(--muted);font-style:italic;margin:12px 0 0}
+.estado{font-size:.88rem;color:var(--muted);min-height:1.4em;margin:8px 0 0}
+label.campo{display:grid;gap:4px;font-size:.85rem;font-weight:600;color:var(--ink)}
+input[type=text]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:.84rem;color:var(--muted);margin-top:24px}
+/* extras: revisión sistemática */
+textarea,select,input[type=number],input[type=date]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{resize:vertical;width:100%}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.tabs button{font:inherit;font-size:.86rem;font-weight:600;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.panel[hidden]{display:none}
+.prompt{white-space:pre-wrap;font-family:var(--f-mono);font-size:.78rem;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;margin:0;color:var(--ink);max-height:360px;overflow:auto}
+table.ed{min-width:900px}
+table.ed td{padding:4px 6px}
+table.ed tbody td:first-child{color:inherit;font-weight:400}
+table.ed input,table.ed textarea,table.ed select{width:100%;min-width:90px;padding:6px 8px;font-size:.84rem;border-radius:7px}
+table.ed textarea{min-height:58px}
+.mini{padding:5px 9px!important;font-size:.78rem!important}
+.ok{color:#137a43;font-weight:600}.mal{color:var(--red);font-weight:600}.duda{color:#a5640b;font-weight:600}
+.chk{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.chk label{display:flex;gap:8px;align-items:flex-start;font-weight:400;color:var(--text)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.grid3{display:grid;align-items:end;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.kpi{font-family:var(--f-display);font-weight:800;font-size:1.6rem;color:var(--blue)}
+#prismaBox svg{width:100%;height:auto;background:#fff;border-radius:12px;border:1px solid var(--line)}
+.nota{font-size:.84rem;color:var(--muted)}
+.fase{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.fase .tj{gap:4px}
+.fase .tj .kpi{font-size:1.3rem}
+.firma{display:flex;align-items:center;gap:16px;margin-top:1.2rem}
+.firma img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--blue-soft);flex:none}
+.firma .autor{margin:0}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Secciones"><div class="wrap">
+  <span class="brand">Ruta de investigación con IA</span>
+  <ul>
+    <li><a href="#ruta">Ruta</a></li>
+    <li><a href="#sistema">Sistema</a></li>
+    <li><a href="#rsl">Revisión sistemática</a></li>
+    <li><a href="#entradas">Entradas</a></li>
+    <li><a href="#engranaje">Brief</a></li>
+    <li><a href="#salidas">Plantillas</a></li>
+    <li><a href="#reglas">Reglas</a></li>
+    <li><a href="#rubrica">Rúbrica</a></li>
+  </ul>
+</div></nav>
+
+<header class="portada"><div class="wrap"><div class="fila">
+  <span class="hilo" aria-hidden="true"></span>
+  <div>
+    <span class="pill">Posgrado · Maestría y doctorado</span>
+    <h1>Ruta de investigación con IA</h1>
+    <p class="sub">Guía de trabajo para estudiantes de posgrado: organizar el proyecto como un sistema, hacer una revisión sistemática de literatura con la IA como segundo revisor, verificar cada referencia y llegar al documento con un rastro claro de cada decisión.</p>
+    <div class="firma"><img src="data:image/jpeg;base64,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" alt="Elver Chaparro Cardozo" width="88" height="88"><p class="autor">Elver Chaparro Cardozo<span>Ph. D. (c) en Educación y Sociedad, Universidad de La Salle, Colombia</span></p></div>
+  </div>
+</div></div></header>
+
+<section class="bloque" id="ruta">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">01</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Ruta</span><h2>De la inquietud al documento</h2><p>Seis fases que sirven para cualquier disciplina y cualquier enfoque. Cada fase deja un archivo que la siguiente lee.</p></div></div></div>
+  <div class="wrap">
+    <div class="pasos">
+      <div class="paso"><div><b>Pregunta</b>De la inquietud a una pregunta con población, fenómeno, contexto y alcance. La IA propone alternativas; usted decide cuál es viable.</div></div>
+      <div class="paso"><div><b>Literatura</b>Revisión sistemática o rápida: protocolo, búsqueda, cribado, tabla de evidencia verificada y síntesis por hallazgos que termina en el vacío.</div></div>
+      <div class="paso"><div><b>Diseño</b>La literatura da los métodos; el método define el dato. Enfoque, diseño, técnicas e instrumentos por objetivo.</div></div>
+      <div class="paso"><div><b>Datos</b>Campo o fuentes: el original no se toca, lo transformado va aparte y cada cifra dice de dónde salió.</div></div>
+      <div class="paso"><div><b>Análisis</b>Procedimiento nombrado y descrito. Cada resultado lleva su limitación al lado.</div></div>
+      <div class="paso"><div><b>Escritura</b>La IA audita lo que usted escribió; no lo escribe por usted. Lo que falte se marca [FALTA] y se convierte en tarea.</div></div>
+    </div>
+    <div class="rej c2" style="margin-top:16px">
+      <article class="tj azul">
+        <p class="rot">Complemento</p>
+        <h3 class="t">Libro de prompts · Matriz de coherencia</h3>
+        <p>Fichas para trabajar con una IA de chat cada columna de la matriz: objeto, pregunta, objetivos, técnicas, población, modelo y análisis. Al final se descarga el informe en Word.</p>
+        <div class="acc"><a class="btn primario" href="https://elvervisual.github.io/libro-prompts-matriz/" target="_blank" rel="noopener">Abrir el Libro de prompts</a></div>
+      </article>
+      <article class="tj">
+        <p class="rot">Cómo se usa este portal</p>
+        <h3 class="t">Su trabajo queda en su navegador</h3>
+        <p>Lo que escribe en los formularios y los archivos que adjunta se guardan solo en este navegador. Descargue con frecuencia el respaldo (.json) y los documentos en Word para no perder nada al cambiar de equipo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="sistema">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">02</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Sistema</span><h2>La carpeta del proyecto en seis casillas</h2><p>Cada proyecto vive en una carpeta con seis subcarpetas. Así la IA (y su director) encuentra todo en el mismo lugar y cada paso lee lo que dejó el anterior.</p></div></div></div>
+  <div class="wrap">
+    <div class="rej c3" id="casillas"></div>
+    <div class="banda">Una IA conectada a la carpeta puede responder <strong>«¿cuál casilla está más débil?»</strong> antes de cada reunión con su director.</div>
+    <h3 style="margin:28px 0 12px;font-size:1.25rem">Las ocho piezas de un sistema con IA</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Pieza</th><th>Qué es</th><th>En su proyecto</th></tr></thead>
+      <tbody>
+        <tr><td>Modelo</td><td>La IA de chat que razona y redacta.</td><td>Una sola IA durante todo el proyecto, para que el rastro sea comparable.</td></tr>
+        <tr><td>Instrucciones</td><td>Las reglas permanentes del asistente.</td><td>Un archivo de reglas que pega al inicio o guarda en el proyecto de la IA.</td></tr>
+        <tr><td>Memoria</td><td>Lo que el sistema recuerda entre sesiones.</td><td>Cuaderno del proyecto y bitácora de decisiones.</td></tr>
+        <tr><td>Herramientas</td><td>Lo que la IA puede consultar o producir.</td><td>Buscadores académicos, verificador de DOI, fichas y plantillas.</td></tr>
+        <tr><td>Entorno</td><td>Dónde están los archivos.</td><td>La carpeta con las seis casillas.</td></tr>
+        <tr><td>Sesión</td><td>Cada conversación de trabajo.</td><td>Una conversación por tarea; se abre pegando el contexto del proyecto.</td></tr>
+        <tr><td>Credenciales</td><td>Los permisos con que la IA entra a sus cuentas.</td><td>Conectores de nube, correo y calendario, con el mínimo permiso.</td></tr>
+        <tr><td>Disparador</td><td>Lo que pone a andar el proceso.</td><td>Una entrega, una reunión de dirección o una nueva versión del documento.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="bloque" id="rsl">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">03</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Literatura</span><h2>Revisión sistemática de literatura con IA</h2><p>Una revisión con rastro documentado de cada paso. La herramienta encuentra, el criterio pondera y la referencia que no se verificó no se cita.</p></div></div></div>
+  <div class="wrap">
+
+    <h3 style="margin:0 0 12px;font-size:1.25rem">Las cuatro fases de PRISMA 2020</h3>
+    <div class="fase">
+      <div class="tj azul"><p class="rot">Fase 1</p><h3 class="t">Identificación</h3><p>Bases consultadas, cadena de búsqueda, fecha y número de registros encontrados.</p></div>
+      <div class="tj"><p class="rot">Fase 2</p><h3 class="t">Cribado</h3><p>Títulos y resúmenes revisados con criterios fijados antes de buscar. Cuántos pasan.</p></div>
+      <div class="tj azul"><p class="rot">Fase 3</p><h3 class="t">Elegibilidad</h3><p>Lectura del texto completo. Cuántos se descartan y por qué razón.</p></div>
+      <div class="tj"><p class="rot">Fase 4</p><h3 class="t">Inclusión</h3><p>Los estudios que entran a la síntesis y a la tabla de evidencia.</p></div>
+    </div>
+    <p class="nota" style="margin-top:10px">PRISMA 2020 tiene 27 ítems en siete secciones. Una revisión rápida puede recortar pasos (por ejemplo, un solo revisor en el cribado), pero no puede recortar el rastro.</p>
+
+    <div class="rej c2" style="margin-top:20px">
+      <div class="tj">
+        <p class="rot">Tipos de revisión</p>
+        <ul>
+          <li><b>Sistemática:</b> pregunta cerrada, protocolo previo, búsqueda exhaustiva, dos revisores, evaluación de calidad.</li>
+          <li><b>Rápida:</b> los mismos pasos con recortes declarados; útil para trabajos de grado con plazo.</li>
+          <li><b>De alcance (scoping):</b> mapea qué se ha estudiado y cómo; usa el marco PCC y PRISMA-ScR.</li>
+          <li><b>Integrativa o metasíntesis:</b> reúne estudios cualitativos o mixtos y sintetiza por temas.</li>
+        </ul>
+      </div>
+      <div class="tj azul">
+        <p class="rot">Lo que la herramienta no decide</p>
+        <ul>
+          <li><b>Los criterios:</b> se escriben antes de ver resultados.</li>
+          <li><b>El peso de cada estudio:</b> un estudio pequeño y uno grande aparecen en la misma lista sin distinción.</li>
+          <li><b>La transferencia:</b> un hallazgo de un contexto no vale automáticamente en otro.</li>
+          <li><b>El vacío:</b> puede ser real o efecto de una búsqueda incompleta (otro idioma, otra base, otra palabra).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:1.25rem">Una herramienta por pregunta</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Herramienta</th><th>Pregunta que responde</th><th>Límite que hay que tener presente</th></tr></thead>
+      <tbody>
+        <tr><td>Scopus, Web of Science, ERIC, PubMed</td><td>¿Qué se ha publicado con mi cadena de búsqueda?</td><td>Cobertura parcial de revistas latinoamericanas y en español.</td></tr>
+        <tr><td>SciELO, Redalyc, Dialnet, La Referencia</td><td>¿Qué se ha publicado en Iberoamérica?</td><td>Buscadores menos precisos con operadores booleanos.</td></tr>
+        <tr><td>OpenAlex, Semantic Scholar, Google Scholar</td><td>¿Qué hay en bases abiertas y quién cita a quién?</td><td>Mucho ruido; Google Scholar no permite reproducir la búsqueda con exactitud.</td></tr>
+        <tr><td>Consensus</td><td>¿Hacia dónde apunta la evidencia?</td><td>Lee títulos y resúmenes, no los diseños.</td></tr>
+        <tr><td>Elicit</td><td>¿Qué dicen estos estudios, en una tabla?</td><td>La extracción de hallazgos coincide solo en parte con la humana.</td></tr>
+        <tr><td>Connected Papers, ResearchRabbit, Litmaps</td><td>¿Qué hay alrededor de un artículo semilla?</td><td>Estar cerca en el grafo no significa decir lo mismo.</td></tr>
+        <tr><td>NotebookLM</td><td>¿Qué dicen mis propios documentos?</td><td>Solo sabe lo que usted cargó.</td></tr>
+        <tr><td>scite</td><td>¿Alguien apoyó o contradijo este hallazgo?</td><td>Sin plan gratuito permanente.</td></tr>
+        <tr><td>Crossref y doi.org</td><td>¿Existe esta referencia?</td><td>Confirma que existe, no que sea buena ni que diga lo que se cree.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 style="margin:28px 0 12px;font-size:1.25rem">La IA como segundo revisor: lo que muestra la evidencia</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Estudio</th><th>Tarea</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>Guo et al. (2024)</td><td>Cribado de más de 24.000 resúmenes</td><td>El modelo dejó fuera 1 de cada 4 artículos que debían entrar.</td></tr>
+        <tr><td>Oami et al. (2024)</td><td>Cribado</td><td>Fue trece veces más rápido, pero la sensibilidad dependió de cómo se redactó la instrucción.</td></tr>
+        <tr><td>Khraisha et al. (2024)</td><td>Cribado en varios idiomas</td><td>Desempeño de nulo a moderado al corregir por azar.</td></tr>
+        <tr><td>Helms Andersen et al. (2025)</td><td>Extracción de datos</td><td>Acertó en 9 de cada 10 datos estándar, inventó cerca del 4 % y bajó al 77–80 % en variables propias de la revisión.</td></tr>
+        <tr><td>Bianchi et al. (2025)</td><td>Extracción con Elicit</td><td>En el 95 % de los efectos extraídos, la coincidencia con el humano fue solo parcial.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="banda tinta">La IA sirve como <strong>segundo revisor</strong>. El primero sigue siendo usted. Desde 2025, Cochrane, Campbell, JBI y la Collaboration for Environmental Evidence piden reportar <strong>herramienta, versión, fecha y propósito</strong> de cada uso de IA (recomendaciones RAISE).</div>
+
+    <h3 style="margin:32px 0 6px;font-size:1.25rem">Taller de la revisión</h3>
+    <p class="nota" style="margin:0 0 14px">Llene cada paso. Los prompts se arman con lo que usted escribe; cópielos a su IA de chat y traiga de vuelta solo lo que verificó. Todo se guarda en este navegador y al final se descarga el protocolo y reporte en Word.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+
+    <!-- 1 Protocolo -->
+    <div class="panel" id="p-protocolo" role="tabpanel">
+      <div class="rej c2">
+        <div class="tj">
+          <p class="rot">Paso 1 · Protocolo</p>
+          <h3 class="t">Pregunta y tipo de revisión</h3>
+          <div class="grid2">
+            <label class="campo">Tipo de revisión<select data-k="tipo"><option>Revisión sistemática</option><option>Revisión rápida</option><option>Revisión de alcance (scoping)</option><option>Revisión integrativa o metasíntesis</option></select></label>
+            <label class="campo">Marco de la pregunta<select data-k="marco" id="marcoSel"><option value="PICO">PICO (intervención y efecto)</option><option value="PEO">PEO (exposición o experiencia)</option><option value="SPIDER">SPIDER (cualitativa o mixta)</option><option value="PCC">PCC (revisión de alcance)</option></select></label>
+          </div>
+          <div class="grid2" id="marcoCampos" style="margin-top:10px"></div>
+          <label class="campo" style="margin-top:10px">Pregunta de la revisión<textarea data-k="pregunta" rows="3" placeholder="Escriba la pregunta completa"></textarea></label>
+          <label class="campo" style="margin-top:10px">Registro del protocolo (opcional)<input type="text" data-k="registro" placeholder="PROSPERO, OSF u otro, con su código"></label>
+        </div>
+        <div class="tj azul">
+          <p class="rot">Paso 1 · Criterios antes de buscar</p>
+          <h3 class="t">Incluye y excluye</h3>
+          <p class="nota">Los criterios no pueden depender de lo que aparezca en la búsqueda. Si los cambia después, anote el cambio y la razón en la bitácora.</p>
+          <div class="scroll"><table class="ed" style="min-width:520px"><thead><tr><th>Dimensión</th><th>Incluye</th><th>Excluye</th></tr></thead><tbody id="critBody"></tbody></table></div>
+          <div class="acc"><button class="btn primario" type="button" id="fijarCrit">Fijar criterios con la fecha de hoy</button></div>
+          <p class="estado" id="critEstado"></p>
+        </div>
+      </div>
+      <div class="tj" style="margin-top:14px">
+        <p class="rot">Prompt · Ficha B</p>
+        <h3 class="t">Criterios con ayuda de la IA</h3>
+        <pre class="prompt" data-prompt="B"></pre>
+        <div class="acc"><button class="btn primario" type="button" data-copy="B">Copiar el prompt</button></div>
+      </div>
+    </div>
+
+    <!-- 2 Búsqueda -->
+    <div class="panel" id="p-busqueda" role="tabpanel" hidden>
+      <div class="rej c2">
+        <div class="tj">
+          <p class="rot">Paso 2 · Conceptos y términos</p>
+          <h3 class="t">Vocabulario de búsqueda</h3>
+          <p class="nota">Un concepto por fila. Sinónimos separados por punto y coma. Use el tesauro de su área: DeCS o MeSH en salud, Tesauro de ERIC o de la UNESCO en educación y ciencias sociales.</p>
+          <div class="scroll"><table class="ed" style="min-width:560px"><thead><tr><th>Concepto</th><th>Términos en español</th><th>Términos en inglés</th><th>Tesauro</th><th></th></tr></thead><tbody id="termBody"></tbody></table></div>
+          <div class="acc"><button class="btn" type="button" id="addTerm">Agregar concepto</button></div>
+        </div>
+        <div class="tj azul">
+          <p class="rot">Prompt · Ficha A</p>
+          <h3 class="t">Cadena de búsqueda</h3>
+          <pre class="prompt" data-prompt="A"></pre>
+          <div class="acc"><button class="btn primario" type="button" data-copy="A">Copiar el prompt</button></div>
+          <ul class="chk" style="margin-top:6px">
+            <li><label><input type="checkbox" data-c="a1"> Verifiqué los descriptores en el tesauro oficial (decs.bvsalud.org, meshb.nlm.nih.gov, eric.ed.gov/?ti=all).</label></li>
+            <li><label><input type="checkbox" data-c="a2"> Corrí la cadena en al menos dos bases y anoté los resultados abajo.</label></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tj" style="margin-top:14px">
+        <p class="rot">Paso 2 · Registro de búsquedas</p>
+        <h3 class="t">Una fila por base de datos</h3>
+        <div class="scroll"><table class="ed"><thead><tr><th>Base</th><th>Fecha</th><th>Cadena exacta</th><th>Filtros (años, idiomas, tipo)</th><th>Registros</th><th></th></tr></thead><tbody id="busqBody"></tbody></table></div>
+        <div class="acc"><button class="btn" type="button" id="addBusq">Agregar base</button><span class="nota" id="busqTotal" style="align-self:center"></span></div>
+      </div>
+    </div>
+
+    <!-- 3 Cribado y PRISMA -->
+    <div class="panel" id="p-cribado" role="tabpanel" hidden>
+      <div class="rej c2">
+        <div class="tj">
+          <p class="rot">Prompt · Ficha C</p>
+          <h3 class="t">Cribado de títulos y resúmenes</h3>
+          <p class="nota">Pegue al final hasta 20 títulos y resúmenes numerados por vez. Ante la duda, no se excluye.</p>
+          <pre class="prompt" data-prompt="C"></pre>
+          <div class="acc"><button class="btn primario" type="button" data-copy="C">Copiar el prompt</button></div>
+          <ul class="chk" style="margin-top:6px">
+            <li><label><input type="checkbox" data-c="c1"> Revisé a mano todos los marcados «duda».</label></li>
+            <li><label><input type="checkbox" data-c="c2"> Revisé a mano al menos cinco «excluye».</label></li>
+            <li><label><input type="checkbox" data-c="c3"> Anoté cuántas decisiones de la IA cambié.</label></li>
+          </ul>
+        </div>
+        <div class="tj azul">
+          <p class="rot">Paso 3 · Números del flujo</p>
+          <h3 class="t">Diagrama PRISMA</h3>
+          <div class="grid3" id="prismaIn"></div>
+          <label class="campo" style="margin-top:10px">Razones de exclusión en texto completo (una por línea, «razón: número»)<textarea data-k="razones" rows="4" placeholder="Población distinta: 6&#10;No es estudio empírico: 4"></textarea></label>
+          <p class="estado" id="prismaAviso"></p>
+        </div>
+      </div>
+      <div class="tj" style="margin-top:14px">
+        <p class="rot">Salida</p>
+        <h3 class="t">Diagrama de flujo</h3>
+        <div id="prismaBox"></div>
+        <div class="acc"><button class="btn primario" type="button" id="prismaPng">Descargar (.png)</button><button class="btn" type="button" id="prismaSvg">Descargar (.svg)</button></div>
+      </div>
+    </div>
+
+    <!-- 4 Evidencia -->
+    <div class="panel" id="p-evidencia" role="tabpanel" hidden>
+      <div class="tj">
+        <p class="rot">Paso 4 · Tabla de evidencia</p>
+        <h3 class="t">Una fila por estudio incluido</h3>
+        <p class="nota">La columna de hallazgos es la que más falla: compárela con el artículo. El DOI se comprueba con el botón «Verificar DOI».</p>
+        <div class="scroll"><table class="ed" style="min-width:1250px"><thead><tr id="evHead"></tr></thead><tbody id="evBody"></tbody></table></div>
+        <div class="acc"><button class="btn" type="button" id="addEv">Agregar estudio</button><button class="btn primario" type="button" id="verEv">Verificar DOI de la tabla</button><button class="btn" type="button" id="csvEv">Descargar (.csv)</button><label class="btn" for="csvIn">Importar .csv</label><input type="file" id="csvIn" accept=".csv,text/csv" hidden></div>
+        <p class="estado" id="evEstado" role="status"></p>
+      </div>
+      <div class="tj azul" style="margin-top:14px">
+        <p class="rot">Prompt · Ficha D</p>
+        <h3 class="t">Extracción con la IA</h3>
+        <pre class="prompt" data-prompt="D"></pre>
+        <div class="acc"><button class="btn primario" type="button" data-copy="D">Copiar el prompt</button></div>
+      </div>
+    </div>
+
+    <!-- 5 Verificar -->
+    <div class="panel" id="p-verificar" role="tabpanel" hidden>
+      <div class="tj">
+        <p class="rot">Paso 5 · Verificador de referencias</p>
+        <h3 class="t">¿Existe y es la que dice ser?</h3>
+        <p class="nota">Pegue una referencia por línea, con o sin DOI. El verificador consulta Crossref: si hay DOI, comprueba que exista y que el título coincida; si no lo hay, busca la coincidencia más cercana para que usted la revise.</p>
+        <textarea id="refsIn" rows="6" placeholder="Pérez, A. (2021). Título del artículo. Revista, 12(3), 45-60. https://doi.org/10.xxxx/xxxxx"></textarea>
+        <div class="acc"><button class="btn primario" type="button" id="verRefs">Verificar</button><button class="btn" type="button" id="refsCsv" disabled>Descargar resultado (.csv)</button></div>
+        <p class="estado" id="refsEstado" role="status"></p>
+        <div class="scroll"><table><thead><tr><th>Referencia</th><th>DOI</th><th>Título en Crossref</th><th>Resultado</th></tr></thead><tbody id="refsBody"></tbody></table></div>
+        <div class="banda">Regla para su asistente: <strong>nunca dar una referencia sin un DOI verificable; si no tiene la fuente, decir «no la tengo».</strong></div>
+      </div>
+      <div class="tj azul" style="margin-top:14px">
+        <p class="rot">Paso 5 · Matriz de acierto</p>
+        <h3 class="t">¿Cuánto acertó la IA en la extracción?</h3>
+        <p class="nota">Antes de mirar, elija tres celdas por artículo (por ejemplo: hallazgo principal, población y diseño) y compárelas con el PDF.</p>
+        <div class="scroll"><table class="ed"><thead><tr><th>Artículo</th><th>Columna</th><th>Lo que dice la tabla</th><th>Lo que dice el PDF (página)</th><th>Coincide</th><th></th></tr></thead><tbody id="acBody"></tbody></table></div>
+        <div class="acc"><button class="btn" type="button" id="addAc">Agregar celda</button></div>
+        <p class="estado" id="acRes"></p>
+      </div>
+    </div>
+
+    <!-- 6 Síntesis -->
+    <div class="panel" id="p-sintesis" role="tabpanel" hidden>
+      <div class="rej c2">
+        <div class="tj azul">
+          <p class="rot">Prompt · Ficha E</p>
+          <h3 class="t">Estado del arte anclado en sus fuentes</h3>
+          <p class="nota">Para NotebookLM u otra herramienta con sus PDF cargados. Resumir es ir estudio por estudio; sintetizar es organizar por hallazgos y terminar en el vacío.</p>
+          <pre class="prompt" data-prompt="E"></pre>
+          <div class="acc"><button class="btn primario" type="button" data-copy="E">Copiar el prompt</button></div>
+          <ul class="chk" style="margin-top:6px">
+            <li><label><input type="checkbox" data-c="e1"> Abrí tres citas y confirmé que el pasaje dice lo que afirma el párrafo.</label></li>
+            <li><label><input type="checkbox" data-c="e2"> Revisé si el vacío es real o efecto de una búsqueda incompleta.</label></li>
+          </ul>
+        </div>
+        <div class="tj">
+          <p class="rot">Paso 6 · Síntesis</p>
+          <h3 class="t">Su estado del arte</h3>
+          <label class="campo">Párrafo de síntesis (revisado por usted)<textarea data-k="sintesis" rows="8"></textarea></label>
+          <p class="estado" id="sinAviso"></p>
+          <label class="campo">El vacío en una frase, escrito por usted<textarea data-k="hueco" rows="2"></textarea></label>
+          <label class="campo">El vacío que propuso la IA<textarea data-k="huecoIA" rows="2"></textarea></label>
+          <label class="campo">Cuál conservó y por qué<textarea data-k="huecoDec" rows="2"></textarea></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Bitácora y reporte -->
+    <div class="panel" id="p-reporte" role="tabpanel" hidden>
+      <div class="rej c2">
+        <div class="tj">
+          <p class="rot">Paso 7 · Uso de IA (RAISE)</p>
+          <h3 class="t">Herramienta, versión, fecha y propósito</h3>
+          <div class="scroll"><table class="ed" style="min-width:560px"><thead><tr><th>Herramienta</th><th>Versión</th><th>Fecha</th><th>Para qué</th><th></th></tr></thead><tbody id="iaBody"></tbody></table></div>
+          <div class="acc"><button class="btn" type="button" id="addIa">Agregar herramienta</button></div>
+          <label class="campo" style="margin-top:10px">Cambios al protocolo y sus razones<textarea data-k="cambios" rows="3"></textarea></label>
+        </div>
+        <div class="tj azul">
+          <p class="rot">Prompt · Ficha F</p>
+          <h3 class="t">Bitácora de búsqueda</h3>
+          <p class="nota">Al final de la conversación de trabajo, pídale a la IA que llene la bitácora con lo hecho. Compárela con lo que usted registró aquí.</p>
+          <pre class="prompt" data-prompt="F"></pre>
+          <div class="acc"><button class="btn primario" type="button" data-copy="F">Copiar el prompt</button></div>
+        </div>
+      </div>
+      <div class="tj" style="margin-top:14px">
+        <p class="rot">Salida</p>
+        <h3 class="t">Protocolo y reporte de la revisión</h3>
+        <p>Un documento en Word con la pregunta, los criterios, las búsquedas, el diagrama PRISMA, la tabla de evidencia, la síntesis, el uso de IA y la lista de [FALTA].</p>
+        <div class="fase" id="resumenRsl"></div>
+        <label class="campo" style="max-width:420px">Nombre completo<input type="text" id="rslNombre" autocomplete="name"></label>
+        <div class="acc"><button class="btn primario" type="button" id="rslDocx">Descargar el reporte (.docx)</button><button class="btn" type="button" id="rslJson">Descargar respaldo (.json)</button><label class="btn" for="jsonIn">Cargar respaldo</label><input type="file" id="jsonIn" accept=".json,application/json" hidden><button class="btn" type="button" id="rslReset">Empezar de cero</button></div>
+        <p class="estado" id="rslEstado" role="status"></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="bloque" id="entradas">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">04</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Entradas</span><h2>Adjuntar y organizar archivos</h2><p>Reúna aquí los archivos de una entrega. Quedan guardados en este navegador y se descargan en un .zip ordenado por casillas.</p></div></div></div>
+  <div class="wrap rej c2">
+    <div class="tj">
+      <p class="rot">Adjuntar</p>
+      <h3 class="t">Mis archivos</h3>
+      <label class="campo" for="nombre">Nombre completo<input type="text" id="nombre" autocomplete="name" placeholder="Para nombrar el paquete de descarga"></label>
+      <label class="campo" for="casillaSel">Casilla<select id="casillaSel"></select></label>
+      <div class="drop" id="drop">
+        <p><b>Arrastre aquí sus archivos</b></p>
+        <p>o</p>
+        <p><label class="btn primario" for="fileIn">Elegir archivos</label></p>
+        <input type="file" id="fileIn" multiple hidden>
+        <p style="font-size:.8rem;color:var(--muted)">Los archivos se guardan en la casilla elegida y el paquete .zip conserva las seis carpetas.</p>
+      </div>
+      <ul class="lista" id="lista"></ul>
+      <p class="vacio" id="vacio">Todavía no hay archivos adjuntos.</p>
+      <p class="estado" id="debil"></p>
+      <div class="acc"><button class="btn" type="button" id="zipBtn" disabled>Descargar todo (.zip)</button><button class="btn" type="button" id="clearBtn" disabled>Quitar todos</button></div>
+      <p class="estado" id="estado" role="status"></p>
+    </div>
+    <div class="tj azul">
+      <p class="rot">Subir</p>
+      <h3 class="t">Entregar a su director o programa</h3>
+      <p>Descargue el paquete .zip o los archivos sueltos y súbalos al espacio que le indique su programa (carpeta compartida, aula virtual o repositorio).</p>
+      <ul>
+        <li>Dentro de su carpeta, use las seis subcarpetas del sistema (el .zip ya viene organizado así).</li>
+        <li>Nombre los archivos con su apellido, el contenido y la fecha (por ejemplo, <i>Perez_tabla-evidencia_2026-11-20.csv</i>).</li>
+        <li>No borre versiones anteriores: agregue la nueva.</li>
+        <li>Antes de subir datos de participantes, anonimícelos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="engranaje">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">05</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Brief</span><h2>El proyecto en una página</h2><p>Con lo que ya hay en las casillas se arma un brief del proyecto. Lo que no esté escrito queda marcado como [FALTA]: esa es la lista de tareas.</p></div></div></div>
+  <div class="wrap rej c2">
+    <div class="tj">
+      <p class="rot">Escribir</p>
+      <h3 class="t">Brief del proyecto</h3>
+      <div id="briefForm" style="display:grid;gap:10px"></div>
+      <div class="acc"><button class="btn primario" type="button" id="briefBtn">Descargar el brief (.docx)</button><button class="btn" type="button" id="briefFill">Traer la síntesis de la revisión</button></div>
+      <p class="estado" id="briefEstado" role="status"></p>
+    </div>
+    <div class="tj azul">
+      <p class="rot">Con IA</p>
+      <h3 class="t">Prompt del brief</h3>
+      <p>Para una IA conectada a su carpeta o con los archivos cargados. Lee las seis casillas y arma el brief.</p>
+      <pre class="prompt" id="engPrompt">Lee las seis casillas de la carpeta de mi proyecto (01 a 06). Con lo que encuentres, redacta un brief de una página con estas siete secciones: pregunta de investigación; relevancia; antecedentes y vacío; diseño metodológico y supuestos; datos o campo (población, fuentes, instrumentos, ética); resultados esperados y límites; próximos pasos.
+
+Reglas:
+- Usa solo lo que está en los archivos. Cita el archivo de donde sale cada dato.
+- Si una sección no tiene sustento en la carpeta, escribe [FALTA] y di qué documento la completaría.
+- No inventes referencias ni datos.
+- Al final, lista las [FALTA] en orden de prioridad.</pre>
+      <div class="acc"><button class="btn primario" type="button" id="copyEng">Copiar el prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="salidas">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">06</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Plantillas</span><h2>Documentos para descargar</h2><p>Plantillas en Word listas para diligenciar.</p></div></div></div>
+  <div class="wrap rej c2">
+    <article class="tj">
+      <p class="rot">Plantilla</p>
+      <h3 class="t">Matriz de coherencia</h3>
+      <p>Objeto, categorías o variables, enfoque, pregunta, objetivo general y tabla de objetivos específicos con técnica, instrumento, población y análisis.</p>
+      <div class="acc"><button class="btn primario" type="button" data-doc="matriz">Descargar (.docx)</button></div>
+    </article>
+    <article class="tj">
+      <p class="rot">Plantilla</p>
+      <h3 class="t">Protocolo de revisión en blanco</h3>
+      <p>Pregunta, criterios, bases, cadenas, registro de cribado, tabla de evidencia y declaración de uso de IA, para llenar a mano.</p>
+      <div class="acc"><button class="btn primario" type="button" data-doc="protocolo">Descargar (.docx)</button></div>
+    </article>
+    <article class="tj">
+      <p class="rot">Guía</p>
+      <h3 class="t">Rúbrica de coherencia</h3>
+      <p>Los ocho criterios con que se revisa la matriz y los cuatro niveles de valoración: coherente, parcial, débil y ausente.</p>
+      <div class="acc"><button class="btn primario" type="button" data-doc="rubrica">Descargar (.docx)</button></div>
+    </article>
+    <article class="tj">
+      <p class="rot">Registro</p>
+      <h3 class="t">Bitácora de decisiones</h3>
+      <p>Tabla para anotar, por fecha, qué observación recibió, qué decidió, qué cambió y qué queda pendiente.</p>
+      <div class="acc"><button class="btn primario" type="button" data-doc="bitacora">Descargar (.docx)</button></div>
+    </article>
+  </div>
+  <div class="wrap"><p class="estado" id="estadoDoc" role="status"></p></div>
+</section>
+
+<section class="bloque" id="reglas">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">07</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Reglas</span><h2>Conectar la IA con criterio</h2><p>Un sistema autónomo no es lo mismo que un sistema confiable: su calidad depende del criterio de quien lo usa.</p></div></div></div>
+  <div class="wrap">
+    <div class="scroll"><table>
+      <thead><tr><th>Conector</th><th>Puede leer</th><th>Requiere su aprobación</th></tr></thead>
+      <tbody>
+        <tr><td>Nube (Drive, OneDrive)</td><td>Los archivos de la carpeta del proyecto.</td><td>Crear, mover o modificar archivos.</td></tr>
+        <tr><td>Correo</td><td>Buscar mensajes del programa o de la dirección.</td><td>Redactar borradores; nunca enviar sin revisión.</td></tr>
+        <tr><td>Calendario</td><td>Ver fechas de entregas y reuniones.</td><td>Crear o cambiar eventos.</td></tr>
+        <tr><td>Gestor bibliográfico</td><td>Buscar en su biblioteca de referencias.</td><td>Agregar o borrar referencias.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="rej c3" style="margin-top:14px">
+      <div class="tj"><p class="rot">Seguridad</p><ul><li>Nunca escriba contraseñas en el chat.</li><li>Nada sale de su correo sin revisión humana.</li><li>Dé solo los permisos que la tarea necesita.</li></ul></div>
+      <div class="tj"><p class="rot">Ética de la investigación</p><ul><li>No suba a la IA datos que identifiquen a los participantes: anonimice transcripciones y registros.</li><li>Con menores, use solo material con consentimiento y asentimiento.</li><li>Cada afirmación de la IA es una hipótesis: verifíquela en sus fuentes.</li></ul></div>
+      <div class="tj azul"><p class="rot">Integridad</p><ul><li>Una referencia que no se verificó no se cita.</li><li>Declare herramienta, versión, fecha y propósito de cada uso de IA.</li><li>La IA audita su texto; no lo escribe por usted.</li><li>Ante el atasco: escriba lo que tenga, marque [FALTA: qué] y siga.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="rubrica">
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">08</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Rúbrica</span><h2>Los ocho criterios de coherencia</h2><p>Las tres primeras relaciones miden la coherencia vertical; las siguientes, la horizontal; las dos últimas, la coherencia con el modelo y las categorías.</p></div></div></div>
+  <div class="wrap">
+    <div class="scroll"><table>
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th></tr></thead>
+      <tbody id="rubBody"></tbody>
+    </table></div>
+    <div class="banda tinta">Niveles de valoración: <strong>coherente</strong>, <strong>parcial</strong>, <strong>débil</strong> y <strong>ausente</strong>.</div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px"><b style="color:var(--ink)">Ruta de investigación con IA</b> · Guía de trabajo para estudiantes de posgrado · Elver Chaparro Cardozo.</p>
+  <p style="margin:0">Referentes: PRISMA 2020 (Page et al., 2021); recomendaciones de Cochrane para revisiones rápidas; declaración conjunta de Cochrane, Campbell, JBI y la Collaboration for Environmental Evidence sobre IA en síntesis de evidencia (RAISE, 2025); Guo et al. (2024); Oami et al. (2024); Khraisha et al. (2024); Helms Andersen et al. (2025); Bianchi et al. (2025). Verificación de referencias con la API pública de Crossref.</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const HEAD="Ruta de investigación con IA · Elver Chaparro Cardozo";
+function save(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==="object"?v:d}catch(e){return d}}
+async function copyText(btn,txt){const old=btn.textContent;try{await navigator.clipboard.writeText(txt);btn.textContent="Copiado"}catch(e){btn.textContent="No se pudo copiar: seleccione el texto"}setTimeout(()=>btn.textContent=old,2000)}
+
+/* ---------- Rúbrica y casillas ---------- */
+const CRIT=[
+ ["Objeto ↔ pregunta","El objeto de estudio y la pregunta nombran el mismo fenómeno, con el mismo alcance, población y lugar."],
+ ["Pregunta ↔ objetivo general","El objetivo general responde la pregunta con un verbo acorde al enfoque (comprender, analizar, describir, explicar, estimar, valorar)."],
+ ["Objetivo general ↔ específicos","Los objetivos específicos, sumados, alcanzan el general; siguen una secuencia lógica y no lo desbordan."],
+ ["Objetivos ↔ técnicas e instrumentos","Cada objetivo específico tiene al menos una técnica y un instrumento propios, adecuados al dato que necesita."],
+ ["Población y selección","Se dice quiénes, dónde, cuántos y por qué ellos; el criterio de selección o muestreo es coherente con el enfoque."],
+ ["Método de análisis","Hay un procedimiento de análisis nombrado y descrito, adecuado a los datos y al diseño."],
+ ["Enfoque y diseño","Se declara un enfoque y un diseño, y lo que se hace en la matriz corresponde a la lógica de ese diseño."],
+ ["Categorías o variables ↔ instrumentos y análisis","Las categorías o variables aparecen en los objetivos, orientan los instrumentos y organizan el análisis."]];
+const NIV=[["Coherente","Articulado y justificado; sin ajustes de fondo."],["Parcial","Coherente en lo central, con ajustes pendientes."],["Débil","Existe, pero con rupturas que impiden la coherencia."],["Ausente","El elemento no existe o la celda está vacía."]];
+$("#rubBody").innerHTML=CRIT.map(c=>`<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td></tr>`).join("");
+const CAS=[["01_Pregunta","Pregunta y objeto","Pregunta, objetivos, justificación y matriz de coherencia."],["02_Literatura","Revisión de literatura","Protocolo, cadenas de búsqueda, registros de cribado, tabla de evidencia, PDF y síntesis."],["03_Diseno","Diseño metodológico","Enfoque, diseño, técnicas e instrumentos por objetivo y su validación."],["04_Datos","Datos o campo","Fuentes originales sin tocar, consentimientos, transcripciones anonimizadas y datos limpios aparte."],["05_Analisis","Análisis y resultados","Códigos, categorías, scripts, tablas y figuras, cada una con su limitación."],["06_Bitacora","Escritura y bitácora","Borradores, bitácora de decisiones, registro de uso de IA y cronograma."]];
+$("#casillas").innerHTML=CAS.map((c,i)=>`<div class="tj${i%2?"":" azul"}"><p class="rot">${c[0].replace("_"," · ")}</p><h3 class="t">${esc(c[1])}</h3><p>${esc(c[2])}</p></div>`).join("");
+$("#casillaSel").innerHTML=CAS.map(c=>`<option value="${c[0]}">${c[0].slice(0,2)} · ${esc(c[1])}</option>`).join("");
+
+/* ---------- Estado de la revisión ---------- */
+const KEY="ruta-ia-rsl-v1";
+const DIMS=["Población","Fenómeno o intervención","Tipo de estudio","Años","Idiomas","Lugar","Desenlace o categoría","Tipo de publicación"];
+const MARCOS={PICO:[["P","Población"],["I","Intervención"],["C","Comparación"],["O","Desenlace o resultado"]],PEO:[["P","Población"],["E","Exposición o experiencia"],["O","Desenlace o resultado"]],SPIDER:[["S","Muestra (sample)"],["PI","Fenómeno de interés"],["D","Diseño"],["E","Evaluación"],["R","Tipo de investigación"]],PCC:[["P","Población"],["C","Concepto"],["Cx","Contexto"]]};
+const EVC=[["autor","Autor y año"],["pais","País"],["diseno","Diseño"],["muestra","Muestra o participantes"],["fenomeno","Intervención o fenómeno"],["desenlace","Desenlace o categoría"],["hallazgo","Hallazgo principal"],["limitacion","Limitación reconocida"],["doi","DOI"]];
+const BLANK=()=>({tipo:"Revisión sistemática",marco:"PICO",comp:{},pregunta:"",registro:"",crit:{},critFecha:"",terms:[["","","",""],["","","",""]],busq:[["","","","",""]],prisma:{},razones:"",ev:[{}],ac:[["","","","",""]],sintesis:"",hueco:"",huecoIA:"",huecoDec:"",ia:[["","","",""]],cambios:"",chk:{}});
+let S=Object.assign(BLANK(),load(KEY,{}));
+const persist=()=>store(KEY,S);
+
+/* tabs */
+const TABS=[["protocolo","1 · Protocolo"],["busqueda","2 · Búsqueda"],["cribado","3 · Cribado y PRISMA"],["evidencia","4 · Tabla de evidencia"],["verificar","5 · Verificar"],["sintesis","6 · Síntesis"],["reporte","7 · Bitácora y reporte"]];
+$("#tabs").innerHTML=TABS.map(([k,l],i)=>`<button type="button" role="tab" id="t-${k}" aria-controls="p-${k}" aria-selected="${i?"false":"true"}" data-tab="${k}">${l}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;$$("#tabs [data-tab]").forEach(x=>x.setAttribute("aria-selected",x===b?"true":"false"));TABS.forEach(([k])=>$("#p-"+k).hidden=k!==b.dataset.tab);if(b.dataset.tab==="reporte")resumen()});
+
+/* campos simples data-k */
+function bindSimple(){$$("[data-k]").forEach(el=>{el.value=S[el.dataset.k]??el.value;});}
+document.addEventListener("input",e=>{const el=e.target;
+  if(el.dataset.k){S[el.dataset.k]=el.value;persist();refresh();}
+  else if(el.dataset.comp){S.comp[el.dataset.comp]=el.value;persist();refresh();}
+});
+document.addEventListener("change",e=>{const el=e.target;
+  if(el.dataset.k){S[el.dataset.k]=el.value;persist();if(el.dataset.k==="marco")drawMarco();refresh();}
+  if(el.dataset.c){S.chk[el.dataset.c]=el.checked;persist();}
+});
+function drawMarco(){$("#marcoCampos").innerHTML=(MARCOS[S.marco]||MARCOS.PICO).map(([k,l])=>`<label class="campo">${k} · ${esc(l)}<input type="text" data-comp="${S.marco}-${k}" value="${esc(S.comp[S.marco+"-"+k]||"")}"></label>`).join("")}
+function compText(){return (MARCOS[S.marco]||[]).map(([k,l])=>`${k} (${l}): ${S.comp[S.marco+"-"+k]||"[FALTA]"}`).join("\n")}
+
+/* criterios */
+function drawCrit(){$("#critBody").innerHTML=DIMS.map((d,i)=>{const v=S.crit[d]||["",""];return `<tr><td style="font-weight:600;color:var(--blue)">${esc(d)}</td><td><textarea data-crit="${i}" data-col="0" rows="2">${esc(v[0])}</textarea></td><td><textarea data-crit="${i}" data-col="1" rows="2">${esc(v[1])}</textarea></td></tr>`}).join("");
+  $("#critEstado").textContent=S.critFecha?`Criterios fijados el ${S.critFecha}. Si los cambia, anote el cambio y la razón en la bitácora (paso 7).`:"Criterios aún no fijados."}
+$("#critBody").addEventListener("input",e=>{const t=e.target;if(t.dataset.crit==null)return;const d=DIMS[+t.dataset.crit];S.crit[d]=S.crit[d]||["",""];S.crit[d][+t.dataset.col]=t.value;persist();refresh()});
+$("#fijarCrit").addEventListener("click",()=>{S.critFecha=today();persist();drawCrit()});
+function critText(col){const L=DIMS.map(d=>[d,(S.crit[d]||["",""])[col]]).filter(x=>x[1].trim());return L.length?L.map(([d,v])=>`- ${d}: ${v}`).join("\n"):"[FALTA: criterios]"}
+
+/* tablas editables genéricas (arrays) */
+function arrTable(body,key,cols,opts={}){
+  const draw=()=>{$(body).innerHTML=S[key].map((r,i)=>`<tr>${cols.map((c,j)=>`<td>${c==="ta"?`<textarea data-arr="${key}" data-r="${i}" data-j="${j}" rows="2">${esc(r[j]||"")}</textarea>`:c==="sel"?`<select data-arr="${key}" data-r="${i}" data-j="${j}">${["","Sí","Parcial","No"].map(o=>`<option${(r[j]||"")===o?" selected":""}>${o}</option>`).join("")}</select>`:`<input type="${c}" data-arr="${key}" data-r="${i}" data-j="${j}" value="${esc(r[j]||"")}">`}</td>`).join("")}<td><button class="btn mini" type="button" data-del="${key}" data-r="${i}" aria-label="Quitar fila">Quitar</button></td></tr>`).join("");opts.after&&opts.after()};
+  $(body).addEventListener("input",e=>{const t=e.target;if(t.dataset.arr!==key)return;S[key][+t.dataset.r][+t.dataset.j]=t.value;persist();opts.after&&opts.after();refresh()});
+  $(body).addEventListener("change",e=>{const t=e.target;if(t.dataset.arr!==key||t.tagName!=="SELECT")return;S[key][+t.dataset.r][+t.dataset.j]=t.value;persist();opts.after&&opts.after()});
+  $(body).addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b||b.dataset.del!==key)return;S[key].splice(+b.dataset.r,1);if(!S[key].length)S[key].push(cols.map(()=>""));persist();draw();refresh()});
+  return draw;
+}
+const drawTerms=arrTable("#termBody","terms",["text","text","text","text"]);
+const busqSum=()=>S.busq.reduce((a,r)=>a+(parseInt(r[4],10)||0),0);
+const drawBusq=arrTable("#busqBody","busq",["text","date","ta","text","number"],{after:()=>{$("#busqTotal").textContent=`Total de registros identificados en bases: ${busqSum()}`;drawPrisma()}});
+const drawAc=arrTable("#acBody","ac",["text","text","ta","ta","sel"],{after:acierto});
+const drawIa=arrTable("#iaBody","ia",["text","text","date","text"]);
+$("#addTerm").onclick=()=>{S.terms.push(["","","",""]);persist();drawTerms()};
+$("#addBusq").onclick=()=>{S.busq.push(["",today(),"","",""]);persist();drawBusq()};
+$("#addAc").onclick=()=>{S.ac.push(["","","","",""]);persist();drawAc()};
+$("#addIa").onclick=()=>{S.ia.push(["","",today(),""]);persist();drawIa()};
+function acierto(){const r=S.ac.filter(x=>x[4]);const si=r.filter(x=>x[4]==="Sí").length,pa=r.filter(x=>x[4]==="Parcial").length;
+  if(!r.length){$("#acRes").textContent="Marque la columna «Coincide» para calcular el acierto.";return}
+  const cnt={};r.filter(x=>x[4]!=="Sí").forEach(x=>{const k=(x[1]||"sin nombre").trim();cnt[k]=(cnt[k]||0)+1});const peor=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+  $("#acRes").innerHTML=`Celdas revisadas: <b>${r.length}</b> · correctas: <b>${si}</b> · parciales: <b>${pa}</b> · acierto: <b class="kpi" style="font-size:1.1rem">${Math.round(si/r.length*100)} %</b>${peor?` · columna que más falló: <b>${esc(peor[0])}</b>`:""}. Anote este dato en la bitácora: es su primera evidencia sobre la IA.`}
+
+/* ---------- PRISMA ---------- */
+const PIN=[["db","Registros de bases (vacío = suma del paso 2)"],["otras","Registros de otras fuentes"],["dup","Duplicados eliminados"],["otrosRem","Otros eliminados antes del cribado"],["exclCrib","Excluidos en títulos y resúmenes"],["noRec","Textos completos no recuperados"]];
+$("#prismaIn").innerHTML=PIN.map(([k,l])=>`<label class="campo">${esc(l)}<input type="number" min="0" data-pr="${k}" value="${esc(S.prisma[k]??"")}"></label>`).join("");
+$("#prismaIn").addEventListener("input",e=>{const t=e.target;if(!t.dataset.pr)return;S.prisma[t.dataset.pr]=t.value;persist();drawPrisma()});
+function razones(){return (S.razones||"").split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[:\-–]\s*(\d+)\s*$/);return m?[m[1].trim(),+m[2]]:[l,0]})}
+function nums(){const n=k=>parseInt(S.prisma[k],10)||0;const db=S.prisma.db!==undefined&&S.prisma.db!==""?n("db"):busqSum();
+  const cr=db+n("otras")-n("dup")-n("otrosRem"),bus=cr-n("exclCrib"),ev=bus-n("noRec"),exTC=razones().reduce((a,r)=>a+r[1],0),inc=ev-exTC;
+  return {db,otras:n("otras"),dup:n("dup"),otrosRem:n("otrosRem"),cr,exclCrib:n("exclCrib"),bus,noRec:n("noRec"),ev,exTC,inc}}
+function svgPrisma(){const N=nums(),R=razones();const W=860;
+  const box=(x,y,w,h,lines,fill)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${fill||"#ffffff"}" stroke="#141821" stroke-width="1.4"/>`+lines.map((t,i)=>`<text x="${x+12}" y="${y+22+i*18}" font-family="Arial, sans-serif" font-size="13" fill="#141821"${i===0?' font-weight="700"':""}>${esc(t)}</text>`).join("");
+  const arr=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1b44cc" stroke-width="1.8" marker-end="url(#ah)"/>`;
+  const lab=(y,h,t)=>`<rect x="10" y="${y}" width="34" height="${h}" rx="6" fill="#1b44cc"/><text transform="translate(32 ${y+h/2}) rotate(-90)" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">${t}</text>`;
+  const rl=R.length?R.map(r=>`${r[0]} (n = ${r[1]})`):["Razones: [FALTA]"];const hEx=Math.max(70,30+rl.length*18+12);
+  const L=60,Lw=360,Rx=480,Rw=360;let y=50;let s="";
+  s+=`<text x="${W/2}" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#141821">Diagrama de flujo PRISMA 2020</text>`;
+  s+=lab(y,90,"Identificación");
+  s+=box(L,y,Lw,90,["Registros identificados",`Bases de datos (n = ${N.db})`,`Otras fuentes (n = ${N.otras})`],"#eef2fe");
+  s+=box(Rx,y,Rw,90,["Eliminados antes del cribado",`Duplicados (n = ${N.dup})`,`Otros motivos (n = ${N.otrosRem})`]);s+=arr(L+Lw,y+45,Rx,y+45);
+  s+=arr(L+Lw/2,y+90,L+Lw/2,y+120);y+=120;
+  const yC=y;
+  s+=box(L,y,Lw,60,["Registros cribados",`(n = ${N.cr})`]);s+=box(Rx,y,Rw,60,["Registros excluidos",`(n = ${N.exclCrib})`]);s+=arr(L+Lw,y+30,Rx,y+30);
+  s+=arr(L+Lw/2,y+60,L+Lw/2,y+90);y+=90;
+  s+=box(L,y,Lw,60,["Textos completos buscados",`(n = ${N.bus})`]);s+=box(Rx,y,Rw,60,["Textos no recuperados",`(n = ${N.noRec})`]);s+=arr(L+Lw,y+30,Rx,y+30);
+  s+=arr(L+Lw/2,y+60,L+Lw/2,y+90);y+=90;
+  s+=box(L,y,Lw,60,["Textos completos evaluados",`(n = ${N.ev})`]);s+=box(Rx,y,Rw,hEx,[`Textos excluidos (n = ${N.exTC})`,...rl]);s+=arr(L+Lw,y+30,Rx,y+30);
+  s+=lab(yC,y+60-yC,"Cribado");
+  const yI=Math.max(y+90,y+hEx+20);s+=arr(L+Lw/2,y+60,L+Lw/2,yI);y=yI;
+  s+=lab(y,60,"Inclusión");s+=box(L,y,Lw,60,["Estudios incluidos en la revisión",`(n = ${N.inc})`],"#eef2fe");
+  const H=y+80;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1b44cc"/></marker></defs><rect width="100%" height="100%" fill="#ffffff"/>${s}</svg>`}
+function drawPrisma(){$("#prismaBox").innerHTML=svgPrisma();const N=nums();const av=[];
+  if(N.cr<0||N.bus<0||N.ev<0||N.inc<0)av.push("Hay un número negativo: revise que las exclusiones no superen los registros.");
+  const evn=S.ev.filter(r=>(r.autor||"").trim()).length;if(evn&&N.inc!==evn)av.push(`La tabla de evidencia tiene ${evn} estudios y el diagrama dice ${N.inc} incluidos.`);
+  $("#prismaAviso").textContent=av.join(" ")}
+function svgToPng(svg){return new Promise((res,rej)=>{const img=new Image();const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));img.onload=()=>{const c=document.createElement("canvas");c.width=img.width*2;c.height=img.height*2;const x=c.getContext("2d");x.scale(2,2);x.drawImage(img,0,0);URL.revokeObjectURL(url);c.toBlob(b=>res({blob:b,w:img.width,h:img.height}),"image/png")};img.onerror=rej;img.src=url})}
+$("#prismaSvg").onclick=()=>save(new Blob([svgPrisma()],{type:"image/svg+xml"}),"diagrama_PRISMA.svg");
+$("#prismaPng").onclick=async()=>{try{save((await svgToPng(svgPrisma())).blob,"diagrama_PRISMA.png")}catch(e){$("#prismaAviso").textContent="No se pudo crear la imagen; descargue el .svg."}};
+
+/* ---------- Tabla de evidencia ---------- */
+$("#evHead").innerHTML=EVC.map(c=>`<th>${esc(c[1])}</th>`).join("")+"<th>Verificación</th><th></th>";
+function drawEv(){$("#evBody").innerHTML=S.ev.map((r,i)=>`<tr>${EVC.map(([k])=>`<td>${k==="hallazgo"||k==="limitacion"||k==="fenomeno"?`<textarea data-ev="${i}" data-f="${k}" rows="3">${esc(r[k]||"")}</textarea>`:`<input type="text" data-ev="${i}" data-f="${k}" value="${esc(r[k]||"")}">`}</td>`).join("")}<td style="min-width:150px;font-size:.8rem">${verHtml(r.ver)}</td><td><button class="btn mini" type="button" data-evdel="${i}">Quitar</button></td></tr>`).join("")}
+function verHtml(v){if(!v)return'<span class="nota">Sin verificar</span>';const cl=v.st==="ok"?"ok":v.st==="mal"?"mal":"duda";return `<span class="${cl}">${esc(v.msg)}</span>${v.t?`<div class="nota">${esc(v.t)}</div>`:""}`}
+$("#evBody").addEventListener("input",e=>{const t=e.target;if(t.dataset.ev==null)return;const r=S.ev[+t.dataset.ev];r[t.dataset.f]=t.value;if(t.dataset.f==="doi"||t.dataset.f==="autor")delete r.ver;persist();refresh()});
+$("#evBody").addEventListener("click",e=>{const b=e.target.closest("[data-evdel]");if(!b)return;S.ev.splice(+b.dataset.evdel,1);if(!S.ev.length)S.ev.push({});persist();drawEv();refresh()});
+$("#addEv").onclick=()=>{S.ev.push({});persist();drawEv()};
+const csvCell=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+$("#csvEv").onclick=()=>{const rows=[EVC.map(c=>c[1]).concat("Verificación"),...S.ev.map(r=>EVC.map(([k])=>r[k]||"").concat(r.ver?r.ver.msg:""))];save(new Blob(["﻿"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n")],{type:"text/csv"}),"tabla_de_evidencia.csv")};
+function parseCSV(txt){txt=txt.replace(/^﻿/,"");const first=txt.split(/\r?\n/)[0]||"";const d=(first.split(";").length>first.split(",").length)?";":",";const out=[];let row=[],cur="",q=false;
+  for(let i=0;i<txt.length;i++){const c=txt[i];if(q){if(c==='"'){if(txt[i+1]==='"'){cur+='"';i++}else q=false}else cur+=c}else if(c==='"')q=true;else if(c===d){row.push(cur);cur=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&txt[i+1]==="\n")i++;row.push(cur);out.push(row);row=[];cur=""}else cur+=c}
+  if(cur||row.length){row.push(cur);out.push(row)}return out.filter(r=>r.some(x=>x.trim()))}
+$("#csvIn").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;let rows=parseCSV(await f.text());if(rows.length&&/autor/i.test(rows[0][0]||""))rows=rows.slice(1);
+  const nuevos=rows.map(r=>{const o={};EVC.forEach(([k],j)=>o[k]=(r[j]||"").trim());return o});S.ev=S.ev.filter(r=>EVC.some(([k])=>(r[k]||"").trim())).concat(nuevos);if(!S.ev.length)S.ev.push({});persist();drawEv();refresh();$("#evEstado").textContent=`Se importaron ${nuevos.length} filas.`});
+
+/* ---------- Crossref ---------- */
+const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+function sim(title,ref){const t=norm(title).split(" ").filter(w=>w.length>3);if(!t.length)return 0;const r=" "+norm(ref)+" ";return t.filter(w=>r.includes(" "+w+" ")).length/t.length}
+const DOIRE=/10\.\d{4,9}\/[^\s"<>]+/i;
+const cleanDoi=s=>{const m=String(s||"").match(DOIRE);return m?m[0].replace(/[.,;)\]]+$/,""):""};
+async function crossref(ref){const doi=cleanDoi(ref);
+  try{
+    if(doi){const r=await fetch("https://api.crossref.org/works/"+encodeURIComponent(doi));
+      if(r.status===404)return {doi,st:"mal",msg:"El DOI no existe",t:""};
+      if(!r.ok)return {doi,st:"duda",msg:"No se pudo consultar",t:""};
+      const m=(await r.json()).message||{};const t=(m.title||[""])[0];const au=(m.author||[])[0];const yr=((m.issued||{})["date-parts"]||[[""]])[0][0];
+      const rest=ref.replace(DOIRE,"");const sc=norm(rest).length>25?sim(t,rest):1;
+      return sc>=.6?{doi,st:"ok",msg:"Existe y coincide",t:`${t}${au?" · "+(au.family||""):""}${yr?" ("+yr+")":""}`}:{doi,st:"mal",msg:"El DOI existe, pero es de otro artículo",t}}
+    const r=await fetch("https://api.crossref.org/works?rows=1&query.bibliographic="+encodeURIComponent(ref.slice(0,300)));
+    if(!r.ok)return {doi:"",st:"duda",msg:"No se pudo consultar",t:""};
+    const it=(((await r.json()).message||{}).items||[])[0];if(!it)return {doi:"",st:"mal",msg:"No se encontró",t:""};
+    const t=(it.title||[""])[0];const sc=sim(t,ref);
+    return sc>=.6?{doi:it.DOI,st:"duda",msg:"Sin DOI: posible coincidencia, revísela",t}:{doi:"",st:"mal",msg:"No se encontró una coincidencia clara",t}
+  }catch(e){return {doi,st:"duda",msg:"No se pudo consultar (revise la conexión)",t:""}}}
+let refsRes=[];
+$("#verRefs").onclick=async()=>{const L=$("#refsIn").value.split("\n").map(x=>x.trim()).filter(Boolean).slice(0,60);if(!L.length){$("#refsEstado").textContent="Pegue al menos una referencia.";return}
+  $("#verRefs").disabled=true;refsRes=[];$("#refsBody").innerHTML="";
+  for(let i=0;i<L.length;i++){$("#refsEstado").textContent=`Consultando ${i+1} de ${L.length}…`;const v=await crossref(L[i]);refsRes.push([L[i],v]);
+    $("#refsBody").insertAdjacentHTML("beforeend",`<tr><td style="color:var(--text);font-weight:400">${esc(L[i])}</td><td>${v.doi?`<a href="https://doi.org/${esc(v.doi)}" target="_blank" rel="noopener">${esc(v.doi)}</a>`:"—"}</td><td>${esc(v.t||"—")}</td><td>${verHtml(v)}</td></tr>`)}
+  const ok=refsRes.filter(x=>x[1].st==="ok").length;$("#refsEstado").textContent=`Listo: ${ok} de ${L.length} existen y coinciden.`;$("#verRefs").disabled=false;$("#refsCsv").disabled=false};
+$("#refsCsv").onclick=()=>{const rows=[["Referencia","DOI","Título en Crossref","Resultado"],...refsRes.map(([r,v])=>[r,v.doi,v.t,v.msg])];save(new Blob(["﻿"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n")],{type:"text/csv"}),"verificacion_referencias.csv")};
+$("#verEv").onclick=async()=>{const idx=S.ev.map((r,i)=>i).filter(i=>(S.ev[i].doi||"").trim()||(S.ev[i].autor||"").trim());if(!idx.length){$("#evEstado").textContent="La tabla no tiene estudios.";return}
+  $("#verEv").disabled=true;let k=0;for(const i of idx){k++;$("#evEstado").textContent=`Verificando ${k} de ${idx.length}…`;const r=S.ev[i];
+    if(!cleanDoi(r.doi)){r.ver={st:"mal",msg:"Sin DOI",t:""};continue}
+    const v=await crossref(`${r.autor||""} ${r.doi}`);if(v.st==="mal"&&v.msg.startsWith("El DOI existe")){const v2=await crossref(r.doi);r.ver={st:"ok",msg:"El DOI existe; compare el título",t:v2.t}}else r.ver=v}
+  persist();drawEv();refresh();const ok=idx.filter(i=>S.ev[i].ver&&S.ev[i].ver.st==="ok").length;$("#evEstado").textContent=`Verificación terminada: ${ok} de ${idx.length} DOI existen.`;$("#verEv").disabled=false};
+
+/* ---------- Prompts ---------- */
+const F=v=>(v&&String(v).trim())||null;
+const PROMPTS={
+A:()=>`Actúa como bibliotecario especializado en búsquedas para revisiones sistemáticas.
+
+Pregunta de la revisión: ${F(S.pregunta)||"[FALTA: pregunta]"}
+Marco ${S.marco}:
+${compText()}
+${S.terms.some(t=>t.some(F))?"Conceptos y términos que ya tengo:\n"+S.terms.filter(t=>t.some(F)).map(t=>`- ${t[0]||"(concepto)"}: ${[t[1],t[2],t[3]].filter(F).join(" | ")}`).join("\n")+"\n":""}
+Tarea:
+1. Separa la pregunta en sus conceptos centrales.
+2. Para cada concepto, da términos en español y en inglés, con sinónimos y variantes de escritura.
+3. Sugiere descriptores del tesauro que corresponda (DeCS o MeSH en salud; Tesauro de ERIC o de la UNESCO en educación y ciencias sociales). Marca con [VERIFICAR] los que no tengas seguros. No inventes descriptores.
+4. Arma la cadena booleana en tres versiones: Scopus o Web of Science; una base en español (SciELO, Redalyc o Dialnet); y OpenAlex o Google Scholar.
+5. Dime qué término trae más ruido y cuál puede dejar fuera estudios relevantes.
+
+Formato: una tabla por concepto y luego cada cadena en un bloque de código. No me des referencias.`,
+B:()=>`Actúa como metodólogo de revisiones de literatura.
+
+Tipo de revisión: ${S.tipo}
+Pregunta: ${F(S.pregunta)||"[FALTA: pregunta]"}
+Marco ${S.marco}:
+${compText()}
+${DIMS.some(d=>(S.crit[d]||[]).some(F))?"\nMis criterios provisionales:\nIncluye:\n"+critText(0)+"\nExcluye:\n"+critText(1)+"\n":""}
+Antes de proponer nada, hazme como máximo cuatro preguntas que necesites para definir los criterios. Espera mis respuestas.
+Después entrega una tabla de dos columnas (Incluye · Excluye) con estas filas: ${DIMS.join(", ").toLowerCase()}.
+
+Reglas:
+- Los criterios no pueden depender de lo que aparezca en los resultados.
+- Justifica en una línea los criterios de años e idiomas.
+- Señala qué criterio puede dejar fuera estudios de América Latina o en español.
+- No me des referencias.`,
+C:()=>`Actúa como segundo revisor en el cribado de una ${S.tipo.toLowerCase()}.
+
+Pregunta: ${F(S.pregunta)||"[FALTA: pregunta]"}
+
+Criterios de inclusión:
+${critText(0)}
+
+Criterios de exclusión:
+${critText(1)}
+
+A continuación pego títulos y resúmenes numerados. Para cada uno, devuelve una tabla con: número · decisión (incluye / excluye / duda) · criterio que decide · razón en máximo 12 palabras.
+
+Reglas:
+- Usa solo mis criterios; no agregues otros.
+- Ante la duda, marca «duda». No excluyas lo que no puedas justificar con un criterio.
+- No resumas los artículos.
+
+[PEGUE AQUÍ HASTA 20 REGISTROS NUMERADOS]`,
+D:()=>`Extrae datos de los artículos que te paso para mi tabla de evidencia.
+
+Pregunta de la revisión: ${F(S.pregunta)||"[FALTA: pregunta]"}
+
+Columnas: ${EVC.map(c=>c[1].toLowerCase()).join(" · ")}.
+
+Reglas:
+- Extrae solo lo que dice el texto y da el número de página de cada dato.
+- Copia las cifras tal como aparecen. No calcules ni deduzcas.
+- Si un dato falta, escribe «no está en el texto».
+- No completes el DOI de memoria: cópialo del artículo o escribe «no está en el texto».
+
+Al final, dime qué columna te costó más extraer y por qué.
+
+[PEGUE AQUÍ EL TEXTO DE UN ARTÍCULO A LA VEZ]`,
+E:()=>`Usa solo las fuentes cargadas en este cuaderno.
+
+Pregunta: ${F(S.pregunta)||"[FALTA: pregunta]"}
+
+Escribe un párrafo de 150 a 200 palabras de estado del arte: qué se sabe, dónde coinciden y dónde discrepan los estudios, y qué falta.
+- Organízalo por hallazgos, no por autores.
+- Cada afirmación lleva su cita (autor, año y página).
+- Lo que no esté en las fuentes, márcalo [SIN FUENTE].
+- Cierra con una frase sobre el vacío que esta pregunta podría llenar.`,
+F:()=>`Con lo que hicimos en esta conversación, llena la bitácora de búsqueda con estos campos:
+- Pregunta
+- Bases consultadas y fecha de consulta
+- Cadena exacta por base
+- Filtros (años, idiomas, tipo de estudio)
+- Resultados: encontrados, cribados, incluidos, excluidos y razón de exclusión más común
+- Referencias verificadas por DOI
+- Herramientas de IA: nombre, versión, fecha y para qué se usó
+
+Donde no haya dato, escribe [FALTA]. No completes nada de memoria.`};
+function drawPrompts(){$$("[data-prompt]").forEach(p=>p.textContent=PROMPTS[p.dataset.prompt]())}
+$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b,PROMPTS[b.dataset.copy]())));
+
+function sinAviso(){const n=((S.sintesis||"").match(/\[SIN FUENTE\]/gi)||[]).length;$("#sinAviso").textContent=S.sintesis?(n?`El párrafo tiene ${n} marca${n>1?"s":""} [SIN FUENTE]: búsquele fuente o quite la afirmación.`:`${(S.sintesis.trim().split(/\s+/).length)} palabras, sin marcas [SIN FUENTE].`):""}
+
+/* ---------- Resumen y reporte ---------- */
+function faltas(){const f=[];if(!F(S.pregunta))f.push("Pregunta de la revisión");(MARCOS[S.marco]||[]).forEach(([k,l])=>{if(!F(S.comp[S.marco+"-"+k]))f.push(`Componente ${k} (${l})`)});
+  DIMS.forEach(d=>{const v=S.crit[d]||["",""];if(!F(v[0])&&!F(v[1]))f.push(`Criterio: ${d}`)});if(!S.critFecha)f.push("Fecha en que se fijaron los criterios");
+  if(!S.busq.some(r=>F(r[0])&&F(r[2])))f.push("Registro de búsquedas (base y cadena)");if(!F(S.razones))f.push("Razones de exclusión en texto completo");
+  const ev=S.ev.filter(r=>F(r.autor));if(!ev.length)f.push("Tabla de evidencia");else{const sv=ev.filter(r=>!r.ver||r.ver.st!=="ok").length;if(sv)f.push(`${sv} estudio${sv>1?"s":""} sin DOI verificado`)}
+  if(!F(S.sintesis))f.push("Párrafo de síntesis");else if(/\[SIN FUENTE\]/i.test(S.sintesis))f.push("Afirmaciones [SIN FUENTE] en la síntesis");if(!F(S.hueco))f.push("El vacío en una frase");
+  if(!S.ia.some(r=>F(r[0])))f.push("Declaración de uso de IA");return f}
+function resumen(){const N=nums();const ev=S.ev.filter(r=>F(r.autor));const ok=ev.filter(r=>r.ver&&r.ver.st==="ok").length;const fl=faltas();
+  const k=[["Búsquedas registradas",S.busq.filter(r=>F(r[0])).length],["Registros identificados",N.db+N.otras],["Incluidos (PRISMA)",N.inc],["Estudios en la tabla",ev.length],["DOI verificados",`${ok}/${ev.length}`],["Pendientes [FALTA]",fl.length]];
+  $("#resumenRsl").innerHTML=k.map(([l,v],i)=>`<div class="tj${i%2?"":" azul"}"><p class="rot">${esc(l)}</p><div class="kpi">${esc(v)}</div></div>`).join("")}
+
+function cell(d,t,o={}){return new d.TableCell({children:[new d.Paragraph({children:[new d.TextRun({text:String(t??""),bold:!!o.bold,size:o.size||20,color:o.color})]})],shading:o.fill?{type:d.ShadingType.CLEAR,fill:o.fill,color:"auto"}:undefined,width:o.w?{size:o.w,type:d.WidthType.PERCENTAGE}:undefined})}
+function head(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,bold:true,size:36,color:"141821"})],spacing:{after:80}})}
+function sub(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,size:20,color:"4B5563"})],spacing:{after:240}})}
+function h2(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,bold:true,size:26,color:"1B44CC"})],spacing:{before:280,after:100}})}
+function para(d,v){return new d.Paragraph({children:[new d.TextRun(F(v)?{text:String(v)}:{text:"[FALTA]",bold:true,color:"C81E4A"})],spacing:{after:100}})}
+function table(d,rows){return new d.Table({width:{size:100,type:d.WidthType.PERCENTAGE},rows})}
+function hdrRow(d,H,size){return new d.TableRow({tableHeader:true,children:H.map((h,i)=>cell(d,h,{bold:true,fill:i===H.length-1?"1B44CC":"141821",color:"FFFFFF",size}))})}
+function kv(d,pairs){return table(d,pairs.map(([k,v])=>new d.TableRow({children:[cell(d,k,{bold:true,fill:"EEF2FE",w:30}),F(v)?cell(d,v,{w:70}):cell(d,"[FALTA]",{w:70,bold:true,color:"C81E4A"})]})))}
+const docOf=(d,ch,land)=>new d.Document({styles:{default:{document:{run:{font:"Calibri",size:22}}}},sections:[{properties:{page:{margin:{top:1000,bottom:1000,left:1000,right:1000},size:land?{orientation:d.PageOrientation.LANDSCAPE,width:12240,height:15840}:undefined}},children:ch}]});
+
+async function buildReporte(){const d=window.docx;const N=nums();const nom=$("#rslNombre").value.trim();const ch=[];
+  ch.push(head(d,"Protocolo y reporte de la revisión de literatura"),sub(d,(nom?nom+" · ":"")+HEAD+" · "+new Date().toLocaleDateString("es-CO",{dateStyle:"long"})));
+  ch.push(h2(d,"1. Pregunta y protocolo"));
+  ch.push(kv(d,[["Tipo de revisión",S.tipo],["Pregunta",S.pregunta],...(MARCOS[S.marco]||[]).map(([k,l])=>[`${S.marco} · ${k} (${l})`,S.comp[S.marco+"-"+k]]),["Registro del protocolo",S.registro||"No registrado"]]));
+  ch.push(h2(d,"2. Criterios de elegibilidad"));
+  ch.push(new d.Paragraph({children:[new d.TextRun({text:S.critFecha?`Fijados el ${S.critFecha}, antes de la búsqueda.`:"[FALTA] fecha en que se fijaron los criterios.",color:S.critFecha?"4B5563":"C81E4A",size:20})],spacing:{after:100}}));
+  ch.push(table(d,[hdrRow(d,["Dimensión","Incluye","Excluye"]),...DIMS.map(x=>{const v=S.crit[x]||["",""];return new d.TableRow({children:[cell(d,x,{bold:true,color:"1B44CC",w:22}),cell(d,v[0]||"—",{w:39}),cell(d,v[1]||"—",{w:39})]})})]));
+  ch.push(h2(d,"3. Estrategia de búsqueda"));
+  const T=S.terms.filter(t=>t.some(F));if(T.length)ch.push(table(d,[hdrRow(d,["Concepto","Español","Inglés","Tesauro"]),...T.map(t=>new d.TableRow({children:t.map(x=>cell(d,x||"—"))}))]),new d.Paragraph({text:"",spacing:{after:120}}));
+  const B=S.busq.filter(r=>r.some(F));ch.push(B.length?table(d,[hdrRow(d,["Base","Fecha","Cadena exacta","Filtros","Registros"],18),...B.map(r=>new d.TableRow({children:r.map(x=>cell(d,x||"—",{size:18}))}))]):para(d,""));
+  ch.push(h2(d,"4. Selección de estudios (PRISMA 2020)"));
+  try{const p=await svgToPng(svgPrisma());const w=560,h=Math.round(p.h*w/p.w);ch.push(new d.Paragraph({children:[new d.ImageRun({data:await p.blob.arrayBuffer(),transformation:{width:w,height:h}})]}))}catch(e){ch.push(para(d,""))}
+  ch.push(kv(d,[["Registros identificados",`${N.db} en bases y ${N.otras} de otras fuentes`],["Eliminados antes del cribado",`${N.dup} duplicados y ${N.otrosRem} por otros motivos`],["Cribados / excluidos",`${N.cr} / ${N.exclCrib}`],["Textos completos evaluados",String(N.ev)],["Excluidos en texto completo",razones().length?razones().map(r=>`${r[0]} (${r[1]})`).join("; "):""],["Estudios incluidos",String(N.inc)]]));
+  ch.push(h2(d,"5. Tabla de evidencia"));
+  const E=S.ev.filter(r=>EVC.some(([k])=>F(r[k])));
+  ch.push(E.length?table(d,[hdrRow(d,EVC.map(c=>c[1]).concat("Verificación"),16),...E.map(r=>new d.TableRow({children:EVC.map(([k])=>cell(d,r[k]||"—",{size:16})).concat(cell(d,r.ver?r.ver.msg:"Sin verificar",{size:16,bold:true,color:r.ver&&r.ver.st==="ok"?"137A43":"C81E4A"}))}))]):para(d,""));
+  const ac=S.ac.filter(x=>x[4]);if(ac.length){const si=ac.filter(x=>x[4]==="Sí").length;ch.push(new d.Paragraph({children:[new d.TextRun({text:`Matriz de acierto de la extracción con IA: ${si} de ${ac.length} celdas correctas (${Math.round(si/ac.length*100)} %).`,size:20})],spacing:{before:120}}))}
+  ch.push(h2(d,"6. Síntesis y vacío"));ch.push(para(d,S.sintesis));
+  ch.push(kv(d,[["El vacío (propio)",S.hueco],["El vacío propuesto por la IA",S.huecoIA||"—"],["Decisión",S.huecoDec]]));
+  ch.push(h2(d,"7. Uso de inteligencia artificial"));
+  const I=S.ia.filter(r=>r.some(F));ch.push(I.length?table(d,[hdrRow(d,["Herramienta","Versión","Fecha","Propósito"]),...I.map(r=>new d.TableRow({children:r.map(x=>cell(d,x||"—"))}))]):para(d,""));
+  ch.push(new d.Paragraph({children:[new d.TextRun({text:"Todas las decisiones de inclusión, extracción y síntesis fueron revisadas por el autor. La IA se usó como segundo revisor.",italics:true,size:20,color:"4B5563"})],spacing:{before:120}}));
+  ch.push(h2(d,"8. Cambios al protocolo"));ch.push(F(S.cambios)?para(d,S.cambios):new d.Paragraph({text:"Sin cambios registrados."}));
+  const fl=faltas();if(fl.length){ch.push(h2(d,"Lista de tareas ([FALTA])"));fl.forEach(f=>ch.push(new d.Paragraph({text:f,bullet:{level:0}})))}
+  return docOf(d,ch,true)}
+$("#rslDocx").onclick=async()=>{if(!window.docx){$("#rslEstado").textContent="No se pudo cargar el generador de Word. Revise la conexión.";return}
+  $("#rslDocx").disabled=true;try{save(await window.docx.Packer.toBlob(await buildReporte()),"Reporte_revision_de_literatura.docx");const n=faltas().length;$("#rslEstado").textContent=n?`Reporte descargado con ${n} pendiente${n>1?"s":""} marcados como [FALTA].`:"Reporte descargado."}catch(e){$("#rslEstado").textContent="No se pudo crear el documento."}finally{$("#rslDocx").disabled=false}};
+$("#rslJson").onclick=()=>save(new Blob([JSON.stringify(S,null,1)],{type:"application/json"}),`respaldo_revision_${today()}.json`);
+$("#jsonIn").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const o=JSON.parse(await f.text());if(!o||typeof o!=="object"||!("pregunta" in o))throw 0;S=Object.assign(BLANK(),o);persist();initAll();$("#rslEstado").textContent="Respaldo cargado."}catch(_){$("#rslEstado").textContent="El archivo no es un respaldo válido de este portal."}});
+$("#rslReset").onclick=()=>{if($("#rslReset").dataset.armed){S=BLANK();persist();initAll();$("#rslEstado").textContent="Se borró la revisión de este navegador.";delete $("#rslReset").dataset.armed;$("#rslReset").textContent="Empezar de cero";return}
+  $("#rslReset").dataset.armed="1";$("#rslReset").textContent="Confirmar: borrar todo";$("#rslEstado").textContent="Descargue antes el respaldo si quiere conservar el trabajo.";setTimeout(()=>{delete $("#rslReset").dataset.armed;$("#rslReset").textContent="Empezar de cero"},6000)};
+
+function refresh(){drawPrompts();sinAviso();drawPrisma();resumen()}
+function initAll(){bindSimple();$$("[data-c]").forEach(c=>c.checked=!!S.chk[c.dataset.c]);$$("[data-pr]").forEach(i=>i.value=S.prisma[i.dataset.pr]??"");drawMarco();drawCrit();drawTerms();drawBusq();drawAc();drawIa();drawEv();refresh()}
+initAll();
+try{const n=localStorage.getItem("ruta-ia-nombre")||"";$("#rslNombre").value=n;$("#nombre").value=n}catch(e){}
+["#rslNombre","#nombre"].forEach(s=>$(s).addEventListener("input",e=>{try{localStorage.setItem("ruta-ia-nombre",e.target.value)}catch(_){}}));
+
+/* ---------- Brief ---------- */
+const BRIEF=[["pregunta","Pregunta de investigación"],["relevancia","Relevancia"],["antecedentes","Antecedentes y vacío"],["diseno","Diseño metodológico y supuestos"],["campo","Datos o campo (población, fuentes, instrumentos, ética)"],["resultados","Resultados esperados y límites"],["pasos","Próximos pasos"]];
+let bst=load("ruta-ia-brief",{});
+const drawBrief=()=>$("#briefForm").innerHTML=BRIEF.map(([k,l])=>`<label class="campo" for="b-${k}">${esc(l)}<textarea id="b-${k}" data-b="${k}" rows="3">${esc(bst[k]||"")}</textarea></label>`).join("");drawBrief();
+$("#briefForm").addEventListener("input",e=>{const k=e.target.dataset.b;if(!k)return;bst[k]=e.target.value;store("ruta-ia-brief",bst)});
+$("#briefFill").onclick=()=>{const t=[S.sintesis,S.hueco?"Vacío: "+S.hueco:""].filter(F).join("\n\n");if(!t){$("#briefEstado").textContent="La revisión todavía no tiene síntesis ni vacío (paso 6).";return}bst.antecedentes=t;store("ruta-ia-brief",bst);drawBrief();$("#briefEstado").textContent="Se trajo la síntesis de la revisión a «Antecedentes y vacío»."};
+$("#briefBtn").addEventListener("click",async()=>{const d=window.docx;if(!d){$("#briefEstado").textContent="No se pudo cargar el generador de Word.";return}
+  const nom=$("#nombre").value.trim()||$("#rslNombre").value.trim();const ch=[head(d,"Brief del proyecto"),sub(d,(nom?nom+" · ":"")+HEAD)];const falt=[];
+  BRIEF.forEach(([k,l])=>{const v=(bst[k]||"").trim();ch.push(new d.Paragraph({children:[new d.TextRun({text:l,bold:true,size:24,color:"1B44CC"})],spacing:{before:200,after:80}}));ch.push(para(d,v));if(!v)falt.push(l)});
+  if(falt.length){ch.push(new d.Paragraph({children:[new d.TextRun({text:"Lista de tareas ([FALTA])",bold:true,size:24,color:"141821"})],spacing:{before:240,after:80}}));falt.forEach(f=>ch.push(new d.Paragraph({text:f,bullet:{level:0}})))}
+  save(await d.Packer.toBlob(docOf(d,ch,false)),"Brief_del_proyecto.docx");$("#briefEstado").textContent=falt.length?`Brief descargado con ${falt.length} ${falt.length>1?"secciones":"sección"} en [FALTA].`:"Brief descargado."});
+$("#copyEng").addEventListener("click",()=>copyText($("#copyEng"),$("#engPrompt").textContent));
+
+/* ---------- Entradas (IndexedDB) ---------- */
+let db=null;const mem=new Map();let seq=0;
+function openDB(){return new Promise(res=>{try{const r=indexedDB.open("ruta-ia-entradas",1);r.onupgradeneeded=()=>r.result.createObjectStore("files",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}
+const tx=m=>db.transaction("files",m).objectStore("files");
+function all(){if(!db)return Promise.resolve([...mem.values()]);return new Promise(res=>{const r=tx("readonly").getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([])})}
+function put(o){if(!db){mem.set(o.id,o);return Promise.resolve()}return new Promise(res=>{const r=tx("readwrite").put(o);r.onsuccess=r.onerror=()=>res()})}
+function del(id){if(!db){mem.delete(id);return Promise.resolve()}return new Promise(res=>{const r=tx("readwrite").delete(id);r.onsuccess=r.onerror=()=>res()})}
+const kb=n=>n<1024?n+" B":n<1048576?(n/1024).toFixed(0)+" KB":(n/1048576).toFixed(1)+" MB";
+async function render(){const L=(await all()).sort((a,b)=>(a.cas||"").localeCompare(b.cas||"")||a.added-b.added);
+  const vac=CAS.filter(c=>!L.some(f=>f.cas===c[0]));$("#debil").textContent=L.length?(vac.length?"Casillas sin archivos: "+vac.map(c=>c[1]).join(", ")+".":"Las seis casillas tienen archivos."):"";
+  $("#lista").innerHTML=L.map(f=>`<li><div><div class="nm">${esc(f.name)}</div><div class="md">${esc((f.cas||"sin casilla").replace("_"," · "))} · ${kb(f.size)} · ${new Date(f.added).toLocaleString("es-CO",{dateStyle:"medium",timeStyle:"short"})}</div></div><div class="ac"><button class="btn" type="button" data-dl="${f.id}">Descargar</button><button class="btn" type="button" data-rm="${f.id}" aria-label="Quitar ${esc(f.name)}">Quitar</button></div></li>`).join("");
+  $("#vacio").hidden=L.length>0;$("#zipBtn").disabled=!L.length||!window.JSZip;$("#clearBtn").disabled=!L.length}
+async function addFiles(list){let n=0;for(const f of list){await put({id:Date.now()+"-"+(seq++),name:f.name,size:f.size,type:f.type,added:Date.now(),blob:f,cas:$("#casillaSel").value});n++}
+  $("#estado").textContent=n?`${n} archivo${n>1?"s":""} adjunto${n>1?"s":""}.`:"";render()}
+$("#fileIn").addEventListener("change",e=>{addFiles([...e.target.files]);e.target.value=""});
+const drop=$("#drop");["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("on")}));["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("on")}));
+drop.addEventListener("drop",e=>addFiles([...(e.dataTransfer?.files||[])]));
+$("#lista").addEventListener("click",async e=>{const dl=e.target.closest("[data-dl]"),rm=e.target.closest("[data-rm]");if(dl){const f=(await all()).find(x=>x.id===dl.dataset.dl);if(f)save(f.blob,f.name)}if(rm){await del(rm.dataset.rm);$("#estado").textContent="Archivo quitado.";render()}});
+$("#clearBtn").addEventListener("click",async()=>{for(const f of await all())await del(f.id);$("#estado").textContent="Se quitaron todos los archivos.";render()});
+$("#zipBtn").addEventListener("click",async()=>{const L=await all();if(!L.length||!window.JSZip)return;$("#estado").textContent="Preparando el paquete…";const z=new JSZip();const used=new Set();
+  for(const f of L){let n=f.name,k=1;while(used.has((f.cas||"")+"/"+n)){const i=f.name.lastIndexOf(".");n=i>0?f.name.slice(0,i)+` (${k})`+f.name.slice(i):f.name+` (${k})`;k++}used.add((f.cas||"")+"/"+n);z.file((f.cas?f.cas+"/":"")+n,f.blob)}
+  const nom=($("#nombre").value||"entrega").trim().replace(/[\\/:*?"<>|]/g,"").replace(/\s+/g,"_")||"entrega";save(await z.generateAsync({type:"blob"}),`${nom}_${today()}.zip`);$("#estado").textContent="Paquete descargado."});
+openDB().then(x=>{db=x;render()});
+
+/* ---------- Plantillas ---------- */
+function buildDoc(kind){const d=window.docx;const ch=[];
+  if(kind==="matriz"){ch.push(head(d,"Matriz de coherencia interna"),sub(d,HEAD));
+    ch.push(kv(d,[["Estudiante"," "],["Programa"," "],["Título provisional"," "],["Fecha y versión"," "]]),new d.Paragraph({text:"",spacing:{after:120}}));
+    ch.push(kv(d,["Objeto de estudio","Categorías o variables (con autor de referencia)","Enfoque, paradigma y diseño (con autor)","Pregunta de investigación","Objetivo general"].map(k=>[k," "])));
+    ch.push(h2(d,"Objetivos específicos y elementos metodológicos"));const H=["Objetivo específico","Técnica","Instrumento","Población o fuente","Método de análisis"];
+    ch.push(table(d,[hdrRow(d,H),...[1,2,3,4].map(n=>new d.TableRow({children:H.map((_,i)=>cell(d,i===0?n+". ":" "))}))]),new d.Paragraph({text:"",spacing:{after:120}}));
+    ch.push(kv(d,[["Población: quiénes, dónde, cuántos, por qué ellos y tipo de muestreo"," "],["Consideraciones éticas"," "],["Referencias metodológicas"," "]]));return docOf(d,ch,true)}
+  if(kind==="protocolo"){ch.push(head(d,"Protocolo de revisión de literatura"),sub(d,HEAD));
+    ch.push(kv(d,[["Estudiante"," "],["Tipo de revisión (sistemática, rápida, de alcance, integrativa)"," "],["Pregunta"," "],["Marco (PICO, PEO, SPIDER, PCC) y componentes"," "],["Registro del protocolo"," "]]));
+    ch.push(h2(d,"Criterios de elegibilidad (fecha: ____ )"));ch.push(table(d,[hdrRow(d,["Dimensión","Incluye","Excluye"]),...DIMS.map(x=>new d.TableRow({children:[cell(d,x,{bold:true,color:"1B44CC"}),cell(d," "),cell(d," ")]}))]));
+    ch.push(h2(d,"Búsquedas"));ch.push(table(d,[hdrRow(d,["Base","Fecha","Cadena exacta","Filtros","Registros"]),...Array.from({length:5},()=>new d.TableRow({children:[1,2,3,4,5].map(()=>cell(d," "))}))]));
+    ch.push(h2(d,"Flujo PRISMA"));ch.push(kv(d,[["Registros identificados (bases / otras fuentes)"," "],["Duplicados y otros eliminados"," "],["Cribados / excluidos"," "],["Textos completos evaluados / excluidos (razones)"," "],["Estudios incluidos"," "]]));
+    ch.push(h2(d,"Tabla de evidencia"));ch.push(table(d,[hdrRow(d,EVC.map(c=>c[1]),16),...Array.from({length:6},()=>new d.TableRow({children:EVC.map(()=>cell(d," "))}))]));
+    ch.push(h2(d,"Uso de IA"));ch.push(table(d,[hdrRow(d,["Herramienta","Versión","Fecha","Propósito"]),...Array.from({length:4},()=>new d.TableRow({children:[1,2,3,4].map(()=>cell(d," "))}))]));return docOf(d,ch,true)}
+  if(kind==="rubrica"){ch.push(head(d,"Rúbrica de coherencia de la matriz"),sub(d,HEAD));
+    ch.push(table(d,[hdrRow(d,["Criterio","Qué se revisa"]),...CRIT.map((c,i)=>new d.TableRow({children:[cell(d,(i+1)+". "+c[0],{bold:true,color:"1B44CC",w:30,fill:i%2?"F2F4F6":undefined}),cell(d,c[1],{w:70,fill:i%2?"F2F4F6":undefined})]}))]));
+    ch.push(h2(d,"Niveles de valoración"));const Fi=["CFE6D6","F6E3B8","F4D3CD","E7E9E7"];ch.push(table(d,NIV.map((n,i)=>new d.TableRow({children:[cell(d,n[0],{bold:true,fill:Fi[i],w:30}),cell(d,n[1],{w:70})]}))));return docOf(d,ch,false)}
+  ch.push(head(d,"Bitácora de decisiones"),sub(d,HEAD));ch.push(kv(d,[["Estudiante"," "],["Título provisional"," "]]),new d.Paragraph({text:"",spacing:{after:120}}));
+  const H=["Fecha","Observación o hallazgo","Decisión","Qué cambié","Pendiente"];ch.push(table(d,[hdrRow(d,H),...Array.from({length:10},()=>new d.TableRow({children:H.map(()=>cell(d," "))}))]));return docOf(d,ch,true)}
+const NAMES={matriz:"Plantilla_matriz_de_coherencia.docx",protocolo:"Plantilla_protocolo_de_revision.docx",rubrica:"Rubrica_de_coherencia.docx",bitacora:"Bitacora_de_decisiones.docx"};
+$$("[data-doc]").forEach(b=>b.addEventListener("click",async()=>{if(!window.docx){$("#estadoDoc").textContent="No se pudo cargar el generador de Word. Revise la conexión e intente de nuevo.";return}
+  b.disabled=true;try{save(await window.docx.Packer.toBlob(buildDoc(b.dataset.doc)),NAMES[b.dataset.doc]);$("#estadoDoc").textContent="Documento descargado."}catch(e){$("#estadoDoc").textContent="No se pudo crear el documento."}finally{b.disabled=false}}));
+})();
+</script>
+</body>
+</html>
