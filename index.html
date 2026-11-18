@@ -40,12 +40,12 @@ a{color:var(--blue)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 h1,h2,h3{font-family:var(--f-display);color:var(--ink);letter-spacing:-.026em;line-height:1.08;margin:0;text-wrap:balance}
-.eb{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);display:block;margin:0 0 .6rem}
+.eb{font-family:var(--f-mono);font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);display:block;margin:0 0 .6rem}
 .eb.azul{color:var(--blue)}
 nav.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 nav.top .wrap{display:flex;gap:6px;align-items:center;justify-content:space-between;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
-nav.top .brand{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-nav.top ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;flex-wrap:wrap}
+nav.top .brand{font-family:var(--f-mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav.top ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;flex-wrap:wrap;order:3;width:100%}
 nav.top a{display:block;padding:6px 10px;border-radius:99px;text-decoration:none;color:var(--text);font-size:.86rem}
 nav.top a:hover{background:var(--blue-soft);color:var(--blue)}
 /* portada */
@@ -56,7 +56,7 @@ nav.top a:hover{background:var(--blue-soft);color:var(--blue)}
 .portada .sub{font-size:1.1rem;max-width:62ch;margin:0}
 .portada .autor{margin:1.2rem 0 0;font-size:.95rem;color:var(--ink);font-weight:600}
 .portada .autor span{display:block;font-weight:400;color:var(--text)}
-.pill{display:inline-block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.35em .8em;border-radius:99px;background:var(--blue-soft);color:var(--blue)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;padding:.35em .8em;border-radius:99px;background:var(--blue-soft);color:var(--blue)}
 /* separador */
 .sep{padding:44px 0 18px;border-top:1px solid var(--line)}
 .sep .fila{display:flex;align-items:center;gap:18px}
@@ -64,14 +64,14 @@ nav.top a:hover{background:var(--blue-soft);color:var(--blue)}
 .sep .vr{width:3px;background:var(--blue);align-self:stretch;border-radius:2px;flex:none}
 .sep h2{font-size:clamp(1.5rem,3vw,2rem);margin:.1em 0 .25em}
 .sep p{margin:0;max-width:64ch}
-section.bloque{padding-bottom:28px;scroll-margin-top:64px}
+section.bloque{padding-bottom:28px;scroll-margin-top:110px}
 /* rejillas y tarjetas */
 .rej{display:grid;gap:14px}
 .rej.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .rej.c3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
 .tj{background:var(--panel);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
 .tj.azul{background:var(--blue-soft)}
-.tj .rot{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+.tj .rot{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
 .tj .t{font-family:var(--f-display);font-weight:700;font-size:1.25rem;color:var(--ink);margin:0}
 .tj.azul .t{color:var(--blue)}
 .tj p{margin:0}
@@ -157,8 +157,8 @@ table.ed textarea{min-height:58px}
 .circ svg{width:22px;height:22px}
 .circ:hover{transform:translateY(-3px) scale(1.04)}
 .cnum{font-family:var(--f-display);font-weight:800;font-size:1.45rem;color:var(--blue);line-height:1;margin-top:6px;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center}
-.clab{font-family:var(--f-mono);font-weight:500;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-@media (max-width:860px){.portada .fila{flex-wrap:wrap}.portada .lado{margin:22px 0 0 26px;flex-direction:row;flex-wrap:wrap;align-items:center}.marca-lado img{width:180px}}
+.clab{font-family:var(--f-mono);font-weight:500;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:860px){.portada .fila{flex-wrap:wrap}.portada .lado{margin:22px 0 0;width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:18px}.marca-lado img{width:170px}.portada .contador{column-gap:16px}}
 input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 #buzon{position:relative}
 .mentoria{margin-top:12px}
@@ -173,6 +173,19 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
 .marca{display:flex;align-items:center;gap:10px;margin:10px 0 2px}.marca img{height:52px;width:auto;border-radius:10px;box-shadow:0 1px 4px rgba(20,24,33,.15)}.marca span{font-size:.82rem;font-weight:600;color:var(--ink)}
 .ejemplo{margin-top:16px;padding:14px 18px;border:1px dashed var(--blue);border-radius:12px;background:var(--blue-soft)}.ejemplo p{margin:0 0 10px}
 .cc{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:12px}.cc p{margin:0;flex:1 1 320px;font-size:.88rem}.cc-badge{display:block}
+.idioma{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;background:var(--bg)}
+.idioma svg{width:16px;height:16px;margin:0 4px 0 6px;color:var(--muted)}
+.idioma button{font:inherit;font-family:var(--f-mono);font-size:.75rem;font-weight:600;letter-spacing:.06em;padding:5px 9px;border-radius:99px;border:0;background:transparent;color:var(--text);cursor:pointer}
+.idioma button[aria-pressed="true"]{background:var(--blue,var(--accent));color:#fff}
+.idioma-nota{font-size:.78rem;color:var(--muted);margin:6px 0 0}
+iframe.skiptranslate,.goog-te-banner-frame,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}body{top:0!important}.goog-text-highlight{background:none!important;box-shadow:none!important}
+@media (max-width:760px){nav.top .wrap{flex-wrap:nowrap;gap:8px}nav.top .brand{display:none}nav.top ul{order:0;width:auto;flex:1 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}nav.top ul::-webkit-scrollbar{display:none}nav.top a{white-space:nowrap}
+.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:6px}.tabs button{white-space:nowrap;flex:none}section.bloque{scroll-margin-top:96px}}
+@media (max-width:760px){#p-evidencia table.ed{min-width:0!important}#p-evidencia table.ed thead{display:none}#p-evidencia table.ed tr{display:block;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:12px}#p-evidencia table.ed td{display:block;border:0;padding:4px 0}#p-evidencia table.ed td[data-l]::before{content:attr(data-l);display:block;font-family:var(--f-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}#p-evidencia table.ed td input,#p-evidencia table.ed td textarea{width:100%}}
+.enfoque-bar{display:none}
+body.enfoque nav.top ul,body.enfoque .portada,body.enfoque main>section:not(#rsl),body.enfoque footer .cc~*{display:none}
+body.enfoque .taller-link{display:none}
+body.enfoque .enfoque-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .saltar{position:absolute;left:-999px;top:8px;z-index:20;background:var(--blue);color:#fff;padding:8px 14px;border-radius:8px}
 .saltar:focus{left:12px}
@@ -189,6 +202,8 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <nav class="top" aria-label="Secciones"><div class="wrap">
   <span class="brand">Ruta de investigación con IA</span>
+  <div class="idioma notranslate" role="group" aria-label="Idioma / Language / Idioma"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><button type="button" data-lang="es" lang="es" title="Español">ES</button><button type="button" data-lang="en" lang="en" title="English">EN</button><button type="button" data-lang="pt" lang="pt" title="Português">PT</button></div><div id="gt" hidden></div>
+  <p class="idioma-nota" hidden>Traducción automática de Google. Los documentos en Word se generan en español.</p>
   <ul>
     <li><a href="#ruta">Ruta</a></li>
     <li><a href="#sistema">Sistema</a></li>
@@ -230,7 +245,7 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
     <ol class="inicio">
       <li>¿Aún no tiene la matriz de coherencia? Trabájela con el <a href="https://elvervisual.github.io/libro-prompts-matriz/">Libro de prompts</a>.</li>
       <li>Organice su carpeta en las <a href="#sistema">seis casillas</a>.</li>
-      <li>Haga su <a href="#rsl">revisión de literatura</a> paso a paso y descargue el reporte.</li>
+      <li>Haga su <a href="#rsl">revisión de literatura</a> paso a paso (también en <a href="?taller#rsl">su propia página</a>) y descargue el reporte.</li>
       <li>Arme el <a href="#engranaje">brief</a> y revíselo con la <a href="#rubrica">rúbrica</a>.</li>
     </ol>
     <div class="ejemplo"><p><b>¿Quiere ver la ruta funcionando?</b> Cargue un ejemplo resuelto con el tema «Procesos de comprensión en cultura visual en educación superior»: protocolo, búsquedas, 11 estudios reales con DOI verificado, calidad, síntesis y brief. El escenario (universidad y participantes) es de práctica. Reemplaza lo que tenga en este navegador: descargue antes su respaldo.</p><div class="acc"><button class="btn primario" type="button" id="cargarEjemplo">Cargar ejemplo resuelto</button><a class="btn" href="https://elvervisual.github.io/libro-prompts-matriz/">Ver la matriz del ejemplo en el Libro</a></div><p class="estado" id="ejEstado" role="status"></p></div>
@@ -287,12 +302,13 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
 <section class="bloque" id="rsl">
   <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">03</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Literatura</span><h2>Revisión sistemática de literatura con IA</h2><p>Una revisión con rastro documentado de cada paso. La herramienta encuentra, el criterio pondera y la referencia que no se verificó no se cita.</p></div></div></div>
   <div class="wrap">
+    <div class="enfoque-bar"><a class="btn" href="./">← Volver a la Ruta completa</a><span class="nota">Está en el taller de revisión sistemática, sin el resto de la guía.</span></div>
 
     <h3 style="margin:0 0 12px;font-size:1.25rem">Las cuatro fases de PRISMA 2020</h3>
     <div class="fase">
       <div class="tj azul"><p class="rot">Fase 1</p><h3 class="t">Identificación</h3><p>Bases consultadas, cadena de búsqueda, fecha y número de registros encontrados.</p></div>
       <div class="tj"><p class="rot">Fase 2</p><h3 class="t">Cribado</h3><p>Títulos y resúmenes revisados con criterios fijados antes de buscar. Cuántos pasan.</p></div>
-      <div class="tj azul"><p class="rot">Fase 3</p><h3 class="t">Elegibilidad</h3><p>Lectura del texto completo. Cuántos se descartan y por qué razón.</p></div>
+      <div class="tj azul"><p class="rot">Fase 3</p><h3 class="t">Elegibilidad</h3><p>Lectura de cada informe completo. Cuántos se descartan y por qué razón.</p></div>
       <div class="tj"><p class="rot">Fase 4</p><h3 class="t">Inclusión</h3><p>Los estudios que entran a la síntesis y a la tabla de evidencia.</p></div>
     </div>
     <p class="nota" style="margin-top:10px">PRISMA 2020 tiene 27 ítems en siete secciones. Una revisión rápida puede recortar pasos (por ejemplo, un solo revisor en el cribado), pero no puede recortar el rastro.</p>
@@ -349,6 +365,8 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
 
     <h3 style="margin:32px 0 6px;font-size:1.25rem">Taller de la revisión</h3>
     <p class="nota" style="margin:0 0 14px">Llene cada paso. Los prompts se arman con lo que usted escribe; cópielos a su IA de chat y traiga de vuelta solo lo que verificó. Todo se guarda en este navegador y al final se descarga el protocolo y reporte en Word.</p>
+    <div class="acc taller-link"><a class="btn" href="?taller#rsl">Abrir el taller en su propia página</a></div>
+    <p class="estado" id="rslEjemplo" role="status" hidden><b>Ejemplo cargado.</b> Recorra los 8 pasos: cada uno ya tiene los datos del caso «Procesos de comprensión en cultura visual en educación superior».</p>
     <div class="tabs" role="tablist" id="tabs"></div>
 
     <!-- 1 Protocolo -->
@@ -431,7 +449,7 @@ input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9p
           <p class="rot">Paso 3 · Números del flujo</p>
           <h3 class="t">Diagrama PRISMA</h3>
           <div class="grid3" id="prismaIn"></div>
-          <label class="campo" style="margin-top:10px">Razones de exclusión en texto completo (una por línea, «razón: número»)<textarea data-k="razones" rows="4" placeholder="Población distinta: 6&#10;No es estudio empírico: 4"></textarea></label>
+          <label class="campo" style="margin-top:10px">Razones de exclusión en la elegibilidad (una por línea, «razón: número»)<textarea data-k="razones" rows="4" placeholder="Población distinta: 6&#10;No es estudio empírico: 4"></textarea></label>
           <p class="estado" id="prismaAviso"></p>
         </div>
       </div>
@@ -772,6 +790,7 @@ Reglas:
         <li><b>Abacus</b> (abacus.jasoncameron.dev): cuenta visitas sin datos personales ni cookies.</li>
         <li><b>Crossref</b> (api.crossref.org): recibe el DOI o el título que usted verifica.</li>
         <li><b>Google Fonts, cdnjs y jsDelivr</b>: entregan las tipografías y los generadores de Word y ZIP; registran la dirección IP como cualquier sitio web.</li>
+        <li><b>Google Translate</b>: solo si elige inglés o portugués, recibe el texto de la página para traducirlo.</li>
         <li><b>GitHub Pages</b>: aloja el portal.</li>
       </ul>
     </div>
@@ -885,7 +904,7 @@ function acierto(){const r=S.ac.filter(x=>x[4]);const si=r.filter(x=>x[4]==="Sí
   $("#acRes").innerHTML=`Celdas revisadas: <b>${r.length}</b> · correctas: <b>${si}</b> · parciales: <b>${pa}</b> · acierto: <b class="kpi" style="font-size:1.1rem">${Math.round(si/r.length*100)} %</b>${peor?` · columna que más falló: <b>${esc(peor[0])}</b>`:""}. Anote este dato en la bitácora: es su primera evidencia sobre la IA.`}
 
 /* ---------- PRISMA ---------- */
-const PIN=[["db","Registros de bases (vacío = suma del paso 2)"],["otras","Registros de otras fuentes"],["dup","Duplicados eliminados"],["otrosRem","Otros eliminados antes del cribado"],["exclCrib","Excluidos en títulos y resúmenes"],["noRec","Textos completos no recuperados"]];
+const PIN=[["db","Registros de bases (vacío = suma del paso 2)"],["otras","Registros de otras fuentes"],["dup","Duplicados eliminados"],["otrosRem","Otros eliminados antes del cribado"],["exclCrib","Excluidos en títulos y resúmenes"],["noRec","Informes no recuperados"]];
 $("#prismaIn").innerHTML=PIN.map(([k,l])=>`<label class="campo">${esc(l)}<input type="number" min="0" data-pr="${k}" value="${esc(S.prisma[k]??"")}"></label>`).join("");
 $("#prismaIn").addEventListener("input",e=>{const t=e.target;if(!t.dataset.pr)return;S.prisma[t.dataset.pr]=t.value;persist();drawPrisma()});
 function razones(){return (S.razones||"").split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[:\-–]\s*(\d+)\s*$/);return m?[m[1].trim(),+m[2]]:[l,0]})}
@@ -906,9 +925,9 @@ function svgPrisma(){const N=nums(),R=razones();const W=860;
   const yC=y;
   s+=box(L,y,Lw,60,["Registros cribados",`(n = ${N.cr})`]);s+=box(Rx,y,Rw,60,["Registros excluidos",`(n = ${N.exclCrib})`]);s+=arr(L+Lw,y+30,Rx,y+30);
   s+=arr(L+Lw/2,y+60,L+Lw/2,y+90);y+=90;
-  s+=box(L,y,Lw,60,["Textos completos buscados",`(n = ${N.bus})`]);s+=box(Rx,y,Rw,60,["Textos no recuperados",`(n = ${N.noRec})`]);s+=arr(L+Lw,y+30,Rx,y+30);
+  s+=box(L,y,Lw,60,["Informes buscados para recuperación",`(n = ${N.bus})`]);s+=box(Rx,y,Rw,60,["Informes no recuperados",`(n = ${N.noRec})`]);s+=arr(L+Lw,y+30,Rx,y+30);
   s+=arr(L+Lw/2,y+60,L+Lw/2,y+90);y+=90;
-  s+=box(L,y,Lw,60,["Textos completos evaluados",`(n = ${N.ev})`]);s+=box(Rx,y,Rw,hEx,[`Textos excluidos (n = ${N.exTC})`,...rl]);s+=arr(L+Lw,y+30,Rx,y+30);
+  s+=box(L,y,Lw,60,["Informes evaluados para elegibilidad",`(n = ${N.ev})`]);s+=box(Rx,y,Rw,hEx,[`Informes excluidos (n = ${N.exTC})`,...rl]);s+=arr(L+Lw,y+30,Rx,y+30);
   s+=lab(yC,y+60-yC,"Cribado");
   const yI=Math.max(y+90,y+hEx+20);s+=arr(L+Lw/2,y+60,L+Lw/2,yI);y=yI;
   s+=lab(y,60,"Inclusión");s+=box(L,y,Lw,60,["Estudios incluidos en la revisión",`(n = ${N.inc})`],"#eef2fe");
@@ -925,7 +944,7 @@ $("#prismaPng").onclick=async()=>{if(negP())return;try{save((await svgToPng(svgP
 
 /* ---------- Tabla de evidencia ---------- */
 $("#evHead").innerHTML=EVC.map(c=>`<th>${esc(c[1])}</th>`).join("")+"<th>Verificación</th><th><span class=\"sr\">Acciones</span></th>";
-function drawEv(){$("#evBody").innerHTML=S.ev.map((r,i)=>`<tr>${EVC.map(([k])=>`<td>${k==="hallazgo"||k==="limitacion"||k==="fenomeno"?`<textarea data-ev="${i}" data-f="${k}" rows="3" aria-label="${esc(EVL[k])}, estudio ${i+1}">${esc(r[k]||"")}</textarea>`:`<input type="text" data-ev="${i}" data-f="${k}" value="${esc(r[k]||"")}" aria-label="${esc(EVL[k])}, estudio ${i+1}">`}</td>`).join("")}<td style="min-width:150px;font-size:.8rem">${verHtml(r.ver)}</td><td><button class="btn mini" type="button" data-evdel="${i}" aria-label="Quitar estudio ${i+1}">Quitar</button></td></tr>`).join("")}
+function drawEv(){$("#evBody").innerHTML=S.ev.map((r,i)=>`<tr>${EVC.map(([k])=>`<td data-l="${esc(EVL[k])}">${k==="hallazgo"||k==="limitacion"||k==="fenomeno"?`<textarea data-ev="${i}" data-f="${k}" rows="3" aria-label="${esc(EVL[k])}, estudio ${i+1}">${esc(r[k]||"")}</textarea>`:`<input type="text" data-ev="${i}" data-f="${k}" value="${esc(r[k]||"")}" aria-label="${esc(EVL[k])}, estudio ${i+1}">`}</td>`).join("")}<td data-l="Verificación" style="min-width:150px;font-size:.8rem">${verHtml(r.ver)}</td><td><button class="btn mini" type="button" data-evdel="${i}" aria-label="Quitar estudio ${i+1}">Quitar</button></td></tr>`).join("")}
 function verHtml(v){if(!v)return'<span class="nota">Sin verificar</span>';const cl=v.st==="ok"?"ok":v.st==="mal"?"mal":"duda";return `<span class="${cl}">${esc(v.msg)}</span>${v.t?`<div class="nota">${esc(v.t)}</div>`:""}`}
 $("#evBody").addEventListener("input",e=>{const t=e.target;if(t.dataset.ev==null)return;const r=S.ev[+t.dataset.ev];r[t.dataset.f]=t.value;if(t.dataset.f==="doi"||t.dataset.f==="autor")delete r.ver;persist();refresh()});
 $("#evBody").addEventListener("click",e=>{const b=e.target.closest("[data-evdel]");if(!b)return;S.ev.splice(+b.dataset.evdel,1);if(!S.ev.length)S.ev.push({});persist();drawEv();refresh()});
@@ -1064,20 +1083,20 @@ F:()=>`Con lo que hicimos en esta conversación, llena la bitácora de búsqueda
 
 Donde no haya dato, escribe [FALTA]. No completes nada de memoria.`};
 function drawPrompts(){$$("[data-prompt]").forEach(p=>p.textContent=PROMPTS[p.dataset.prompt]())}
-$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b,PROMPTS[b.dataset.copy]())));
+$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const pre=document.querySelector(`pre[data-prompt="${b.dataset.copy}"]`);const tr=/googtrans=\/es\/(en|pt)/.test(document.cookie)&&pre;copyText(b,tr?pre.innerText:PROMPTS[b.dataset.copy]())}));
 
 function sinAviso(){const n=((S.sintesis||"").match(/\[SIN FUENTE\]/gi)||[]).length;$("#sinAviso").textContent=S.sintesis?(n?`El párrafo tiene ${n} marca${n>1?"s":""} [SIN FUENTE]: búsquele fuente o quite la afirmación.`:`${(S.sintesis.trim().split(/\s+/).length)} palabras, sin marcas [SIN FUENTE].`):""}
 
 /* ---------- Resumen y reporte ---------- */
 function faltas(){const f=[];if(!F(S.pregunta))f.push("Pregunta de la revisión");(MARCOS[S.marco]||[]).forEach(([k,l])=>{if(!F(S.comp[S.marco+"-"+k]))f.push(`Componente ${k} (${l})`)});
   DIMS.forEach(d=>{const v=S.crit[d]||["",""];if(!F(v[0])&&!F(v[1]))f.push(`Criterio: ${d}`)});if(!S.critFecha)f.push("Fecha en que se fijaron los criterios");
-  if(!S.busq.some(r=>F(r[0])&&F(r[2])))f.push("Registro de búsquedas (base y cadena)");if(!F(S.razones))f.push("Razones de exclusión en texto completo");
+  if(!S.busq.some(r=>F(r[0])&&F(r[2])))f.push("Registro de búsquedas (base y cadena)");if(!F(S.razones))f.push("Razones de exclusión en la elegibilidad");
   const ev=S.ev.filter(r=>F(r.autor));if(!ev.length)f.push("Tabla de evidencia");else{const sv=ev.filter(r=>!r.ver||r.ver.st!=="ok").length;if(sv)f.push(`${sv} estudio${sv>1?"s":""} sin DOI verificado`)}
   if(ev.length&&!S.cal.some(r=>F(r[0])&&F(r[4])))f.push("Valoración de la calidad de los estudios (paso 5)");if(!F(S.metodo))f.push("Método de síntesis");
   if(!F(S.sintesis))f.push("Párrafo de síntesis");else if(/\[SIN FUENTE\]/i.test(S.sintesis))f.push("Afirmaciones [SIN FUENTE] en la síntesis");if(!F(S.hueco))f.push("El vacío en una frase");
   if(!S.ia.some(r=>F(r[0])))f.push("Declaración de uso de IA");return f}
 function resumen(){const N=nums();const ev=S.ev.filter(r=>F(r.autor));const ok=ev.filter(r=>r.ver&&r.ver.st==="ok").length;const fl=faltas();
-  const k=[["Búsquedas registradas",S.busq.filter(r=>F(r[0])).length],["Registros identificados",N.db+N.otras],["Incluidos (PRISMA)",N.inc],["Estudios en la tabla",ev.length],["DOI verificados",`${ok}/${ev.length}`],["Pendientes [FALTA]",fl.length]];
+  const k=[["Búsquedas registradas",S.busq.filter(r=>F(r[0])&&F(r[1])&&F(r[4])).length],["Registros identificados",N.db+N.otras],["Incluidos (PRISMA)",N.inc],["Estudios en la tabla",ev.length],["DOI verificados",`${ok}/${ev.length}`],["Pendientes [FALTA]",fl.length]];
   $("#resumenRsl").innerHTML=k.map(([l,v],i)=>`<div class="tj${i%2?"":" azul"}"><p class="rot">${esc(l)}</p><div class="kpi">${esc(v)}</div></div>`).join("")}
 
 function cell(d,t,o={}){return new d.TableCell({children:[new d.Paragraph({children:[new d.TextRun({text:String(t??""),bold:!!o.bold,size:o.size||20,color:o.color})]})],shading:o.fill?{type:d.ShadingType.CLEAR,fill:o.fill,color:"auto"}:undefined,width:o.w?{size:o.w,type:d.WidthType.PERCENTAGE}:undefined})}
@@ -1102,7 +1121,7 @@ async function buildReporte(){const d=window.docx;const N=nums();const nom=$("#r
   const B=S.busq.filter(r=>r.some(F));ch.push(B.length?table(d,[hdrRow(d,["Base","Fecha","Cadena exacta","Filtros","Registros"],18),...B.map(r=>new d.TableRow({children:r.map(x=>cell(d,x||"—",{size:18}))}))]):para(d,""));
   ch.push(h2(d,"4. Selección de estudios (PRISMA 2020)"));
   try{const p=await svgToPng(svgPrisma());const w=560,h=Math.round(p.h*w/p.w);ch.push(new d.Paragraph({children:[new d.ImageRun({data:await p.blob.arrayBuffer(),transformation:{width:w,height:h}})]}))}catch(e){ch.push(para(d,""))}
-  ch.push(kv(d,[["Registros identificados",`${N.db} en bases y ${N.otras} de otras fuentes`],["Eliminados antes del cribado",`${N.dup} duplicados y ${N.otrosRem} por otros motivos`],["Cribados / excluidos",`${N.cr} / ${N.exclCrib}`],["Textos completos evaluados",String(N.ev)],["Excluidos en texto completo",razones().length?razones().map(r=>`${r[0]} (${r[1]})`).join("; "):""],["Estudios incluidos",String(N.inc)]]));
+  ch.push(kv(d,[["Registros identificados",`${N.db} en bases y ${N.otras} de otras fuentes`],["Eliminados antes del cribado",`${N.dup} duplicados y ${N.otrosRem} por otros motivos`],["Cribados / excluidos",`${N.cr} / ${N.exclCrib}`],["Informes evaluados para elegibilidad",String(N.ev)],["Informes excluidos y razones",razones().length?razones().map(r=>`${r[0]} (${r[1]})`).join("; "):""],["Estudios incluidos",String(N.inc)]]));
   ch.push(h2(d,"5. Tabla de evidencia"));
   const E=S.ev.filter(r=>EVC.some(([k])=>F(r[k])));
   ch.push(E.length?table(d,[hdrRow(d,EVC.map(c=>c[1]).concat("Verificación"),16),...E.map(r=>new d.TableRow({children:EVC.map(([k])=>cell(d,r[k]||"—",{size:16})).concat(cell(d,r.ver?r.ver.msg:"Sin verificar",{size:16,bold:true,color:r.ver&&r.ver.st==="ok"?"137A43":"C81E4A"}))}))]):para(d,""));
@@ -1290,8 +1309,29 @@ const b=document.querySelector("#cargarEjemplo"),e=document.querySelector("#ejEs
 b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorage.getItem("ruta-ia-rsl-v1")||"null");hay=!!(v&&(v.pregunta||"").trim()&&v.pregunta!==EJ_RSL.pregunta)}catch(_){}
   if(hay&&!b.dataset.armed){b.dataset.armed="1";b.textContent="Confirmar: reemplazar mi revisión";e.textContent="Ya tiene una revisión en este navegador. Si la quiere conservar, descargue antes el respaldo (.json) en el paso 8.";setTimeout(()=>{delete b.dataset.armed;b.textContent="Cargar ejemplo resuelto"},8000);return}
   try{localStorage.setItem("ruta-ia-rsl-v1",JSON.stringify(EJ_RSL));localStorage.setItem("ruta-ia-brief",JSON.stringify(EJ_BRIEF));localStorage.setItem("ruta-ia-nombre","Estudiante de ejemplo")}catch(_){e.textContent="Este navegador no permite guardar datos.";return}
-  location.hash="rsl";location.reload()});
+  try{sessionStorage.setItem("ruta-ir","rsl")}catch(_){}location.reload()});
 })();
+
+(function(){let ir=null;try{ir=sessionStorage.getItem("ruta-ir");sessionStorage.removeItem("ruta-ir")}catch(_){}if(!ir)return;
+  const go=()=>{const el=document.getElementById(ir);if(el)el.scrollIntoView({block:"start"});const n=document.querySelector("#rslEjemplo");if(n)n.hidden=false};
+  if(document.readyState==="complete")setTimeout(go,150);else addEventListener("load",()=>setTimeout(go,150))})();
+
+/* ---------- Idioma: español, inglés, portugués ---------- */
+(function(){
+  const K="sitio-idioma",cur=(document.cookie.match(/googtrans=\/es\/(en|pt)/)||[])[1]||"es";
+  document.querySelectorAll(".idioma button").forEach(b=>{b.setAttribute("aria-pressed",b.dataset.lang===cur?"true":"false");
+    b.addEventListener("click",()=>{const l=b.dataset.lang;if(l===cur)return;const host=location.hostname;
+      const set=v=>{document.cookie="googtrans="+v+";path=/";if(host.includes("."))document.cookie="googtrans="+v+";path=/;domain=."+host.split(".").slice(-2).join(".")};
+      if(l==="es"){const old="expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie="googtrans=;path=/;"+old;if(host.includes("."))document.cookie="googtrans=;path=/;domain=."+host.split(".").slice(-2).join(".")+";"+old}else set("/es/"+l);
+      try{localStorage.setItem(K,l)}catch(_){}location.reload()})});
+  if(cur!=="es"){document.documentElement.lang=cur;window.gtInit=()=>{try{new google.translate.TranslateElement({pageLanguage:"es",includedLanguages:"en,pt",autoDisplay:false},"gt")}catch(_){}};
+    const s=document.createElement("script");s.src="https://translate.google.com/translate_a/element.js?cb=gtInit";s.onerror=()=>{const n=document.querySelector(".idioma-nota");if(n){n.hidden=false;n.textContent="No se pudo cargar la traducción. Revise la conexión."}};document.head.appendChild(s);
+    const n=document.querySelector(".idioma-nota");if(n)n.hidden=false}
+})();
+
+/* ---------- Taller en su propia página (?taller) ---------- */
+(function(){const on=new URLSearchParams(location.search).has("taller");if(!on)return;document.body.classList.add("enfoque");document.title="Taller de revisión sistemática · Ruta de investigación con IA";
+  const s=document.getElementById("rsl");if(s)setTimeout(()=>s.scrollIntoView({block:"start"}),100)})();
 </script>
 </body>
 </html>
