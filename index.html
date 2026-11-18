@@ -238,16 +238,16 @@ th{font-family:var(--f-body)!important;text-transform:none!important;letter-spac
 .paso::before{background:var(--ink)}
 footer{background:#1c1f24}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue:#9db4cc;--blue-soft:#1e2630;--ink:#eef1f6}.portada{background:#171a1f;border-color:#2b313b}.portada .circ{background:linear-gradient(#171a1f,#171a1f) padding-box,linear-gradient(180deg,#9aa6b2,#c9a24a) border-box}.mentoria summary{background:#eef1f6!important;color:#1c1f24}}
-/* ===== Opción B: blanco y verde azulado ===== */
-:root{--blue:#0f5f5c;--blue-soft:#eaf3f2;--ink:#111418}
+/* ===== Paleta: azul Investigium ===== */
+:root{--blue:#2b6693;--blue-soft:#edf3f8;--ink:#14202b}
 .portada{background:#fff;border-bottom:1px solid #e6e8eb}
-.portada .pill{border-color:#cfd6d6;color:#0f5f5c}
-.mentoria summary{background:#0f5f5c!important;color:#fff}
-.portada .circ{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(180deg,#0f5f5c,#7fb5b0) border-box}
-.sep .eb::after{background:#0f5f5c}
-.paso::before{background:#0f5f5c}
-footer{background:#111418}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue:#7fc4be;--blue-soft:#14302e;--ink:#eef1f6}.portada{background:#12161a;border-color:#2b313b}.portada .circ{background:linear-gradient(#12161a,#12161a) padding-box,linear-gradient(180deg,#7fc4be,#2f8f88) border-box}.mentoria summary{background:#7fc4be!important;color:#0b1515}}
+.portada .pill{border-color:#cfdbe6;color:#2b6693}
+.mentoria summary{background:#2b6693!important;color:#fff}
+.portada .circ{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(180deg,#2b6693,#8fb3d1) border-box}
+.sep .eb::after{background:#2b6693}
+.paso::before{background:#2b6693}
+footer{background:#14202b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue:#8fb3d1;--blue-soft:#16222e;--ink:#eef1f6}.portada{background:#12161a;border-color:#2b313b}.portada .circ{background:linear-gradient(#12161a,#12161a) padding-box,linear-gradient(180deg,#8fb3d1,#4d82ae) border-box}.mentoria summary{background:#8fb3d1!important;color:#0b1520}.mi-linea li.si{color:#0b1520}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .saltar{position:absolute;left:-999px;top:8px;z-index:20;background:var(--blue);color:#fff;padding:8px 14px;border-radius:8px}
 .saltar:focus{left:12px}
@@ -258,6 +258,19 @@ footer{background:#111418}
 .refs{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:.88rem}
 .refs a{word-break:break-all}
 .consent{display:flex;gap:8px;align-items:flex-start;font-size:.85rem;font-weight:400;color:var(--text)}
+/* ===== Matriz de coherencia: bloque de entrada ===== */
+.matriz-intro{border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:14px;padding:26px 28px;background:var(--bg)}
+.mi-eb{margin:0 0 6px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.matriz-intro h3{margin:0 0 10px;font-size:clamp(1.35rem,2.6vw,1.7rem);line-height:1.25;color:var(--ink)}
+.mi-lead{margin:0 0 18px;font-size:1.04rem;max-width:72ch}
+.mi-tres{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.mi-tres>div{background:var(--blue-soft);border-radius:12px;padding:14px 16px}
+.mi-tres h4{margin:0 0 6px;font-size:1rem;color:var(--ink)}.mi-tres p{margin:0;font-size:.93rem}
+.mi-linea{list-style:none;margin:18px 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.86rem}
+.mi-linea li{padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--text)}
+.mi-linea li.si{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.mi-linea li+li::before{content:"→";margin:0 10px 0 -2px;color:var(--muted)}
+@media (max-width:640px){.matriz-intro{padding:18px}.mi-linea{flex-direction:column;align-items:flex-start}.mi-linea li+li::before{content:"↓ "}}
 </style>
 </head>
 <body>
@@ -303,11 +316,31 @@ footer{background:#111418}
 <section class="bloque" id="ruta">
   <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">01</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Sección 1 · Proceso</span><h2>El proceso de investigación en seis etapas</h2><p>Seis fases que sirven para cualquier disciplina y cualquier enfoque. Cada fase deja un archivo que la siguiente lee.</p></div></div></div>
   <div class="wrap">
-    <h3 style="margin:0 0 10px;font-size:1.1rem">Empiece aquí</h3>
+    <div class="matriz-intro" id="matriz">
+      <div class="mi-cab">
+        <p class="mi-eb">Empiece aquí</p>
+        <h3>La matriz de coherencia: el punto de partida de su proyecto</h3>
+        <p class="mi-lead">Es una tabla de una sola página que pone en fila los componentes de la investigación: el objeto de estudio, la pregunta, el objetivo general y los específicos, las categorías o variables, la población, las técnicas e instrumentos y el plan de análisis. Leída de izquierda a derecha, muestra si cada componente se desprende del anterior.</p>
+      </div>
+      <div class="mi-tres">
+        <div><h4>Qué es</h4><p>Una herramienta de planeación, no un capítulo de la tesis. Resume en una vista lo que el proyecto quiere saber, cómo lo va a averiguar y con quién. Si una fila no se puede llenar, a esa parte del proyecto aún le falta decisión.</p></div>
+        <div><h4>Por qué importa en maestría y doctorado</h4><p>Directores y jurados evalúan sobre todo la coherencia interna: que cada objetivo responda a la pregunta, que cada técnica recoja datos para un objetivo y que el análisis permita contestar lo que se preguntó. La matriz deja ver dónde se rompe esa cadena antes de invertir meses en el trabajo de campo. En el doctorado, además, cada fila debe sostener el aporte original de la tesis.</p></div>
+        <div><h4>En qué etapa se hace</h4><p>No es la ideación ni un paso final. Se construye en la <b>etapa 1, Formular la pregunta</b>: después de tener la idea inicial y una primera lectura exploratoria, la matriz convierte esa idea en un proyecto. Se ajusta después de la revisión de literatura y sirve de referencia en todas las etapas siguientes.</p></div>
+      </div>
+      <ol class="mi-linea" aria-label="Momento de la matriz en el proceso">
+        <li>Idea inicial</li>
+        <li class="si">Matriz · primera versión</li>
+        <li>Revisión de literatura</li>
+        <li class="si">Matriz ajustada</li>
+        <li>Metodología, campo, análisis y escritura</li>
+      </ol>
+      <div class="acc"><a class="btn primario" href="https://investigium.github.io/libro-prompts-matriz/">Construir mi matriz con el Libro de prompts</a></div>
+    </div>
+    <h3 style="margin:26px 0 10px;font-size:1.1rem">Después, siga estos pasos</h3>
     <ol class="inicio">
-      <li>¿Aún no tiene la matriz de coherencia? Trabájela con el <a href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts</a>.</li>
-      <li>Organice sus archivos en <a href="#sistema">seis carpetas</a>.</li>
+      <li>Organice sus archivos en <a href="#sistema">seis carpetas</a> y guarde ahí su matriz.</li>
       <li>Haga su <a href="#rsl">revisión de literatura</a> paso a paso (también en <a href="?taller#rsl">su propia página</a>) y descargue el reporte.</li>
+      <li>Con lo que encontró, ajuste la matriz en el <a href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts</a>.</li>
       <li>Arme el <a href="#engranaje">resumen del proyecto</a> y revíselo con la <a href="#rubrica">rúbrica</a>.</li>
     </ol>
     <div class="ejemplo"><p><b>¿Quiere ver la ruta funcionando?</b> Cargue un ejemplo resuelto con el tema «Uso de la inteligencia artificial en la escritura académica y sus efectos en los procesos creativos»: protocolo, búsquedas, 13 estudios reales con DOI verificado, calidad, síntesis y brief. El escenario (universidad y participantes) es de práctica. Reemplaza lo que tenga en este navegador: descargue antes su respaldo.</p><div class="acc"><button class="btn primario" type="button" id="cargarEjemplo">Cargar ejemplo resuelto</button><a class="btn" href="https://investigium.github.io/libro-prompts-matriz/">Ver la matriz del ejemplo en el Libro</a></div><p class="estado" id="ejEstado" role="status"></p></div>
