@@ -138,12 +138,12 @@ table.ed textarea{min-height:58px}
 .contacto a:hover{opacity:1;text-decoration:underline}
 .contacto svg{width:16px;height:16px;flex:none}
 /* contador y buzón */
-.portada .contador{margin-left:auto;display:grid;grid-template-columns:auto auto;grid-auto-flow:column;grid-template-rows:auto auto auto;column-gap:26px;row-gap:4px;justify-items:center;align-self:center}
-.circ{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;border:4px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(180deg,#2d5fb0,#5cb83c) border-box;color:var(--ink);transition:transform .2s}
-.circ svg{width:34px;height:34px}
+.portada .contador{margin-left:auto;display:grid;grid-template-columns:auto auto;grid-auto-flow:column;grid-template-rows:auto auto auto;column-gap:22px;row-gap:2px;justify-items:center;align-self:center}
+.circ{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;border:3px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(180deg,#2d5fb0,#5cb83c) border-box;color:var(--ink);transition:transform .2s}
+.circ svg{width:22px;height:22px}
 .circ:hover{transform:translateY(-3px) scale(1.04)}
-.cnum{font-family:var(--f-display);font-weight:800;font-size:2rem;color:var(--blue);line-height:1;margin-top:8px;font-variant-numeric:tabular-nums}
-.clab{font-family:var(--f-display);font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.cnum{font-family:var(--f-display);font-weight:800;font-size:1.45rem;color:var(--blue);line-height:1;margin-top:6px;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center}
+.clab{font-family:var(--f-mono);font-weight:500;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:860px){.portada .fila{flex-wrap:wrap}.portada .contador{margin:18px 0 0 26px}}
 input[type=email]{font:inherit;font-weight:400;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 #buzon{position:relative}
@@ -1035,11 +1035,23 @@ $$("[data-doc]").forEach(b=>b.addEventListener("click",async()=>{if(!window.docx
 (function(){
   const NS="ruta-investigacion-ia-elver",API="https://abacus.jasoncameron.dev";
   const d=new Date(),dia=`dia-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-  let nueva=true;try{nueva=!sessionStorage.getItem("ruta-visita");sessionStorage.setItem("ruta-visita","1")}catch(e){}
-  const pedir=async k=>{try{const r=await fetch(`${API}/${nueva?"hit":"get"}/${NS}/${k}`);if(r.status===404)return 0;if(!r.ok)return null;const j=await r.json();return typeof j.value==="number"?j.value:null}catch(e){return null}};
+  let nueva=true;try{nueva=!sessionStorage.getItem("ruta-visita")}catch(e){}
+  const espera=ms=>new Promise(r=>setTimeout(r,ms));
+  async function pedir(k,modo){for(let i=0;i<3;i++){try{const r=await fetch(`${API}/${modo}/${NS}/${k}`);if(r.status===404)return 0;if(r.ok){const j=await r.json();if(typeof j.value==="number")return j.value}}catch(e){}await espera(500*(i+1))}return null}
+  async function contar(k){let v=nueva?await pedir(k,"hit"):null;if(v==null)v=await pedir(k,"get");return v}
   const fmt=n=>n.toLocaleString("es-CO");
-  const animar=(el,n)=>{if(n==null){el.textContent="—";return}const red=matchMedia("(prefers-reduced-motion: reduce)").matches;if(red||n<5){el.textContent=fmt(n);return}const t0=performance.now(),dur=1200;const paso=t=>{const p=Math.min(1,(t-t0)/dur);el.textContent=fmt(Math.round(n*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(paso)};requestAnimationFrame(paso)};
-  Promise.all([pedir("visitas"),pedir(dia)]).then(([t,h])=>{animar($("#visTotal"),t);animar($("#visHoy"),h)});
+  const vals={};
+  function animar(el,n){if(n==null){el.textContent="—";return}
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){el.textContent=fmt(n);return}
+    const t0=performance.now(),dur=1600;cancelAnimationFrame(el._raf);
+    const paso=t=>{const p=Math.min(1,(t-t0)/dur);el.textContent=fmt(Math.round(n*(1-Math.pow(1-p,3))));if(p<1)el._raf=requestAnimationFrame(paso)};el._raf=requestAnimationFrame(paso)}
+  const els=[$("#visTotal"),$("#visHoy")];els.forEach(e=>e.textContent="0");
+  (async()=>{vals.t=await contar("visitas");vals.h=await contar(dia);try{if(vals.t!=null)sessionStorage.setItem("ruta-visita","1")}catch(e){}
+    animar(els[0],vals.t);animar(els[1],vals.h);
+    /* se vuelve a animar cada vez que el contador entra en pantalla */
+    if("IntersectionObserver" in window){let primera=true;new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting){if(primera){primera=false;return}animar(els[0],vals.t);animar(els[1],vals.h)}})},{threshold:.6}).observe($(".contador"))}
+    $(".contador").addEventListener("mouseenter",()=>{animar(els[0],vals.t);animar(els[1],vals.h)});
+  })();
 })();
 
 /* ---------- Buzón de comentarios ---------- */
