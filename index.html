@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://translate.google.com https://translate.googleapis.com https://translate-pa.googleapis.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.gstatic.com https://translate.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://www.gstatic.com https://www.google.com https://translate.google.com https://translate.googleapis.com https://fonts.gstatic.com; connect-src 'self' data: blob: https://api.crossref.org https://formsubmit.co https://abacus.jasoncameron.dev https://translate.googleapis.com https://translate-pa.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; frame-src https://translate.google.com https://translate.googleapis.com; object-src 'none'; base-uri 'self'; form-action https://formsubmit.co">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Ruta de investigación con IA · Guía de trabajo para posgrado</title>
 <meta name="description" content="Guía gratuita para estudiantes de maestría y doctorado: de la pregunta al documento final con IA, revisión sistemática de literatura con PRISMA, verificación de referencias y registro de cada decisión.">
 <meta name="author" content="Elver Chaparro Cardozo">
@@ -375,6 +377,8 @@ nav.top ul li.ap:first-of-type,nav.top ul li.ap:nth-child(9){margin-left:10px;pa
 nav.top ul li.ap a{color:var(--muted);font-weight:500}
 nav.top ul b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-size:.7rem;margin-right:3px}
 @media (max-width:760px){.paso-r>a{grid-template-columns:36px minmax(0,1fr)}}
+[tabindex="-1"]:focus{outline:none}
+.apoyo-pie a,.ini-pie a,footer a{display:inline-block;padding:4px 0;min-height:24px}
 </style>
 </head>
 <body>
@@ -1043,9 +1047,10 @@ const HEAD="Ruta de investigación con IA · Elver Chaparro Cardozo";
 function save(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
 const LIC="Plantilla y formato: Ruta de investigación con IA, de Elver Chaparro Cardozo. Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0): https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es. El contenido escrito pertenece a su autor.";
 const LIBS={docx:["https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js","https://unpkg.com/docx@8.5.0/build/index.umd.js"],JSZip:["https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"]};
+const SRI={docx:"sha384-4xaIisuLEy2lo2HkB2C4rEf7v8jbTb2kuogX6TkuEt9feTWKBSFSOzsqNNbV+sKh",JSZip:"sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"};
 const libP={};
 function lib(n){if(window[n])return Promise.resolve(window[n]);if(libP[n])return libP[n];
-  libP[n]=(async()=>{for(const u of LIBS[n]){try{await new Promise((ok,ko)=>{const sc=document.createElement("script");sc.src=u;sc.onload=ok;sc.onerror=ko;document.head.appendChild(sc)});if(window[n])return window[n]}catch(e){}}libP[n]=null;return null})();return libP[n]}
+  libP[n]=(async()=>{for(const u of LIBS[n]){try{await new Promise((ok,ko)=>{const sc=document.createElement("script");sc.src=u;if(SRI[n]){sc.integrity=SRI[n];sc.crossOrigin="anonymous"}sc.onload=ok;sc.onerror=ko;document.head.appendChild(sc)});if(window[n])return window[n]}catch(e){}}libP[n]=null;return null})();return libP[n]}
 const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function load(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==="object"?v:d}catch(e){return d}}
@@ -1095,7 +1100,7 @@ document.addEventListener("change",e=>{const el=e.target;
   if(el.dataset.k){S[el.dataset.k]=el.value;persist();if(el.dataset.k==="marco")drawMarco();refresh();}
   if(el.dataset.c){S.chk[el.dataset.c]=el.checked;persist();}
 });
-function drawMarco(){$("#marcoCampos").innerHTML=(MARCOS[S.marco]||MARCOS.PICO).map(([k,l])=>`<label class="campo">${k} · ${esc(l)}<input type="text" data-comp="${S.marco}-${k}" value="${esc(S.comp[S.marco+"-"+k]||"")}"></label>`).join("")}
+function drawMarco(){if(!Object.prototype.hasOwnProperty.call(MARCOS,S.marco))S.marco="PICO";$("#marcoCampos").innerHTML=MARCOS[S.marco].map(([k,l])=>`<label class="campo">${esc(k)} · ${esc(l)}<input type="text" data-comp="${esc(S.marco)}-${esc(k)}" value="${esc(S.comp[S.marco+"-"+k]||"")}"></label>`).join("")}
 function compText(){return (MARCOS[S.marco]||[]).map(([k,l])=>`${k} (${l}): ${S.comp[S.marco+"-"+k]||"[FALTA]"}`).join("\n")}
 
 /* criterios */
@@ -1180,7 +1185,7 @@ function verHtml(v){if(!v)return'<span class="nota">Sin verificar</span>';const 
 $("#evBody").addEventListener("input",e=>{const t=e.target;if(t.dataset.ev==null)return;const r=S.ev[+t.dataset.ev];r[t.dataset.f]=t.value;if(t.dataset.f==="doi"||t.dataset.f==="autor")delete r.ver;persist();refresh()});
 $("#evBody").addEventListener("click",e=>{const b=e.target.closest("[data-evdel]");if(!b)return;S.ev.splice(+b.dataset.evdel,1);if(!S.ev.length)S.ev.push({});persist();drawEv();refresh()});
 $("#addEv").onclick=()=>{S.ev.push({});persist();drawEv()};
-const csvCell=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+const csvCell=v=>{let t=String(v??"");if(/^[=+\-@\t\r]/.test(t))t="'"+t;return `"${t.replace(/"/g,'""')}"`};
 $("#csvEv").onclick=()=>{const rows=[EVC.map(c=>c[1]).concat("Verificación"),...S.ev.map(r=>EVC.map(([k])=>r[k]||"").concat(r.ver?r.ver.msg:""))];save(new Blob(["﻿"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n")+"\r\n"+csvCell("# "+LIC)],{type:"text/csv"}),"tabla_de_evidencia.csv")};
 function parseCSV(txt){txt=txt.replace(/^﻿/,"");const first=txt.split(/\r?\n/)[0]||"";const d=(first.split(";").length>first.split(",").length)?";":",";const out=[];let row=[],cur="",q=false;
   for(let i=0;i<txt.length;i++){const c=txt[i];if(q){if(c==='"'){if(txt[i+1]==='"'){cur+='"';i++}else q=false}else cur+=c}else if(c==='"')q=true;else if(c===d){row.push(cur);cur=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&txt[i+1]==="\n")i++;row.push(cur);out.push(row);row=[];cur=""}else cur+=c}
@@ -1376,8 +1381,8 @@ $("#rslJson").onclick=async()=>{const o=Object.assign({_licencia:LIC},S);try{o._
   if(L.length&&tot<=40*1024*1024){o._archivos=[];for(const f of L)o._archivos.push({name:f.name,type:f.type,cas:f.cas,added:f.added,size:f.size,data:await b64(f.blob)})}
   $("#rslEstado").textContent=L.length?(o._archivos?`Respaldo con la revisión, el brief y ${L.length} archivo${L.length>1?"s":""}.`:"Respaldo con la revisión y el brief. Los archivos pasan de 40 MB: descárguelos aparte con el paquete .zip."):"Respaldo con la revisión y el brief."}catch(e){}
   save(new Blob([JSON.stringify(o,null,1)],{type:"application/json"}),`respaldo_revision_${today()}.json`)};
-$("#jsonIn").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const o=JSON.parse(await f.text());if(!o||typeof o!=="object"||!("pregunta" in o))throw 0;const br=o._brief,ar=o._archivos;delete o._brief;delete o._archivos;delete o._licencia;S=Object.assign(BLANK(),o);persist();initAll();
-  if(br&&typeof br==="object"&&window.__rutaBrief)window.__rutaBrief(br);let n=0;if(Array.isArray(ar)&&window.__rutaPut){for(const a of ar){try{const blob=await (await fetch(a.data)).blob();await window.__rutaPut(a,blob);n++}catch(_){}}}
+$("#jsonIn").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const o=JSON.parse(await f.text());if(!o||typeof o!=="object"||Array.isArray(o)||!("pregunta" in o))throw 0;const br=o._brief,ar=o._archivos;delete o._brief;delete o._archivos;delete o._licencia;const B0=BLANK(),lim=v=>typeof v==="string"?v.slice(0,20000):v;const limpio=x=>{if(typeof x==="string")return lim(x);if(typeof x==="number"||typeof x==="boolean"||x===null)return x;if(Array.isArray(x))return x.slice(0,2000).map(limpio);if(typeof x==="object"){const r={};for(const k of Object.keys(x)){if(k==="__proto__"||k==="constructor"||k==="prototype")continue;r[k]=limpio(x[k])}return r}return undefined};const o2={};for(const k of Object.keys(B0)){if(k in o){const v=limpio(o[k]);if(v!==undefined&&(typeof v===typeof B0[k]||B0[k]===null||v===null)&&Array.isArray(v)===Array.isArray(B0[k]))o2[k]=v}}if(!Object.prototype.hasOwnProperty.call(MARCOS,o2.marco))o2.marco=B0.marco;S=Object.assign(B0,o2);persist();initAll();
+  if(br&&typeof br==="object"&&window.__rutaBrief)window.__rutaBrief(br);let n=0;if(Array.isArray(ar)&&window.__rutaPut){for(const a of ar){try{if(!a||typeof a.data!=="string"||!/^data:[\w.+\/-]*(;[\w=.-]+)*;base64,/.test(a.data))continue;const blob=await (await fetch(a.data)).blob();await window.__rutaPut(a,blob);n++}catch(_){}}}
   $("#rslEstado").textContent=n?`Respaldo cargado con ${n} archivo${n>1?"s":""}.`:"Respaldo cargado."}catch(_){$("#rslEstado").textContent="El archivo no es un respaldo válido de este portal."}});
 $("#rslReset").onclick=()=>{if($("#rslReset").dataset.armed){S=BLANK();persist();initAll();$("#rslEstado").textContent="Se borró la revisión de este navegador.";delete $("#rslReset").dataset.armed;$("#rslReset").textContent="Empezar de cero";return}
   $("#rslReset").dataset.armed="1";$("#rslReset").textContent="Confirmar: borrar todo";$("#rslEstado").textContent="Descargue antes el respaldo si quiere conservar el trabajo.";setTimeout(()=>{delete $("#rslReset").dataset.armed;$("#rslReset").textContent="Empezar de cero"},6000)};
@@ -1575,6 +1580,9 @@ b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorag
   const APOYO=["sistema","entradas","salidas","reglas"];
   const nombre=id=>{const s=document.getElementById(id);const h=s&&s.querySelector("h2");return h?h.textContent.trim():id};
   document.body.classList.add("app");
+  const h1=document.createElement("h1");h1.className="sr";h1.id="h1Pantalla";h1.hidden=true;main.prepend(h1);
+  document.querySelectorAll(".scroll").forEach((d,i)=>{if(!d.hasAttribute("tabindex")){d.tabIndex=0;d.setAttribute("role","region");const t=d.closest("section")&&d.closest("section").querySelector("h2");d.setAttribute("aria-label",(t?t.textContent.trim()+" · ":"")+"tabla desplazable "+(i+1))}});
+  let primera=true;
   secs.forEach(sec=>{
     const top=document.createElement("div");top.className="wrap volver-bar";
     top.innerHTML='<a class="volver-ini" href="#inicio"><span aria-hidden="true">←</span> Su recorrido</a>';
@@ -1604,6 +1612,8 @@ b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorag
     document.body.classList.toggle("en-inicio",!sec);
     document.querySelectorAll(".tabbar [data-tab],nav.top ul a").forEach(a=>{const id=(a.getAttribute("href")||"").slice(1);const on=sec?id===sec.id:id==="inicio";if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
     document.title=sec?nombre(sec.id)+" · Ruta de investigación con IA":base;
+    h1.hidden=!sec;h1.textContent=sec?nombre(sec.id):"";
+    if(!primera){const foco=sec?sec.querySelector("h2"):document.getElementById("inicioT");if(foco){foco.setAttribute("tabindex","-1");foco.focus({preventScroll:true})}}primera=false;
     cerrarHoja();
     if(sec&&t!==sec)setTimeout(()=>t.scrollIntoView({block:"start"}),30);else window.scrollTo(0,0);
     const ac=document.querySelector("nav.top ul a[aria-current]");if(ac&&ac.scrollIntoView)ac.scrollIntoView({block:"nearest",inline:"center"});
