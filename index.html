@@ -792,12 +792,12 @@ async function copyText(btn,txt){const old=btn.textContent;try{await navigator.c
 /* ---------- Rúbrica y casillas ---------- */
 const CRIT=[
  ["Objeto ↔ pregunta","El objeto de estudio y la pregunta nombran el mismo fenómeno, con el mismo alcance, población y lugar."],
- ["Pregunta ↔ objetivo general","El objetivo general responde la pregunta con un verbo acorde al enfoque (comprender, analizar, describir, explicar, estimar, valorar)."],
+ ["Pregunta ↔ objetivo general","El objetivo general responde la pregunta con un verbo acorde al enfoque (comprender, analizar, describir, explicar, estimar, valorar), no con una acción de intervención que la pregunta no plantea."],
  ["Objetivo general ↔ específicos","Los objetivos específicos, sumados, alcanzan el general; siguen una secuencia lógica y no lo desbordan."],
  ["Objetivos ↔ técnicas e instrumentos","Cada objetivo específico tiene al menos una técnica y un instrumento propios, adecuados al dato que necesita."],
  ["Población y selección","Se dice quiénes, dónde, cuántos y por qué ellos; el criterio de selección o muestreo es coherente con el enfoque."],
  ["Método de análisis","Hay un procedimiento de análisis nombrado y descrito, adecuado a los datos y al diseño."],
- ["Enfoque y diseño","Se declara un enfoque y un diseño, y lo que se hace en la matriz corresponde a la lógica de ese diseño."],
+ ["Ruta metodológica","Paradigma, enfoque, tipo de estudio, método y diseño están declarados, son coherentes entre sí y lo que hace la matriz sigue esa lógica."],
  ["Categorías o variables ↔ instrumentos y análisis","Las categorías o variables aparecen en los objetivos, orientan los instrumentos y organizan el análisis."]];
 const NIV=[["Coherente","Articulado y justificado; sin ajustes de fondo."],["Parcial","Coherente en lo central, con ajustes pendientes."],["Débil","Existe, pero con rupturas que impiden la coherencia."],["Ausente","El elemento no existe o la celda está vacía."]];
 $("#rubBody").innerHTML=CRIT.map(c=>`<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td></tr>`).join("");
