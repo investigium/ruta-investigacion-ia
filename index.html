@@ -423,6 +423,11 @@ nav.top ul b{display:inline-grid;place-items:center;width:18px;height:18px;borde
 @media print{.bot-abrir,.bot-panel{display:none!important}}
 body .marca-lado img[width="1000"]{width:150px;box-shadow:none;border-radius:12px}@media (max-width:760px){body .marca-lado img[width="1000"]{width:96px}}
 .portada .reflexion{max-width:62ch;margin:14px 0 0;font-family:var(--f-body);font-style:normal;font-weight:400;font-size:1.1rem;line-height:1.6;color:var(--text)}@media (max-width:760px){.portada .reflexion{font-size:.95rem;margin:6px 0 14px}}
+.relacion{background:var(--blue-soft);border-radius:12px;padding:14px 18px;margin-top:4px}.relacion p{margin:0}
+#ruta .etapas .paso::before{content:"Etapa " counter(p);width:auto;height:auto;border-radius:999px;padding:4px 12px;font-size:.8rem;white-space:nowrap;background:#2b6693}
+.en-ruta{display:block;margin-top:6px;font-size:.82rem;font-weight:600;color:var(--blue)}
+#ruta .matriz-intro{margin-top:26px}
+@media (max-width:760px){#ruta .etapas .paso{grid-template-columns:1fr;gap:8px}#ruta .etapas .paso::before{justify-self:start}}
 </style>
 </head>
 <body>
@@ -499,12 +504,24 @@ body .marca-lado img[width="1000"]{width:150px;box-shadow:none;border-radius:12p
 <main id="contenido">
 
 <section class="bloque" id="ruta">
-  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">01</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Paso 1 · Formular</span><h2>El proceso de investigación en seis etapas</h2><p>Seis fases que sirven para cualquier disciplina y cualquier enfoque. Cada fase deja un archivo que la siguiente lee.</p></div></div></div>
+  <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">01</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Paso 1 · Formular</span><h2>El proceso de investigación en seis etapas</h2><p>Seis etapas que sirven para cualquier disciplina y cualquier enfoque. Cada una deja un producto que la siguiente retoma.</p></div></div></div>
   <div class="wrap">
+    <div class="relacion">
+      <p><b>Etapas y pasos no son lo mismo.</b> Las seis etapas describen la investigación completa, de la pregunta al informe final. Los siete pasos de su recorrido en esta Ruta lo acompañan en las dos primeras etapas y en la planeación del proyecto; la recolección, el análisis y la escritura vienen después, con su director.</p>
+    </div>
+    <h3 style="margin:22px 0 10px;font-size:1.1rem">Las seis etapas de una investigación</h3>
+    <div class="pasos etapas">
+      <div class="paso"><div><b>Formular la pregunta</b>De la inquietud a una pregunta con población, fenómeno, contexto y alcance. La IA propone alternativas; usted decide cuál es viable.<span class="en-ruta">En esta Ruta: pasos 1 y 2</span></div></div>
+      <div class="paso"><div><b>Revisar la literatura</b>Revisión sistemática o rápida: protocolo, búsqueda, cribado, tabla de evidencia verificada y síntesis por hallazgos que termina en el vacío.<span class="en-ruta">En esta Ruta: pasos 3 y 4</span></div></div>
+      <div class="paso"><div><b>Diseñar la metodología</b>La literatura da los métodos; el método define el dato. Enfoque, diseño, técnicas e instrumentos por objetivo.<span class="en-ruta">En esta Ruta: se planea en la matriz y en el cronograma (pasos 2 y 5)</span></div></div>
+      <div class="paso"><div><b>Recoger los datos</b>Campo o fuentes: el original no se toca, lo transformado va aparte y cada cifra dice de dónde salió.</div></div>
+      <div class="paso"><div><b>Analizar los datos</b>Procedimiento nombrado y descrito. Cada resultado lleva su limitación al lado.</div></div>
+      <div class="paso"><div><b>Escribir y revisar</b>La IA audita lo que usted escribió; no lo escribe por usted. Lo que falte se marca [FALTA] y se convierte en tarea.</div></div>
+    </div>
     <div class="matriz-intro" id="matriz">
       <div class="mi-cab">
-        <p class="mi-eb">Empiece aquí</p>
-        <h3>La matriz de coherencia: el punto de partida de su proyecto</h3>
+        <p class="mi-eb">Dentro de la etapa 1</p>
+        <h3>La matriz de coherencia</h3>
         <p class="mi-lead">Es un instrumento de diseño metodológico que articula en una sola estructura los componentes de la investigación: el objeto de estudio, la pregunta, el objetivo general y los específicos, las categorías o variables, la población, las técnicas e instrumentos y el plan de análisis. Su lectura de conjunto permite examinar la coherencia interna del proyecto, es decir, la correspondencia lógica entre lo que se pregunta, lo que se propone alcanzar y el modo en que se indaga.</p>
       </div>
       <div class="mi-tres">
@@ -519,33 +536,10 @@ body .marca-lado img[width="1000"]{width:150px;box-shadow:none;border-radius:12p
         <li class="si">Matriz ajustada</li>
         <li>Metodología, campo, análisis y escritura</li>
       </ol>
-      <div class="acc"><a class="btn primario" href="https://investigium.github.io/libro-prompts-matriz/">Construir mi matriz con el Libro de prompts</a></div>
+      <div class="acc"><a class="btn primario" href="https://investigium.github.io/libro-prompts-matriz/">Siguiente paso: construir la matriz (paso 2) →</a></div>
     </div>
-    <h3 style="margin:26px 0 10px;font-size:1.1rem">Después, siga estos pasos</h3>
-    <ol class="inicio">
-      <li>Organice sus archivos en <a href="#sistema">seis carpetas</a> y guarde ahí su matriz.</li>
-      <li>Haga su <a href="#rsl">revisión de literatura</a> paso a paso (también en <a href="?taller#rsl">su propia página</a>) y descargue el reporte.</li>
-      <li>Con lo que encontró, ajuste la matriz en el <a href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts</a>.</li>
-      <li>Arme el <a href="#engranaje">resumen del proyecto</a> y revíselo con la <a href="#rubrica">rúbrica</a>.</li>
-    </ol>
     <div class="ejemplo"><p><b>¿Quiere ver la ruta funcionando?</b> Cargue un ejemplo resuelto con el tema «Uso de la inteligencia artificial en la escritura académica y sus efectos en los procesos creativos»: protocolo, búsquedas, 13 estudios reales con DOI verificado, calidad, síntesis y brief. El escenario (universidad y participantes) es de práctica. Reemplaza lo que tenga en este navegador: descargue antes su respaldo.</p><div class="acc"><button class="btn primario" type="button" id="cargarEjemplo">Cargar ejemplo resuelto</button><a class="btn" href="https://investigium.github.io/libro-prompts-matriz/">Ver la matriz del ejemplo en el Libro</a></div><p class="estado" id="ejEstado" role="status"></p></div>
-    <h3 style="margin:22px 0 10px;font-size:1.1rem">Las seis etapas</h3>
-    <div class="pasos">
-      <div class="paso"><div><b>Formular la pregunta</b>De la inquietud a una pregunta con población, fenómeno, contexto y alcance. La IA propone alternativas; usted decide cuál es viable.</div></div>
-      <div class="paso"><div><b>Revisar la literatura</b>Revisión sistemática o rápida: protocolo, búsqueda, cribado, tabla de evidencia verificada y síntesis por hallazgos que termina en el vacío.</div></div>
-      <div class="paso"><div><b>Diseñar la metodología</b>La literatura da los métodos; el método define el dato. Enfoque, diseño, técnicas e instrumentos por objetivo.</div></div>
-      <div class="paso"><div><b>Recoger los datos</b>Campo o fuentes: el original no se toca, lo transformado va aparte y cada cifra dice de dónde salió.</div></div>
-      <div class="paso"><div><b>Analizar los datos</b>Procedimiento nombrado y descrito. Cada resultado lleva su limitación al lado.</div></div>
-      <div class="paso"><div><b>Escribir y revisar</b>La IA audita lo que usted escribió; no lo escribe por usted. Lo que falte se marca [FALTA] y se convierte en tarea.</div></div>
-    </div>
-    <div class="rej c2" style="margin-top:16px">
-      <article class="tj azul">
-        <p class="rot">Complemento</p>
-        <h3 class="t">Libro de prompts · Matriz de coherencia</h3>
-        <p>Fichas para trabajar con una IA de chat cada columna de la matriz: objeto, pregunta, objetivos, técnicas, población, modelo y análisis. Al final se descarga el informe en Word.</p>
-        <div class="acc"><a class="btn primario" href="https://investigium.github.io/libro-prompts-matriz/">Abrir el Libro de prompts</a></div>
-      </article>
-      <article class="tj">
+    <article class="tj" style="margin-top:16px">
         <p class="rot">Cómo se usa este portal</p>
         <h3 class="t">Público para consultar, privado para trabajar</h3>
         <p>Cualquier persona con el enlace puede abrir este portal, pero nadie más ve lo que usted escribe: sus formularios y archivos se guardan solo en este navegador y no se envían a ningún servidor, ni siquiera al autor del portal. Solo salen tres cosas: las referencias que usted verifica (van a Crossref), un conteo anónimo de visitas y los mensajes que usted envíe en el buzón de comentarios. Descargue con frecuencia el respaldo (.json) y los documentos en Word para no perder nada al cambiar de equipo o borrar los datos del navegador.</p>
@@ -553,7 +547,6 @@ body .marca-lado img[width="1000"]{width:150px;box-shadow:none;border-radius:12p
         <div class="acc"><button class="btn" type="button" id="borrarTodo">Borrar todo lo mío de este navegador</button><a class="btn" href="#privacidad">Aviso de privacidad</a></div>
         <p class="estado" id="borrarEstado" role="status"></p>
       </article>
-    </div>
   </div>
 </section>
 
