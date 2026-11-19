@@ -54,6 +54,7 @@ b,strong{color:var(--ink)}
 header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 header.top .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 6px}
 header.top .marca{font-family:var(--f-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
+header.top .acc{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}header.top .volver.sec{background:transparent;border:1px solid var(--line)}
 header.top .volver{font-size:.88rem;font-weight:600;text-decoration:none;background:var(--blue-soft);padding:6px 12px;border-radius:99px;white-space:nowrap}
 nav.indice{display:flex;gap:4px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
 nav.indice::-webkit-scrollbar{display:none}
@@ -167,7 +168,7 @@ footer b{color:#fff}
 <header class="top"><div class="wrap">
   <div class="fila">
     <a class="marca" href="./">Ruta de investigación con IA</a>
-    <a class="volver" href="./">← Volver a la Ruta</a>
+    <span class="acc"><a class="volver sec" href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts ↗</a><a class="volver" href="./">← Volver a la Ruta</a></span>
   </div>
   <nav class="indice" aria-label="Secciones de esta página">
     <a href="#prompt"><b>1</b>Prompt</a>
@@ -219,6 +220,7 @@ footer b{color:#fff}
     <div class="bien"><h4>Prompt preciso</h4><p>«Soy estudiante de maestría en educación. Mi pregunta es: ¿cómo transforma el uso de IA generativa los procesos creativos de escritura académica en estudiantes de posgrado? A partir de los tres resúmenes que pego abajo, señale qué vacío comparten y qué no han estudiado. No agregue fuentes distintas a las que le doy. Responda en una tabla: estudio, hallazgo, lo que no aborda.»</p><p class="por">Delimita la tarea, entrega los insumos, prohíbe inventar y fija un formato que usted puede verificar.</p></div>
   </div>
   <p>Observe que el segundo prompt no le pide a la IA que escriba el planteamiento por usted: le pide un análisis que usted luego usa para escribirlo. Esa diferencia es la que sostiene la autoría.</p>
+  <div class="nota"><p><b>Para practicar:</b> el <a href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts</a> tiene un prompt listo para cada parte de su matriz de coherencia. Empiece por la <a href="https://investigium.github.io/libro-prompts-matriz/#ficha0">Ficha 0</a>, que son las instrucciones fijas de su IA: la base de un agente.</p></div>
 </div></div></section>
 
 <!-- 2 LOOP -->
