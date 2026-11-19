@@ -227,6 +227,10 @@ table.arts .crit input{width:auto}
 .plantilla .cab small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
 .cadena{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
 .cadena .tarjeta{position:relative}
+.volver-fila{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 18px}
+.volver-fila span{font-size:.88rem;font-weight:600;color:var(--blue)}
+.volver-ruta{display:inline-block;font-size:.92rem;font-weight:600;text-decoration:none;background:var(--blue-soft);color:var(--blue);padding:8px 16px;border-radius:99px}
+.volver-ruta:hover{background:var(--blue);color:#fff}
 /* una pantalla por tema */
 body.app section.vista{display:none;border-bottom:0;min-height:calc(100vh - 230px)}
 body.app section.vista.on{display:block}
@@ -266,7 +270,7 @@ body.app section.vista.on{display:block}
 <main id="contenido">
 
 <section class="portada vista" id="inicio"><div class="wrap">
-  <span class="etq">Paso 0 · Antes de empezar</span>
+  <div class="volver-fila"><a class="volver-ruta" href="./">← Su recorrido</a><span>Paso 0 · Antes de empezar</span></div>
   <h1>Prompts, loops y agentes de IA en la investigación</h1>
   <p class="sub">Qué son, cómo operan dentro de un proyecto de investigación y cómo redactarlos para que la IA trabaje con rigor y usted conserve el criterio.</p>
   <p>Cuando usted escribe una instrucción a una IA está redactando un <b>prompt</b>. Cuando revisa la respuesta y vuelve a pedir, está dentro de un <b>loop</b>. Y cuando la IA decide por sí misma qué buscar, qué leer y qué hacer después, está actuando como un <b>agente</b>. Esta página explica esos tres conceptos en orden, muestra cómo se estructuran, le entrega plantillas para redactar los suyos y cierra con un taller práctico y un banco de prompts para la revisión de literatura.</p>
@@ -845,7 +849,7 @@ const nombre=id=>{const a=document.querySelector('nav.indice a[href="#'+id+'"]')
 document.body.classList.add("app");
 vistas.forEach((s,i)=>{
   const w=s.querySelector(".lectura")||s.querySelector(".wrap");
-  if(i>0){const pr=document.createElement("p");pr.className="progreso";pr.textContent=(i<ids.length-1?"Tema "+i+" de "+(ids.length-2):"Fuentes");w.prepend(pr)}
+  if(i>0){const pr=document.createElement("div");pr.className="volver-fila";pr.innerHTML='<a class="volver-ruta" href="./">← Su recorrido</a><span>Paso 0 · '+(i<ids.length-1?"Tema "+i+" de "+(ids.length-2):"Fuentes")+'</span>';w.prepend(pr)}
   const pg=document.createElement("nav");pg.className="paginador";pg.setAttribute("aria-label","Pasar de tema");
   let html="";
   if(i>0)html+='<a class="ant" href="#'+ids[i-1]+'"><small>← Anterior</small>'+nombre(ids[i-1])+'</a>';
