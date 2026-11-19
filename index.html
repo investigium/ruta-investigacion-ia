@@ -456,6 +456,10 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
 .es-sub svg{width:26px;height:20px}
 #casillas .nota{margin-top:10px}
 @media (max-width:760px){.es-cuerpo{grid-template-columns:1fr}.es-carpetas{border-right:0;border-bottom:1px solid var(--line);grid-template-columns:repeat(3,1fr);padding:12px}.es-carpeta svg{width:48px;height:38px}.es-carpeta span{font-size:.75rem}}
+.et-acc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:8px}
+.et-acc a{font-size:.88rem;font-weight:600;color:var(--blue);text-decoration:none;border-bottom:1px solid currentColor}
+.et-acc a:hover{color:var(--ink)}
+.et-apoyo{font-size:.84rem;font-weight:600;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -540,12 +544,12 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
     </div>
     <h3 style="margin:22px 0 10px;font-size:1.1rem">Las seis etapas de una investigación</h3>
     <div class="pasos etapas">
-      <div class="paso"><div><b>Formular la pregunta</b>De la inquietud a una pregunta con población, fenómeno, contexto y alcance. La IA propone alternativas; usted decide cuál es viable.<span class="en-ruta">En esta Ruta: pasos 1 y 2 · <a href="https://investigium.github.io/libro-prompts-matriz/#volcado">empiece por la ficha P1 del Libro ↗</a></span></div></div>
-      <div class="paso"><div><b>Revisar la literatura</b>Revisión sistemática o rápida: protocolo, búsqueda, cribado, tabla de evidencia verificada y síntesis por hallazgos que termina en el vacío.<span class="en-ruta">En esta Ruta: pasos 3 y 4</span></div></div>
-      <div class="paso"><div><b>Diseñar la metodología</b>La literatura da los métodos; el método define el dato. Enfoque, diseño, técnicas e instrumentos por objetivo.<span class="en-ruta">En esta Ruta: se planea en la matriz y en el cronograma (pasos 2 y 5)</span></div></div>
-      <div class="paso"><div><b>Recoger los datos</b>Campo o fuentes: el original no se toca, lo transformado va aparte y cada cifra dice de dónde salió.</div></div>
-      <div class="paso"><div><b>Analizar los datos</b>Procedimiento nombrado y descrito. Cada resultado lleva su limitación al lado.</div></div>
-      <div class="paso"><div><b>Escribir y revisar</b>La IA audita lo que usted escribió; no lo escribe por usted. Lo que falte se marca [FALTA] y se convierte en tarea.</div></div>
+      <div class="paso"><div><b>Formular la pregunta</b>De la inquietud a una pregunta con población, fenómeno, contexto y alcance. La IA propone alternativas; usted decide cuál es viable.<span class="en-ruta">En esta Ruta: pasos 1 y 2</span><span class="et-acc"><a href="https://investigium.github.io/libro-prompts-matriz/#volcado">Ir a la ficha P1 ↗</a><a href="https://investigium.github.io/libro-prompts-matriz/#ficha1">Fichas F1 y F2 ↗</a></span></div></div>
+      <div class="paso"><div><b>Revisar la literatura</b>Revisión sistemática o rápida: protocolo, búsqueda, cribado, tabla de evidencia verificada y síntesis por hallazgos que termina en el vacío.<span class="en-ruta">En esta Ruta: pasos 3 y 4</span><span class="et-acc"><a href="#rsl">Abrir la revisión de literatura →</a></span></div></div>
+      <div class="paso"><div><b>Diseñar la metodología</b>La literatura da los métodos; el método define el dato. Enfoque, diseño, técnicas e instrumentos por objetivo.<span class="en-ruta">En esta Ruta: se planea en la matriz y en el cronograma (pasos 2 y 5)</span><span class="et-acc"><a href="https://investigium.github.io/libro-prompts-matriz/#ficha3">Fichas F3 a F5 ↗</a><a href="https://investigium.github.io/libro-prompts-matriz/#cronograma">Cronograma ↗</a></span></div></div>
+      <div class="paso"><div><b>Recoger los datos</b>Campo o fuentes: el original no se toca, lo transformado va aparte y cada cifra dice de dónde salió.<span class="et-acc"><span class="et-apoyo">Apoyo:</span><a href="#sistema" data-carpeta="04_Datos">Carpeta 04_Datos →</a><a href="#reglas">Reglas de ética →</a></span></div></div>
+      <div class="paso"><div><b>Analizar los datos</b>Procedimiento nombrado y descrito. Cada resultado lleva su limitación al lado.<span class="et-acc"><span class="et-apoyo">Apoyo:</span><a href="#sistema" data-carpeta="05_Analisis">Carpeta 05_Analisis →</a><a href="https://investigium.github.io/libro-prompts-matriz/#ficha5">Ficha F5: método de análisis ↗</a></span></div></div>
+      <div class="paso"><div><b>Escribir y revisar</b>La IA audita lo que usted escribió; no lo escribe por usted. Lo que falte se marca [FALTA] y se convierte en tarea.<span class="en-ruta">En esta Ruta: pasos 6 y 7</span><span class="et-acc"><a href="#engranaje">Resumen →</a><a href="#rubrica">Evaluación →</a><a href="#reglas">Reglas de integridad →</a></span></div></div>
     </div>
   </div>
 </section>
@@ -1124,6 +1128,7 @@ function escritorio(sel){const c=CAS.find(x=>x[0]===sel)||CAS[0];
 $("#casillas").innerHTML=`<div class="es-ventana"><div class="es-barra"><span class="es-pts" aria-hidden="true"><i></i><i></i><i></i></span><span class="es-ruta">Escritorio › <b>Perez_Tesis_Maestria</b></span></div><div class="es-cuerpo"><ul class="es-carpetas" role="list">${CAS.map(x=>`<li><button type="button" class="es-carpeta${x[0]===c[0]?" on":""}" data-c="${x[0]}" aria-pressed="${x[0]===c[0]}">${FOLDER(x[0]===c[0])}<span>${esc(x[0])}</span></button></li>`).join("")}</ul><div class="es-panel" aria-live="polite"><p class="rot">Dentro de ${esc(c[0])}</p><h3 class="t">${esc(c[1])}</h3><p>${esc(c[2])}</p><ul class="es-archivos">${(CAS_EJ[c[0]]||[]).map(FILE).join("")}</ul></div></div></div><p class="nota">Toque cada carpeta para ver un ejemplo de lo que guarda. Los nombres siguen la regla «apellido, contenido, versión».</p>`;
 $("#casillas").querySelectorAll(".es-carpeta").forEach(b=>b.addEventListener("click",()=>{escritorio(b.dataset.c);const n=$("#casillas").querySelector(`.es-carpeta[data-c="${b.dataset.c}"]`);n&&n.focus()}))}
 escritorio("01_Pregunta");
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-carpeta]");if(a)setTimeout(()=>escritorio(a.dataset.carpeta),60)});
 $("#casillaSel").innerHTML=CAS.map(c=>`<option value="${c[0]}">${c[0].slice(0,2)} · ${esc(c[1])}</option>`).join("");
 
 /* ---------- Estado de la revisión ---------- */
