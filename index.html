@@ -567,6 +567,11 @@ html body .pv-taller #tabs button[aria-selected="true"]{background:var(--pv-bran
 .es-carpeta.on{background:var(--pv-brand-soft)!important;box-shadow:inset 0 0 0 2px var(--pv-brand);border-radius:12px}
 .es-panel .rot{color:var(--pv-muted)}
 </style>
+<style>.pv [hidden]{display:none!important}
+.pv-num.ic{background:var(--pv-brand-soft);color:var(--pv-brand)}
+.pv-num.ic svg{width:20px;height:20px}
+.pv-pie{margin:0;font-size:.9rem;color:var(--pv-muted)}
+</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -1915,6 +1920,26 @@ b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorag
   document.querySelectorAll('.tj').forEach(function(tj){if(!tj.querySelector(':scope>pre.prompt'))return;tj.classList.add('pv-wtj');var r=tj.querySelector(':scope>.rot');if(r&&!r.querySelector('.pv-dots')){var d=document.createElement('span');d.className='pv-dots';d.setAttribute('aria-hidden','true');d.innerHTML='<i></i><i></i><i></i>';r.insertBefore(d,r.firstChild)}});
   document.querySelectorAll('.pega').forEach(function(pg){if(/Pegue este prompt en su IA de preferencia/.test(pg.textContent)){pg.innerHTML='<span aria-hidden="true">↪</span> Péguelo en su IA: <span class="pv-ai">ChatGPT</span><span class="pv-ai">Gemini</span><span class="pv-ai">Claude</span><span class="pv-ai">Copilot</span> u otra. Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.'}});
   document.querySelectorAll('#rsl .fase .tj').forEach(function(tj,i){var r=tj.querySelector('.rot');if(!r)return;r.classList.add('pv-rf');r.innerHTML='<span class="pv-num" style="--c:var(--p'+(i+1)+')">'+(i+1)+'</span>'+esc(r.textContent)});
+})();
+</script>
+<script>(function(){
+  var pv=document.querySelector('#inicio .pv'),ap=pv&&pv.querySelector('[data-p="apoyo"]');if(!ap)return;
+  var esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var IC={sistema:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',entradas:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',salidas:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/>',reglas:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>'};
+  var MAS={sistema:'Vea en un escritorio de ejemplo qué guarda cada una de las seis carpetas y cómo nombrar los archivos para que usted, su director y la IA encuentren todo.',entradas:'Reúna los documentos de una entrega en un paquete .zip, listo para enviarlo a su director o subirlo a la plataforma.',salidas:'Descargue formatos en Word para el protocolo, el brief del proyecto y otros documentos de trabajo.',reglas:'Reglas de autoría, verificación de fuentes y privacidad para trabajar con la IA sin perder el rigor ni la voz propia.'};
+  var links=[].slice.call(ap.querySelectorAll('.pv-tools a')),pie=ap.querySelector('.pv-tools-pie');
+  if(!links.length)return;
+  var items=links.map(function(a){var id=(a.getAttribute('href')||'').replace('#','');var b=a.querySelector('b'),sp=a.querySelector('span');return{id:id,href:a.getAttribute('href'),t:b?b.textContent:a.textContent,d:sp?sp.textContent:'',m:MAS[id]||''}});
+  var h='<div class="pv-grid"><ol class="pv-list"><li class="pv-grp" aria-hidden="true">Úselas en cualquier momento</li>';
+  items.forEach(function(it,i){h+='<li><button type="button" class="pv-part" data-j="'+i+'" aria-current="false" aria-controls="pvWinAp"><span class="pv-num ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(IC[it.id]||'')+'</svg></span><span><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span></button></li>'});
+  h+='</ol><div class="pv-win" id="pvWinAp" aria-live="polite"></div></div>';
+  var pieH=pie?pie.innerHTML:'';ap.innerHTML=h;
+  var win=ap.querySelector('#pvWinAp'),parts=[].slice.call(ap.querySelectorAll('.pv-part'));
+  function pintar(i){var it=items[i];parts.forEach(function(b,j){b.setAttribute('aria-current',String(j===i))});
+    win.innerHTML='<div class="pv-whead"><span class="pv-dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Herramienta de apoyo</b></div><div class="pv-wbody"><h3>'+esc(it.t)+'</h3><p>'+esc(it.m||it.d)+'</p><a class="pv-btn" href="'+esc(it.href)+'">Abrir la herramienta →</a>'+(pieH?'<p class="pv-pie">También: '+pieH+'</p>':'')+'</div>';
+    if(matchMedia('(max-width:860px)').matches)parts[i].parentNode.appendChild(win);else ap.querySelector('.pv-grid').appendChild(win)}
+  parts.forEach(function(b,i){b.addEventListener('click',function(){pintar(i)})});
+  pintar(0);
 })();
 </script>
 </body>
