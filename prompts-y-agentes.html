@@ -43,10 +43,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);f
 a{color:var(--blue)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .saltar{position:absolute;left:-9999px}.saltar:focus{left:12px;top:12px;z-index:50;background:var(--bg);padding:8px 12px;border-radius:8px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-.lectura{max-width:760px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.lectura{max-width:none}
+.lectura>p,.lectura>.intro,.lectura>.def,.lectura>ol.pasos,.lectura>ul.check,.lectura>.pega{max-width:80ch}
 h1,h2,h3{font-family:var(--f-display);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin:0;text-wrap:balance}
-h2{font-size:clamp(1.6rem,3.2vw,2.15rem);margin:.2em 0 .5em}
+h2{font-size:clamp(1.6rem,3vw,2rem);line-height:1.2;margin:.2em 0 .5em}
 h3{font-size:1.25rem;margin:1.8em 0 .5em}
 p{margin:0 0 1em}
 b,strong{color:var(--ink)}
@@ -54,12 +55,12 @@ b,strong{color:var(--ink)}
 header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 header.top .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 6px}
 header.top .marca{font-family:var(--f-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
-header.top .acc{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}header.top .volver.sec{background:transparent;border:1px solid var(--line)}
+header.top .acc{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}header.top .acc a{border:1px solid transparent;line-height:1.3}header.top .volver.sec{background:transparent;border-color:var(--line)}
 header.top .volver{font-size:.88rem;font-weight:600;text-decoration:none;background:var(--blue-soft);padding:6px 12px;border-radius:99px;white-space:nowrap}
 nav.indice{display:flex;gap:4px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
 nav.indice::-webkit-scrollbar{display:none}
 nav.indice a{flex:none;display:block;padding:5px 11px;border-radius:99px;text-decoration:none;color:var(--text);font-size:.86rem}
-nav.indice a b{font-family:var(--f-mono);font-size:.72rem;color:var(--blue);margin-right:4px;font-weight:500}
+nav.indice a b{font-size:.75rem;color:var(--blue);margin-right:5px;font-weight:600}
 nav.indice a:hover,nav.indice a.activo{background:var(--blue-soft);color:var(--blue)}
 /* portada */
 .portada{padding:52px 0 36px;border-bottom:1px solid var(--line)}
@@ -69,7 +70,7 @@ nav.indice a:hover,nav.indice a.activo{background:var(--blue-soft);color:var(--b
 .portada p{max-width:68ch}
 .mapa{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:26px 0 0;padding:0;list-style:none;counter-reset:m}
 .mapa a{display:block;height:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.95rem;line-height:1.3}
-.mapa a span{display:block;font-family:var(--f-mono);font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:4px}
+.mapa a span{display:block;font-size:.8rem;color:var(--blue);font-weight:600;margin-bottom:4px}
 .mapa a:hover{border-color:var(--blue);background:var(--blue-soft)}
 /* secciones */
 section.bloque{padding:56px 0;border-bottom:1px solid var(--line)}
@@ -86,7 +87,7 @@ section.bloque{padding:56px 0;border-bottom:1px solid var(--line)}
 .tarjeta{background:var(--panel);border-radius:12px;padding:16px 18px}
 .tarjeta h4{margin:0 0 6px;font-size:1rem;color:var(--ink)}
 .tarjeta p{margin:0;font-size:.95rem}
-.tarjeta .num{font-family:var(--f-mono);font-size:.75rem;color:var(--blue);display:block;margin-bottom:4px}
+.tarjeta .num{font-size:.85rem;font-weight:600;color:var(--blue);display:block;margin-bottom:4px}
 /* comparación */
 .versus{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.2em 0}
 .versus>div{border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
@@ -100,7 +101,7 @@ section.bloque{padding:56px 0;border-bottom:1px solid var(--line)}
 /* anatomía */
 .anatomia{list-style:none;padding:0;margin:1.2em 0;display:grid;gap:8px}
 .anatomia li{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;background:var(--panel);border-radius:10px;padding:12px 16px}
-.anatomia li b{font-family:var(--f-mono);font-size:.82rem;color:var(--blue);font-weight:500;padding-top:2px}
+.anatomia li b{font-size:.92rem;color:var(--blue);font-weight:700;padding-top:1px}
 .anatomia li span{font-size:.95rem}
 .anatomia li em{display:block;color:var(--muted);font-size:.88rem;margin-top:3px}
 @media (max-width:600px){.anatomia li{grid-template-columns:1fr;gap:2px}}
@@ -246,8 +247,8 @@ body.app section.vista.on{display:block}
 
   <h3>Dos tipos de prompt</h3>
   <div class="rejilla">
-    <div class="tarjeta"><span class="num">PROMPT DE USUARIO</span><h4>Lo que usted escribe en cada turno</h4><p>La petición concreta: «Revise la coherencia entre mi pregunta y mis objetivos».</p></div>
-    <div class="tarjeta"><span class="num">PROMPT DE SISTEMA O INSTRUCCIONES FIJAS</span><h4>Las reglas que valen para toda la conversación</h4><p>El rol, el contexto permanente y las reglas de integridad. En las herramientas aparece como «instrucciones personalizadas», «proyecto» o «Gem». Es la base de un agente.</p></div>
+    <div class="tarjeta"><span class="num">Prompt de usuario</span><h4>Lo que usted escribe en cada turno</h4><p>La petición concreta: «Revise la coherencia entre mi pregunta y mis objetivos».</p></div>
+    <div class="tarjeta"><span class="num">Prompt de sistema o instrucciones fijas</span><h4>Las reglas que valen para toda la conversación</h4><p>El rol, el contexto permanente y las reglas de integridad. En las herramientas aparece como «instrucciones personalizadas», «proyecto» o «Gem». Es la base de un agente.</p></div>
   </div>
 
   <h3>Un ejemplo: el mismo pedido, dos prompts</h3>
@@ -268,9 +269,9 @@ body.app section.vista.on{display:block}
 
   <h3>Tres loops que usted encontrará</h3>
   <div class="rejilla">
-    <div class="tarjeta"><span class="num">LOOP 1 · CONVERSACIÓN</span><h4>Usted ↔ IA</h4><p>Usted escribe, lee la respuesta, la contrasta con sus criterios y reformula. El evaluador es usted.</p></div>
-    <div class="tarjeta"><span class="num">LOOP 2 · AUTORREVISIÓN</span><h4>Generar → criticar → corregir</h4><p>La IA produce un borrador, lo critica con criterios que usted fija y lo corrige. Es la idea de Self-Refine <span class="cita">(Madaan et al., 2023)</span>.</p></div>
-    <div class="tarjeta"><span class="num">LOOP 3 · AGÉNTICO</span><h4>Pensar → actuar → observar</h4><p>La IA razona el siguiente paso, usa una herramienta (busca, lee un archivo, ejecuta un cálculo), observa el resultado y decide qué sigue. Es el patrón ReAct <span class="cita">(Yao et al., 2023)</span>.</p></div>
+    <div class="tarjeta"><span class="num">Loop 1 · conversación</span><h4>Usted ↔ IA</h4><p>Usted escribe, lee la respuesta, la contrasta con sus criterios y reformula. El evaluador es usted.</p></div>
+    <div class="tarjeta"><span class="num">Loop 2 · autorrevisión</span><h4>Generar → criticar → corregir</h4><p>La IA produce un borrador, lo critica con criterios que usted fija y lo corrige. Es la idea de Self-Refine <span class="cita">(Madaan et al., 2023)</span>.</p></div>
+    <div class="tarjeta"><span class="num">Loop 3 · agéntico</span><h4>Pensar → actuar → observar</h4><p>La IA razona el siguiente paso, usa una herramienta (busca, lee un archivo, ejecuta un cálculo), observa el resultado y decide qué sigue. Es el patrón ReAct <span class="cita">(Yao et al., 2023)</span>.</p></div>
   </div>
 
   <figure class="diag" aria-labelledby="capLoop">
@@ -335,10 +336,10 @@ body.app section.vista.on{display:block}
 
   <h3>Los componentes de un agente</h3>
   <div class="rejilla">
-    <div class="tarjeta"><span class="num">PERFIL</span><h4>Quién es y para qué</h4><p>Rol, meta y reglas. Se escribe en las instrucciones del sistema.</p></div>
-    <div class="tarjeta"><span class="num">MEMORIA</span><h4>Qué recuerda</h4><p>Los archivos del proyecto, la bitácora de lo ya hecho y lo decidido.</p></div>
-    <div class="tarjeta"><span class="num">PLANIFICACIÓN</span><h4>Cómo divide la meta</h4><p>Descompone la tarea en pasos y los ajusta según lo que observa.</p></div>
-    <div class="tarjeta"><span class="num">ACCIÓN</span><h4>Qué puede hacer</h4><p>Las herramientas: buscar en la web o en bases, leer archivos, ejecutar código.</p></div>
+    <div class="tarjeta"><span class="num">Perfil</span><h4>Quién es y para qué</h4><p>Rol, meta y reglas. Se escribe en las instrucciones del sistema.</p></div>
+    <div class="tarjeta"><span class="num">Memoria</span><h4>Qué recuerda</h4><p>Los archivos del proyecto, la bitácora de lo ya hecho y lo decidido.</p></div>
+    <div class="tarjeta"><span class="num">Planificación</span><h4>Cómo divide la meta</h4><p>Descompone la tarea en pasos y los ajusta según lo que observa.</p></div>
+    <div class="tarjeta"><span class="num">Acción</span><h4>Qué puede hacer</h4><p>Las herramientas: buscar en la web o en bases, leer archivos, ejecutar código.</p></div>
   </div>
   <p class="cita" style="white-space:normal;color:var(--muted)">Marco de cuatro módulos propuesto por Wang et al. (2024).</p>
 
@@ -367,24 +368,24 @@ body.app section.vista.on{display:block}
 
   <h3>Las partes de un prompt</h3>
   <ul class="anatomia">
-    <li><b>ROL</b><span>Desde qué experticia debe responder la IA.<em>«Actúe como metodóloga en investigación cualitativa en educación.»</em></span></li>
-    <li><b>CONTEXTO</b><span>Lo que la IA necesita saber de su proyecto.<em>Nivel, programa, tema, pregunta, enfoque.</em></span></li>
-    <li><b>TAREA</b><span>Un verbo y un producto concreto. Una tarea por prompt.<em>«Proponga tres versiones del objetivo general.»</em></span></li>
-    <li><b>INSUMOS</b><span>El material sobre el que trabaja, separado de las instrucciones.<em>Resúmenes, su borrador, una tabla, delimitados con etiquetas.</em></span></li>
-    <li><b>RESTRICCIONES</b><span>Lo que no debe hacer y los límites.<em>«No invente fuentes. Máximo 150 palabras. Solo con los insumos.»</em></span></li>
-    <li><b>FORMATO</b><span>Cómo debe entregar la respuesta.<em>Tabla con columnas definidas, lista numerada, párrafo.</em></span></li>
-    <li><b>VERIFICACIÓN</b><span>Cómo debe comprobar su propia respuesta antes de entregarla.<em>«Marque con [VERIFICAR] lo que yo deba comprobar.»</em></span></li>
+    <li><b>Rol</b><span>Desde qué experticia debe responder la IA.<em>«Actúe como metodóloga en investigación cualitativa en educación.»</em></span></li>
+    <li><b>Contexto</b><span>Lo que la IA necesita saber de su proyecto.<em>Nivel, programa, tema, pregunta, enfoque.</em></span></li>
+    <li><b>Tarea</b><span>Un verbo y un producto concreto. Una tarea por prompt.<em>«Proponga tres versiones del objetivo general.»</em></span></li>
+    <li><b>Insumos</b><span>El material sobre el que trabaja, separado de las instrucciones.<em>Resúmenes, su borrador, una tabla, delimitados con etiquetas.</em></span></li>
+    <li><b>Restricciones</b><span>Lo que no debe hacer y los límites.<em>«No invente fuentes. Máximo 150 palabras. Solo con los insumos.»</em></span></li>
+    <li><b>Formato</b><span>Cómo debe entregar la respuesta.<em>Tabla con columnas definidas, lista numerada, párrafo.</em></span></li>
+    <li><b>Verificación</b><span>Cómo debe comprobar su propia respuesta antes de entregarla.<em>«Marque con [VERIFICAR] lo que yo deba comprobar.»</em></span></li>
   </ul>
 
   <h3>Las partes de un agente</h3>
   <ul class="anatomia">
-    <li><b>PROPÓSITO</b><span>La meta verificable y para qué sirve.<em>«Construir la tabla de evidencia del capítulo 2.»</em></span></li>
-    <li><b>CONOCIMIENTO</b><span>El contexto fijo del proyecto y los archivos que puede consultar.<em>Protocolo, criterios de inclusión, matriz de coherencia.</em></span></li>
-    <li><b>HERRAMIENTAS</b><span>Qué puede usar y qué tiene prohibido.<em>Puede buscar en Crossref; no puede borrar archivos ni enviar correos.</em></span></li>
-    <li><b>CICLO</b><span>Los pasos de cada vuelta del loop.<em>Planear → actuar → observar → evaluar.</em></span></li>
-    <li><b>CONTROLES HUMANOS</b><span>En qué momentos debe detenerse y pedirle confirmación.<em>Antes de excluir estudios; antes de redactar.</em></span></li>
-    <li><b>PARADA</b><span>Cuándo termina, aunque no haya llegado a la meta.<em>«Pare tras 20 búsquedas o si no puede verificar una fuente.»</em></span></li>
-    <li><b>ENTREGA Y BITÁCORA</b><span>Qué entrega y qué registro deja de cada decisión.<em>Tabla + bitácora con fecha, acción, fuente y resultado.</em></span></li>
+    <li><b>Propósito</b><span>La meta verificable y para qué sirve.<em>«Construir la tabla de evidencia del capítulo 2.»</em></span></li>
+    <li><b>Conocimiento</b><span>El contexto fijo del proyecto y los archivos que puede consultar.<em>Protocolo, criterios de inclusión, matriz de coherencia.</em></span></li>
+    <li><b>Herramientas</b><span>Qué puede usar y qué tiene prohibido.<em>Puede buscar en Crossref; no puede borrar archivos ni enviar correos.</em></span></li>
+    <li><b>Ciclo</b><span>Los pasos de cada vuelta del loop.<em>Planear → actuar → observar → evaluar.</em></span></li>
+    <li><b>Controles humanos</b><span>En qué momentos debe detenerse y pedirle confirmación.<em>Antes de excluir estudios; antes de redactar.</em></span></li>
+    <li><b>Parada</b><span>Cuándo termina, aunque no haya llegado a la meta.<em>«Pare tras 20 búsquedas o si no puede verificar una fuente.»</em></span></li>
+    <li><b>Entrega y bitácora</b><span>Qué entrega y qué registro deja de cada decisión.<em>Tabla + bitácora con fecha, acción, fuente y resultado.</em></span></li>
   </ul>
 </div></div></section>
 
@@ -399,11 +400,11 @@ body.app section.vista.on{display:block}
   <h3>Cinco principios: el marco CLEAR</h3>
   <p>Lo (2023) propone cinco principios para redactar prompts en contextos académicos:</p>
   <div class="rejilla">
-    <div class="tarjeta"><span class="num">C · CONCISO</span><p>Diga lo necesario, sin rodeos ni cortesías que diluyan la tarea.</p></div>
-    <div class="tarjeta"><span class="num">L · LÓGICO</span><p>Ordene la información para que la relación entre las partes sea clara.</p></div>
-    <div class="tarjeta"><span class="num">E · EXPLÍCITO</span><p>Especifique qué quiere recibir, con qué extensión y en qué formato.</p></div>
-    <div class="tarjeta"><span class="num">A · ADAPTATIVO</span><p>Ajuste el prompt según lo que obtiene; pruebe variantes.</p></div>
-    <div class="tarjeta"><span class="num">R · REFLEXIVO</span><p>Evalúe cada respuesta y aprenda qué funcionó para la próxima vez.</p></div>
+    <div class="tarjeta"><span class="num">C · conciso</span><p>Diga lo necesario, sin rodeos ni cortesías que diluyan la tarea.</p></div>
+    <div class="tarjeta"><span class="num">L · lógico</span><p>Ordene la información para que la relación entre las partes sea clara.</p></div>
+    <div class="tarjeta"><span class="num">E · explícito</span><p>Especifique qué quiere recibir, con qué extensión y en qué formato.</p></div>
+    <div class="tarjeta"><span class="num">A · adaptativo</span><p>Ajuste el prompt según lo que obtiene; pruebe variantes.</p></div>
+    <div class="tarjeta"><span class="num">R · reflexivo</span><p>Evalúe cada respuesta y aprenda qué funcionó para la próxima vez.</p></div>
   </div>
 
   <h3>Técnicas y cuándo usarlas</h3>
