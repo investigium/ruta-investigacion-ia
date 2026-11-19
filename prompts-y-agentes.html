@@ -245,16 +245,104 @@ body.app section.vista.on{display:block}
 @media (max-width:600px){.paginador{grid-template-columns:1fr}.paginador a.sig{grid-column:1}}
 @media print{body.app section.vista{display:block!important}.paginador,.progreso{display:none}header.top,.copiar,.mapa{display:none}section.bloque{padding:24px 0}}
 </style>
+<style>/* ===== Capa de diseño «Partes a la vista» (común a Ruta, Paso 0 y Matriz) ===== */
+:root{--p0:#1F4E79;--p1:#2B6693;--p2:#7A4FB0;--p3:#9A6210;--p4:#1B7499;--p5:#A23B5D;--p6:#4A5866;--p7:#1D7A52;--pv-ink:#14202B;--pv-text:#3D4A5C;--pv-muted:#56637A;--pv-line:#DDE3EA;--pv-panel:#F4F6F9;--pv-brand:#1F4E79;--pv-brand-soft:#EAF1F8;--pv-ok:#1D7A52;--pv-ok-soft:#E6F3EC}
+html body nav.top{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--pv-line);box-shadow:none}
+html body nav.top>.wrap,html body nav.top>.nav-in{max-width:1200px;margin:0 auto;padding:8px 24px 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+html body nav.top .brand{display:flex!important;align-items:center;gap:10px;text-decoration:none;color:var(--pv-ink);margin-right:auto;min-width:0;font-size:inherit}
+html body nav.top .brand svg{width:34px;height:34px;flex:none}
+html body nav.top .brand b{display:block;font-family:var(--f-display,Georgia,serif);font-size:1.08rem;font-weight:700;line-height:1.2;color:var(--pv-ink);white-space:nowrap}
+html body nav.top .brand small{display:block;font-size:.75rem;line-height:1.25;color:var(--pv-muted);font-weight:500}
+html body nav.top .pv-save{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;color:var(--pv-ok);background:var(--pv-ok-soft);border-radius:999px;padding:4px 10px;white-space:nowrap}
+html body nav.top .pv-save svg{width:13px;height:13px}
+html body nav.top ul{order:9;flex-basis:100%;display:flex;flex-wrap:nowrap!important;gap:4px;overflow-x:auto;margin:0;padding:4px 0 10px;list-style:none;scrollbar-width:none;border:0}
+html body nav.top ul::-webkit-scrollbar{display:none}
+html body nav.top ul li{margin:0;flex:none}
+html body nav.top ul a{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-size:.94rem;font-weight:500;color:var(--pv-text);white-space:nowrap;text-decoration:none;min-height:40px;background:none;border:0}
+html body nav.top ul a:has(b){padding-left:6px}
+html body nav.top ul a b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700;background:var(--pv-panel);color:var(--pv-ink);flex:none;margin:0}
+html body nav.top ul a:hover{background:var(--pv-panel);color:var(--pv-ink)}
+html body nav.top ul a[aria-current]{background:var(--pv-brand-soft);color:var(--pv-brand);font-weight:600}
+html body nav.top ul a[aria-current] b{color:#fff;background:var(--pv-brand)}
+html body nav.top ul a[aria-current] b[data-n="0"]{background:#fff;color:var(--p0);box-shadow:inset 0 0 0 2px var(--p0)}
+html body nav.top ul a[aria-current] b[data-n="1"]{background:var(--p1)}html body nav.top ul a[aria-current] b[data-n="2"]{background:var(--p2)}html body nav.top ul a[aria-current] b[data-n="3"]{background:var(--p3)}html body nav.top ul a[aria-current] b[data-n="4"]{background:var(--p4)}html body nav.top ul a[aria-current] b[data-n="5"]{background:var(--p5)}html body nav.top ul a[aria-current] b[data-n="6"]{background:var(--p6)}html body nav.top ul a[aria-current] b[data-n="7"]{background:var(--p7)}
+html body nav.top ul li.ap{margin-left:auto}html body nav.top ul li.ap~li.ap{margin-left:0}
+html body nav.top ul li.ap a{color:var(--pv-muted);font-size:.88rem}
+html body nav.top .idioma{order:3}
+@media (max-width:760px){html body nav.top>.wrap,html body nav.top>.nav-in{padding:8px 14px 0}html body nav.top .brand small{display:none}html body nav.top .brand b{font-size:.98rem}html body nav.top .pv-save span{display:none}}
+/* Pie oscuro común */
+html body footer{background:#0f1b2a;color:#c8d3e0;border:0;margin-top:40px;padding:36px 0 44px;font-size:.92rem;line-height:1.6}
+html body footer b{color:#fff!important}
+html body footer a{color:#9cc3f5}
+html body footer .cc{display:flex;gap:18px;align-items:center;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px 18px;margin-top:14px;background:transparent}
+html body footer .cc p{margin:0}
+@media (max-width:640px){html body footer .cc{flex-direction:column;align-items:flex-start}}
+/* Patrón: lista numerada + ventana viva */
+.pv{border:1px solid var(--pv-line);border-radius:16px;background:var(--pv-panel);overflow:hidden;margin-top:18px}
+.pv-top{padding:12px 16px;border-bottom:1px solid var(--pv-line);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pv-pills{display:inline-flex;gap:4px;background:#fff;border:1px solid var(--pv-line);border-radius:999px;padding:4px;max-width:100%;overflow-x:auto}
+.pv-pills button{font:inherit;border:0;background:none;border-radius:999px;padding:8px 16px;font-weight:600;color:var(--pv-text);cursor:pointer;white-space:nowrap;min-height:40px}
+.pv-pills button[aria-selected=true]{background:var(--pv-brand);color:#fff}
+.pv-grid{display:grid;grid-template-columns:minmax(260px,380px) minmax(0,1fr);gap:24px;padding:20px;background:#fff}
+.pv-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.pv-grp{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pv-muted);margin:8px 4px 0}
+.pv-grp:first-child{margin-top:0}
+.pv-part{width:100%;display:flex;gap:14px;align-items:flex-start;text-align:left;font:inherit;background:#fff;border:1px solid var(--pv-line);border-radius:12px;padding:14px 16px;cursor:pointer;box-shadow:0 1px 2px rgb(20 32 43 / .06);transition:border-color .15s,background .15s;color:inherit}
+.pv-part:hover{border-color:#9FB4C9}
+.pv-part[aria-current=true]{background:var(--pv-brand-soft);border:2px solid var(--pv-brand);padding:13px 15px}
+.pv-num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:1rem;flex:none;background:var(--c,var(--pv-brand))}
+.pv-num.zero{background:#fff;color:var(--p0);border:2px solid var(--p0)}
+.pv-part b{display:block;color:var(--pv-ink);font-size:1.05rem;line-height:1.3}
+.pv-part small{display:block;color:var(--pv-muted);font-size:.94rem;line-height:1.4;margin-top:2px}
+.pv-part .pv-tag{display:inline-block;margin-top:6px;font-size:.75rem;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--pv-panel);color:var(--pv-muted)}
+.pv-win{border:1px solid var(--pv-line);border-radius:16px;background:#fff;box-shadow:0 8px 24px rgb(20 32 43 / .08);overflow:hidden;align-self:start;position:sticky;top:130px}
+.pv-whead{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--pv-line);background:#FBFCFD}
+.pv-dots{display:flex;gap:6px;flex:none}.pv-dots i{width:11px;height:11px;border-radius:50%;background:#E0574F}.pv-dots i:nth-child(2){background:#E0A93B}.pv-dots i:nth-child(3){background:#4FAF62}
+.pv-whead b{color:var(--pv-ink);font-size:.95rem}
+.pv-wbody{padding:20px;display:flex;flex-direction:column;gap:16px}
+.pv-k{font-size:.8rem;font-weight:700;color:var(--pv-muted);text-transform:uppercase;letter-spacing:.05em;margin:0 0 4px}
+.pv-wbody h3{margin:0;font-family:var(--f-display,Georgia,serif);font-size:1.4rem;color:var(--pv-ink);line-height:1.25}
+.pv-wbody p{margin:0;color:var(--pv-ink);font-size:1.02rem;line-height:1.6}
+.pv-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pv-fact{background:var(--pv-panel);border-radius:12px;padding:10px 12px;font-size:.9rem;color:var(--pv-ink)}
+.pv-fact span{display:block;font-size:.75rem;color:var(--pv-muted);font-weight:600}
+.pv-btn{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border-radius:999px;background:var(--pv-brand);color:#fff!important;font-weight:600;padding:10px 20px;min-height:44px;text-decoration:none}
+.pv-btn:hover{background:#173E61}
+.pv-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:20px;background:#fff}
+.pv-tools a{display:block;border:1px solid var(--pv-line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--pv-text)}
+.pv-tools a:hover{border-color:var(--pv-brand)}
+.pv-tools a b{display:block;color:var(--pv-ink);font-size:1.02rem}
+.pv-tools-pie{padding:0 20px 18px;background:#fff;margin:0;font-size:.9rem}
+@media (max-width:860px){.pv-grid{grid-template-columns:1fr;padding:14px;gap:12px}.pv-win{position:static}}
+html body .wrap>footer{box-shadow:0 0 0 100vmax #0f1b2a;clip-path:inset(0 -100vmax);padding-left:0;padding-right:0}
+html body nav.top .pv-sub{max-width:1200px;margin:0 auto;padding:0 24px 8px;display:block}
+html body nav.top nav.indice{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding:2px 0 4px;margin:0;border:0;background:none}
+html body nav.top nav.indice a{display:inline-flex;gap:6px;align-items:center;font-size:.88rem;font-weight:500;text-decoration:none;color:var(--pv-text);border:1px solid var(--pv-line);border-radius:999px;padding:4px 12px;white-space:nowrap;min-height:34px;background:#fff}
+html body nav.top nav.indice a b{color:var(--pv-muted);font-weight:700;background:none;width:auto;height:auto;margin:0}
+html body nav.top nav.indice a.activo{background:var(--pv-ink);border-color:var(--pv-ink);color:#fff}
+html body nav.top nav.indice a.activo b{color:#C9D4E0}
+@media (max-width:760px){html body nav.top .pv-sub{padding:0 14px 8px}}
+</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 
-<header class="top"><div class="wrap">
-  <div class="fila">
-    <a class="marca" href="./">Ruta de investigación con IA</a>
-    <span class="acc"><a class="volver sec" href="https://investigium.github.io/libro-prompts-matriz/">Matriz de coherencia ↗</a><a class="volver" href="./">← Volver a la Ruta</a></span>
-  </div>
-  <nav class="indice" aria-label="Secciones de esta página">
+<nav class="top" aria-label="Recorrido"><div class="wrap">
+  <a class="brand" href="./" aria-label="Ruta de investigación con IA, inicio"><svg viewBox="88 30 92 92" aria-hidden="true"><path d="M151 93L174 116" stroke="#2b6693" stroke-width="10.5" stroke-linecap="round"/><circle cx="128" cy="70" r="34.5" fill="#2b6693"/><circle cx="128" cy="70" r="26" fill="none" stroke="#fff" stroke-width="2.9"/><path fill="#fff" d="M125 85.5L113 55h7.5l8 22.5 8-22.5H144l-12.5 30.5z"/></svg><span><b>Ruta de investigación con IA</b><small>Investigium Lab · Elver Chaparro Cardozo</small></span></a><span class="pv-save"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="2" fill="currentColor"/><path d="M5 7V5a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Guardado en este navegador</span></span>
+  <ul>
+    <li><a href="./">Inicio</a></li>
+    <li><a href="prompts-y-agentes.html" aria-current="page"><b data-n="0">0</b> Prompts</a></li>
+    <li><a href="./#ruta"><b data-n="1">1</b> Proceso</a></li>
+    <li><a href="https://investigium.github.io/libro-prompts-matriz/"><b data-n="2">2</b> Matriz ↗</a></li>
+    <li><a href="./#rsl"><b data-n="3">3</b> Literatura</a></li>
+    <li><a href="https://investigium.github.io/libro-prompts-matriz/#mapa"><b data-n="4">4</b> Mapa ↗</a></li>
+    <li><a href="https://investigium.github.io/libro-prompts-matriz/#cronograma"><b data-n="5">5</b> Cronograma ↗</a></li>
+    <li><a href="./#engranaje"><b data-n="6">6</b> Resumen</a></li>
+    <li><a href="./#rubrica"><b data-n="7">7</b> Evaluación</a></li>
+    <li class="ap"><a href="./#sistema">Archivos</a></li>
+    <li class="ap"><a href="./#comentarios">Contacto</a></li>
+  </ul>
+</div><div class="pv-sub"><nav class="indice" aria-label="Secciones de esta página">
     <a href="#inicio">Inicio</a>
     <a href="#prompt"><b>1</b>Prompt</a>
     <a href="#loop"><b>2</b>Loop</a>
@@ -267,8 +355,7 @@ body.app section.vista.on{display:block}
     <a href="#taller"><b>9</b>Taller</a>
     <a href="#mapa-prompts"><b>10</b>Mapa de prompts</a>
     <a href="#referencias">Referencias</a>
-  </nav>
-</div></header>
+  </nav></div></nav>
 
 <main id="contenido">
 
@@ -901,9 +988,8 @@ Por favor:
 
 <footer><div class="wrap">
   <p style="margin:0 0 6px"><b>Ruta de investigación con IA</b> · Guía de trabajo para estudiantes de posgrado · Elver Chaparro Cardozo · <a href="./">Volver a la Ruta</a></p>
-  <div class="lic">
-    <div class="cc">CC BY · NC · SA<br>Creative Commons 4.0</div>
-    <p style="margin:0"><b>Ruta de investigación con IA</b> © 2026 Elver Chaparro Cardozo está bajo una licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>. Puede copiarla y adaptarla citando al autor, sin fines comerciales y compartiendo bajo la misma licencia.</p>
+  <p style="margin:0 0 8px">El taller de revisión sistemática de literatura retoma y amplía el trabajo de <b>Alonso Ramírez Hernández</b>.</p>
+  <div class="cc"><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank"><svg class="cc-badge" viewBox="0 0 176 52" width="176" height="52" role="img" aria-label="Licencia Creative Commons BY-NC-SA 4.0"><rect x="1" y="1" width="174" height="50" rx="8" fill="#141821"/><circle cx="27" cy="26" r="17" fill="#fff"/><text x="27" y="32" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#141821">cc</text><g font-family="Arial,Helvetica,sans-serif" font-weight="700" fill="#fff"><text x="54" y="23" font-size="12.5">BY · NC · SA</text><text x="54" y="40" font-size="11" fill="#c9d1dc">Creative Commons 4.0</text></g></svg></a><p><b>Ruta de investigación con IA</b> © 2026 Elver Chaparro Cardozo está bajo una licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>. Puede copiarla y adaptarla citando al autor, sin fines comerciales y compartiendo bajo la misma licencia.</p>
   </div>
 </div></footer>
 
