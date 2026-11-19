@@ -266,7 +266,7 @@ body.app section.vista.on{display:block}
 <main id="contenido">
 
 <section class="portada vista" id="inicio"><div class="wrap">
-  <span class="etq">Guía complementaria · Uso de la IA</span>
+  <span class="etq">Paso 0 · Antes de empezar</span>
   <h1>Prompts, loops y agentes de IA en la investigación</h1>
   <p class="sub">Qué son, cómo operan dentro de un proyecto de investigación y cómo redactarlos para que la IA trabaje con rigor y usted conserve el criterio.</p>
   <p>Cuando usted escribe una instrucción a una IA está redactando un <b>prompt</b>. Cuando revisa la respuesta y vuelve a pedir, está dentro de un <b>loop</b>. Y cuando la IA decide por sí misma qué buscar, qué leer y qué hacer después, está actuando como un <b>agente</b>. Esta página explica esos tres conceptos en orden, muestra cómo se estructuran, le entrega plantillas para redactar los suyos y cierra con un taller práctico y un banco de prompts para la revisión de literatura.</p>
@@ -850,6 +850,7 @@ vistas.forEach((s,i)=>{
   let html="";
   if(i>0)html+='<a class="ant" href="#'+ids[i-1]+'"><small>← Anterior</small>'+nombre(ids[i-1])+'</a>';
   if(i<ids.length-1)html+='<a class="sig" href="#'+ids[i+1]+'"><small>Siguiente →</small>'+(i===0?"Empezar: ":"")+nombre(ids[i+1])+'</a>';
+  else html+='<a class="sig" href="./#ruta"><small>Continúe en la Ruta →</small>Paso 1 · Conocer el proceso</a>';
   pg.innerHTML=html;w.append(pg);
 });
 const links=[...document.querySelectorAll("nav.indice a")];
