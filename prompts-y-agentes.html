@@ -159,7 +159,17 @@ footer b{color:#fff}
 .lic{display:flex;gap:16px;align-items:center;border:1px solid #2a3846;border-radius:12px;padding:14px 16px;margin-top:14px}
 .lic .cc{flex:none;background:#000;color:#fff;border-radius:8px;padding:8px 10px;font-family:var(--f-mono);font-size:.72rem;line-height:1.3}
 @media (max-width:600px){.lic{flex-direction:column;align-items:flex-start}}
-@media print{header.top,.copiar,.mapa{display:none}section.bloque{padding:24px 0}}
+/* una pantalla por tema */
+body.app section.vista{display:none;border-bottom:0;min-height:calc(100vh - 230px)}
+body.app section.vista.on{display:block}
+.paginador{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.paginador a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);font-weight:600}
+.paginador a small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+.paginador a.sig{text-align:right;grid-column:2}
+.paginador a:hover{border-color:var(--blue);background:var(--blue-soft)}
+.progreso{font-size:.82rem;color:var(--muted);margin:0 0 10px}
+@media (max-width:600px){.paginador{grid-template-columns:1fr}.paginador a.sig{grid-column:1}}
+@media print{body.app section.vista{display:block!important}.paginador,.progreso{display:none}header.top,.copiar,.mapa{display:none}section.bloque{padding:24px 0}}
 </style>
 </head>
 <body>
@@ -171,6 +181,7 @@ footer b{color:#fff}
     <span class="acc"><a class="volver sec" href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts ↗</a><a class="volver" href="./">← Volver a la Ruta</a></span>
   </div>
   <nav class="indice" aria-label="Secciones de esta página">
+    <a href="#inicio">Inicio</a>
     <a href="#prompt"><b>1</b>Prompt</a>
     <a href="#loop"><b>2</b>Loop</a>
     <a href="#agentica"><b>3</b>IA agéntica</a>
@@ -184,7 +195,7 @@ footer b{color:#fff}
 
 <main id="contenido">
 
-<section class="portada"><div class="wrap">
+<section class="portada vista" id="inicio"><div class="wrap">
   <span class="etq">Guía complementaria · Uso de la IA</span>
   <h1>Prompts, loops y agentes de IA en la investigación</h1>
   <p class="sub">Qué son, cómo operan dentro de un proyecto de investigación y cómo redactarlos para que la IA trabaje con rigor y usted conserve el criterio.</p>
@@ -201,7 +212,7 @@ footer b{color:#fff}
 </div></section>
 
 <!-- 1 PROMPT -->
-<section class="bloque" id="prompt"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="prompt"><div class="wrap"><div class="lectura">
   <span class="eb">1 · Concepto</span>
   <h2>Qué es un prompt</h2>
   <div class="def">Un prompt es la entrada que usted le da a un modelo de lenguaje para orientar su respuesta: la instrucción, el contexto, los materiales y las condiciones de la tarea, escritos casi siempre en lenguaje natural.
@@ -224,7 +235,7 @@ footer b{color:#fff}
 </div></div></section>
 
 <!-- 2 LOOP -->
-<section class="bloque" id="loop"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="loop"><div class="wrap"><div class="lectura">
   <span class="eb">2 · Concepto</span>
   <h2>Qué es un loop</h2>
   <div class="def">Un loop (bucle o ciclo iterativo) es la repetición de un mismo ciclo, producir, evaluar y corregir, hasta que el resultado cumple un criterio o se alcanza un límite definido de antemano.</div>
@@ -279,7 +290,7 @@ footer b{color:#fff}
 </div></div></section>
 
 <!-- 3 AGÉNTICA -->
-<section class="bloque" id="agentica"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="agentica"><div class="wrap"><div class="lectura">
   <span class="eb">3 · Concepto y práctica</span>
   <h2>Cómo opera la IA agéntica en un proceso de investigación</h2>
   <div class="def">Un sistema de IA agéntico es aquel que puede perseguir metas complejas con supervisión directa limitada: planea, usa herramientas, observa los resultados y decide el siguiente paso.
@@ -324,7 +335,7 @@ footer b{color:#fff}
 </div></div></section>
 
 <!-- 4 ESTRUCTURA -->
-<section class="bloque" id="estructura"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="estructura"><div class="wrap"><div class="lectura">
   <span class="eb">4 · Estructura</span>
   <h2>Cómo se estructura un prompt y un agente</h2>
   <p class="intro">Un prompt y un agente se arman con piezas parecidas. El agente agrega las piezas que gobiernan su autonomía: herramientas, ciclo, controles y parada.</p>
@@ -353,7 +364,7 @@ footer b{color:#fff}
 </div></div></section>
 
 <!-- 5 INGENIERÍA -->
-<section class="bloque" id="ingenieria"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="ingenieria"><div class="wrap"><div class="lectura">
   <span class="eb">5 · Método</span>
   <h2>Ingeniería de prompts para investigación académica</h2>
   <div class="def">La ingeniería de prompts es la práctica de diseñar, probar y refinar prompts para obtener de un modelo de lenguaje resultados útiles para una tarea.
@@ -395,7 +406,7 @@ footer b{color:#fff}
 </div></div></section>
 
 <!-- 6 REDACTAR PROMPT -->
-<section class="bloque" id="redactar-prompt"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="redactar-prompt"><div class="wrap"><div class="lectura">
   <span class="eb">6 · Práctica</span>
   <h2>Cómo se redacta un prompt</h2>
   <ol class="pasos">
@@ -473,7 +484,7 @@ Al final, un párrafo de máximo 80 palabras sobre la coherencia del conjunto.</
 </div></div></section>
 
 <!-- 7 REDACTAR AGENTE -->
-<section class="bloque" id="redactar-agente"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="redactar-agente"><div class="wrap"><div class="lectura">
   <span class="eb">7 · Práctica</span>
   <h2>Cómo se redacta un agente</h2>
   <p class="intro">Redactar un agente es escribir sus instrucciones de sistema: el documento que gobierna todas sus vueltas del loop. En la práctica, se pega en el espacio de instrucciones de un asistente personalizado (un proyecto, un GPT o un Gem, según la herramienta) junto con los archivos del proyecto, o en una herramienta con modo agente que pueda buscar y leer por su cuenta.</p>
@@ -554,7 +565,7 @@ Pare cuando ocurra lo primero:
 </div></div></section>
 
 <!-- REFERENCIAS -->
-<section class="bloque" id="referencias"><div class="wrap"><div class="lectura">
+<section class="bloque vista" id="referencias"><div class="wrap"><div class="lectura">
   <span class="eb">Fuentes</span>
   <h2>Referencias</h2>
   <ol class="refs">
@@ -591,9 +602,32 @@ document.querySelectorAll("[data-copiar]").forEach(b=>{
     setTimeout(()=>{b.textContent=txt},2200);
   });
 });
-const links=[...document.querySelectorAll("nav.indice a")], secs=links.map(a=>document.querySelector(a.getAttribute("href")));
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("activo",a.getAttribute("href")==="#"+e.target.id))}})},{rootMargin:"-40% 0px -55% 0px"});
-secs.forEach(s=>s&&io.observe(s));
+{
+const vistas=[...document.querySelectorAll("section.vista")];
+const ids=vistas.map(s=>s.id);
+const nombre=id=>{const a=document.querySelector('nav.indice a[href="#'+id+'"]');return a?a.textContent.replace(/^\d+/,"").trim():id};
+document.body.classList.add("app");
+vistas.forEach((s,i)=>{
+  const w=s.querySelector(".lectura")||s.querySelector(".wrap");
+  if(i>0){const pr=document.createElement("p");pr.className="progreso";pr.textContent=(i<ids.length-1?"Tema "+i+" de "+(ids.length-2):"Fuentes");w.prepend(pr)}
+  const pg=document.createElement("nav");pg.className="paginador";pg.setAttribute("aria-label","Pasar de tema");
+  let html="";
+  if(i>0)html+='<a class="ant" href="#'+ids[i-1]+'"><small>← Anterior</small>'+nombre(ids[i-1])+'</a>';
+  if(i<ids.length-1)html+='<a class="sig" href="#'+ids[i+1]+'"><small>Siguiente →</small>'+(i===0?"Empezar: ":"")+nombre(ids[i+1])+'</a>';
+  pg.innerHTML=html;w.append(pg);
+});
+const links=[...document.querySelectorAll("nav.indice a")];
+function mostrar(){
+  const id=decodeURIComponent(location.hash.slice(1));
+  const act=ids.includes(id)?id:"inicio";
+  vistas.forEach(s=>s.classList.toggle("on",s.id===act));
+  links.forEach(a=>{const on=a.getAttribute("href")==="#"+act;a.classList.toggle("activo",on);if(on){a.setAttribute("aria-current","page");a.scrollIntoView({block:"nearest",inline:"center"})}else a.removeAttribute("aria-current")});
+  window.scrollTo(0,0);
+  const h=document.querySelector("section.vista.on h1, section.vista.on h2");
+  document.title=(act==="inicio"?"":nombre(act)+" · ")+"Prompts, loops y agentes de IA en la investigación";
+}
+addEventListener("hashchange",mostrar);mostrar();
+}
 </script>
 </body>
 </html>
