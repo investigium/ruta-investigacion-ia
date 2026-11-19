@@ -436,6 +436,26 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
 .eb,.rot,.pill,.mi-eb,.fase-r>span,.ruta-paso,.en-ruta,.pr-p{font-family:var(--f-body)!important;font-size:.84rem!important;font-weight:600!important;letter-spacing:.01em!important;text-transform:none!important}
 .eb,.rot,.mi-eb,.fase-r>span,.ruta-paso,.en-ruta,.pr-p{color:var(--blue)!important}
 .pr-e{font-family:var(--f-body)!important;font-size:.84rem!important;font-weight:600!important;letter-spacing:.01em!important;text-transform:none!important}
+.escritorio{margin:4px 0 18px}
+.es-ventana{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 8px 28px rgba(20,32,43,.08)}
+.es-barra{display:flex;align-items:center;gap:14px;padding:10px 14px;background:#eef3f8;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.es-pts{display:flex;gap:6px}.es-pts i{width:11px;height:11px;border-radius:50%;background:#c9d5e0;display:block}
+.es-ruta b{color:var(--ink)}
+.es-cuerpo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0}
+.es-carpetas{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-right:1px solid var(--line);align-content:start}
+.es-carpeta{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:2px solid transparent;border-radius:12px;background:none;cursor:pointer;font:inherit;color:var(--ink)}
+.es-carpeta svg{width:64px;height:50px}
+.es-carpeta span{font-size:.85rem;font-weight:600;word-break:break-word}
+.es-carpeta:hover{background:#f3f7fb}
+.es-carpeta.on{background:#e6eef5;border-color:#2b6693}
+.es-panel{padding:18px 20px}
+.es-panel p{margin:4px 0 10px}
+.es-archivos{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.es-f{display:flex;align-items:center;gap:10px;font-size:.9rem;padding:6px 8px;border-radius:8px;background:#f6f8fa}
+.es-f svg{width:22px;height:26px;flex:none}
+.es-sub svg{width:26px;height:20px}
+#casillas .nota{margin-top:10px}
+@media (max-width:760px){.es-cuerpo{grid-template-columns:1fr}.es-carpetas{border-right:0;border-bottom:1px solid var(--line);grid-template-columns:repeat(3,1fr);padding:12px}.es-carpeta svg{width:48px;height:38px}.es-carpeta span{font-size:.75rem}}
 </style>
 </head>
 <body>
@@ -533,22 +553,8 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
 <section class="bloque" id="sistema">
   <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">02</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Herramienta de apoyo</span><h2>Cómo organizar los archivos del proyecto</h2><p>Cada proyecto vive en una carpeta con seis subcarpetas. Así la IA (y su director) encuentra todo en el mismo lugar y cada paso lee lo que dejó el anterior.</p></div></div></div>
   <div class="wrap">
-    <div class="rej c3" id="casillas"></div>
-    <div class="banda">Una IA conectada a la carpeta puede responder <strong>«¿cuál casilla está más débil?»</strong> antes de cada reunión con su director.</div>
-    <h3 style="margin:28px 0 12px;font-size:1.25rem">Las ocho piezas de un sistema con IA</h3>
-    <div class="scroll"><table>
-      <thead><tr><th>Pieza</th><th>Qué es</th><th>En su proyecto</th></tr></thead>
-      <tbody>
-        <tr><td>Modelo</td><td>La IA de chat que razona y redacta.</td><td>Una sola IA durante todo el proyecto, para que el rastro sea comparable.</td></tr>
-        <tr><td>Instrucciones</td><td>Las reglas permanentes del asistente.</td><td>Un archivo de reglas que pega al inicio o guarda en el proyecto de la IA.</td></tr>
-        <tr><td>Memoria</td><td>Lo que el sistema recuerda entre sesiones.</td><td>Cuaderno del proyecto y bitácora de decisiones.</td></tr>
-        <tr><td>Herramientas</td><td>Lo que la IA puede consultar o producir.</td><td>Buscadores académicos, verificador de DOI, fichas y plantillas.</td></tr>
-        <tr><td>Entorno</td><td>Dónde están los archivos.</td><td>La carpeta con las seis carpetas.</td></tr>
-        <tr><td>Sesión</td><td>Cada conversación de trabajo.</td><td>Una conversación por tarea; se abre pegando el contexto del proyecto.</td></tr>
-        <tr><td>Credenciales</td><td>Los permisos con que la IA entra a sus cuentas.</td><td>Conectores de nube, correo y calendario, con el mínimo permiso.</td></tr>
-        <tr><td>Disparador</td><td>Lo que pone a andar el proceso.</td><td>Una entrega, una reunión de dirección o una nueva versión del documento.</td></tr>
-      </tbody>
-    </table></div>
+    <div class="escritorio" id="casillas"></div>
+    <div class="banda">Una IA conectada a la carpeta puede responder <strong>«¿cuál carpeta está más débil?»</strong> antes de cada reunión con su director.</div>
   </div>
 </section>
 
@@ -951,6 +957,21 @@ Reglas:
 <section class="bloque" id="reglas">
   <div class="sep"><div class="wrap fila"><span class="num" aria-hidden="true">07</span><span class="vr" aria-hidden="true"></span><div><span class="eb azul">Herramienta de apoyo</span><h2>Reglas para trabajar con IA de forma responsable</h2><p>Un sistema autónomo no es lo mismo que un sistema confiable: su calidad depende del criterio de quien lo usa.</p></div></div></div>
   <div class="wrap">
+    <h3 style="margin:0 0 12px">Las ocho piezas de un sistema con IA</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Pieza</th><th>Qué es</th><th>En su proyecto</th></tr></thead>
+      <tbody>
+        <tr><td>Modelo</td><td>La IA de chat que razona y redacta.</td><td>Una sola IA durante todo el proyecto, para que el rastro sea comparable.</td></tr>
+        <tr><td>Instrucciones</td><td>Las reglas permanentes del asistente.</td><td>Un archivo de reglas que pega al inicio o guarda en el proyecto de la IA.</td></tr>
+        <tr><td>Memoria</td><td>Lo que el sistema recuerda entre sesiones.</td><td>Cuaderno del proyecto y bitácora de decisiones.</td></tr>
+        <tr><td>Herramientas</td><td>Lo que la IA puede consultar o producir.</td><td>Buscadores académicos, verificador de DOI, fichas y plantillas.</td></tr>
+        <tr><td>Entorno</td><td>Dónde están los archivos.</td><td>La carpeta del proyecto con sus seis subcarpetas (vea <a href="#sistema">Cómo organizar los archivos</a>).</td></tr>
+        <tr><td>Sesión</td><td>Cada conversación de trabajo.</td><td>Una conversación por tarea; se abre pegando el contexto del proyecto.</td></tr>
+        <tr><td>Credenciales</td><td>Los permisos con que la IA entra a sus cuentas.</td><td>Conectores de nube, correo y calendario, con el mínimo permiso.</td></tr>
+        <tr><td>Disparador</td><td>Lo que pone a andar el proceso.</td><td>Una entrega, una reunión de dirección o una nueva versión del documento.</td></tr>
+      </tbody>
+    </table></div>
+    <h3 style="margin:28px 0 12px">Qué puede hacer cada conector</h3>
     <div class="scroll"><table>
       <thead><tr><th>Conector</th><th>Puede leer</th><th>Requiere su aprobación</th></tr></thead>
       <tbody>
@@ -1095,7 +1116,14 @@ const CRIT=[
 const NIV=[["Coherente","Articulado y justificado; sin ajustes de fondo."],["Parcial","Coherente en lo central, con ajustes pendientes."],["Débil","Existe, pero con rupturas que impiden la coherencia."],["Ausente","El elemento no existe o la celda está vacía."]];
 $("#rubBody").innerHTML=CRIT.map(c=>`<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td></tr>`).join("");
 const CAS=[["01_Pregunta","Pregunta y objeto","Pregunta, objetivos, justificación y matriz de coherencia."],["02_Literatura","Revisión de literatura","Protocolo, cadenas de búsqueda, registros de cribado, tabla de evidencia, PDF y síntesis."],["03_Diseno","Diseño metodológico","Enfoque, diseño, técnicas e instrumentos por objetivo y su validación."],["04_Datos","Datos o campo","Fuentes originales sin tocar, consentimientos, transcripciones anonimizadas y datos limpios aparte."],["05_Analisis","Análisis y resultados","Códigos, categorías, scripts, tablas y figuras, cada una con su limitación."],["06_Bitacora","Escritura y bitácora","Borradores, bitácora de decisiones, registro de uso de IA y cronograma."]];
-$("#casillas").innerHTML=CAS.map((c,i)=>`<div class="tj${i%2?"":" azul"}"><p class="rot">${c[0].replace("_"," · ")}</p><h3 class="t">${esc(c[1])}</h3><p>${esc(c[2])}</p></div>`).join("");
+const CAS_EJ={"01_Pregunta":["Perez_matriz-coherencia_v2.docx","Perez_pregunta-y-objetivos_v3.docx","Perez_justificacion_borrador.docx"],"02_Literatura":["protocolo-revision_v1.docx","cadenas-de-busqueda.txt","registros-cribado.csv","tabla-evidencia.xlsx","PDF/","sintesis-hallazgos.docx"],"03_Diseno":["diseno-metodologico_v2.docx","guion-entrevista_validado.docx","matriz-instrumentos.xlsx"],"04_Datos":["originales_NO-TOCAR/","consentimientos/","transcripciones-anonimizadas/","datos-limpios.csv"],"05_Analisis":["libro-de-codigos.xlsx","categorias_v3.docx","figura1_red-categorias.png","script-analisis.R"],"06_Bitacora":["bitacora-decisiones.docx","registro-uso-IA.xlsx","cronograma.xlsx","borrador-informe_v4.docx"]};
+const FOLDER=(on)=>`<svg viewBox="0 0 64 50" aria-hidden="true"><path d="M3 7a4 4 0 0 1 4-4h15l6 6h29a4 4 0 0 1 4 4v29a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" fill="${on?"#2b6693":"#8fb2cf"}"/><path d="M3 15h58v27a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" fill="${on?"#4d82ae":"#b5cfe4"}"/></svg>`;
+const FCOL={docx:"#2b5797",xlsx:"#217346",csv:"#217346",txt:"#5d6572",png:"#b5651d",R:"#276dc3"};
+const FILE=n=>{if(n.endsWith("/"))return `<li class="es-f es-sub">${FOLDER(false)}<span>${esc(n.slice(0,-1))}</span></li>`;const ext=n.split(".").pop();return `<li class="es-f"><svg viewBox="0 0 40 48" aria-hidden="true"><path d="M4 2h22l10 10v32a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#c9d5e0" stroke-width="2"/><path d="M26 2v10h10" fill="#eef3f8" stroke="#c9d5e0" stroke-width="2"/><rect x="5" y="30" width="30" height="11" rx="2" fill="${FCOL[ext]||"#5d6572"}"/><text x="20" y="38.5" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" font-family="Arial">${esc(ext.toUpperCase())}</text></svg><span>${esc(n)}</span></li>`};
+function escritorio(sel){const c=CAS.find(x=>x[0]===sel)||CAS[0];
+$("#casillas").innerHTML=`<div class="es-ventana"><div class="es-barra"><span class="es-pts" aria-hidden="true"><i></i><i></i><i></i></span><span class="es-ruta">Escritorio › <b>Perez_Tesis_Maestria</b></span></div><div class="es-cuerpo"><ul class="es-carpetas" role="list">${CAS.map(x=>`<li><button type="button" class="es-carpeta${x[0]===c[0]?" on":""}" data-c="${x[0]}" aria-pressed="${x[0]===c[0]}">${FOLDER(x[0]===c[0])}<span>${esc(x[0])}</span></button></li>`).join("")}</ul><div class="es-panel" aria-live="polite"><p class="rot">Dentro de ${esc(c[0])}</p><h3 class="t">${esc(c[1])}</h3><p>${esc(c[2])}</p><ul class="es-archivos">${(CAS_EJ[c[0]]||[]).map(FILE).join("")}</ul></div></div></div><p class="nota">Toque cada carpeta para ver un ejemplo de lo que guarda. Los nombres siguen la regla «apellido, contenido, versión».</p>`;
+$("#casillas").querySelectorAll(".es-carpeta").forEach(b=>b.addEventListener("click",()=>{escritorio(b.dataset.c);const n=$("#casillas").querySelector(`.es-carpeta[data-c="${b.dataset.c}"]`);n&&n.focus()}))}
+escritorio("01_Pregunta");
 $("#casillaSel").innerHTML=CAS.map(c=>`<option value="${c[0]}">${c[0].slice(0,2)} · ${esc(c[1])}</option>`).join("");
 
 /* ---------- Estado de la revisión ---------- */
