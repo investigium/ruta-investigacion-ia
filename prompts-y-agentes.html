@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Prompts, loops y agentes de IA en la investigación · Ruta de investigación con IA</title>
+<meta name="description" content="Qué es un prompt, qué es un loop y cómo opera la IA agéntica en un proceso de investigación. Cómo se estructuran, ingeniería de prompts para investigación académica y plantillas para redactar un prompt y un agente.">
+<meta name="author" content="Elver Chaparro Cardozo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prompts, loops y agentes de IA en la investigación · Investigium">
+<meta property="og:description" content="Guía para posgrado: qué es un prompt, un loop y un agente de IA, cómo se estructuran y cómo redactarlos para investigar con rigor.">
+<meta property="og:url" content="https://investigium.github.io/ruta-investigacion-ia/prompts-y-agentes.html">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Investigium Lab">
+<meta property="og:image" content="https://investigium.github.io/ruta-investigacion-ia/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ruta de investigación con IA: prompts, loops y agentes">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://investigium.github.io/ruta-investigacion-ia/prompts-y-agentes.html">
+<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b6693'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#14202b; --text:#3d4a5c; --muted:#56637a; --soft:#9aa2ad; --line:#dde3ea;
+  --bg:#ffffff; --panel:#f4f6f9; --blue:#2b6693; --blue-soft:#edf3f8; --ok:#1d7a52; --ok-soft:#e9f5ef; --warn:#a2541a; --warn-soft:#fbf0e6;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --ink:#eef1f6; --text:#b8c0cc; --muted:#8b95a3; --soft:#6f7988; --line:#2b313b;
+  --bg:#0f1218; --panel:#181c24; --blue:#8fb3d1; --blue-soft:#16222e; --ok:#6fcf9f; --ok-soft:#14261d; --warn:#f0a868; --warn-soft:#2b1d12; color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.6}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.saltar{position:absolute;left:-9999px}.saltar:focus{left:12px;top:12px;z-index:50;background:var(--bg);padding:8px 12px;border-radius:8px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.lectura{max-width:760px}
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.6rem,3.2vw,2.15rem);margin:.2em 0 .5em}
+h3{font-size:1.25rem;margin:1.8em 0 .5em}
+p{margin:0 0 1em}
+b,strong{color:var(--ink)}
+/* encabezado */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header.top .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 6px}
+header.top .marca{font-family:var(--f-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
+header.top .volver{font-size:.88rem;font-weight:600;text-decoration:none;background:var(--blue-soft);padding:6px 12px;border-radius:99px;white-space:nowrap}
+nav.indice{display:flex;gap:4px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+nav.indice::-webkit-scrollbar{display:none}
+nav.indice a{flex:none;display:block;padding:5px 11px;border-radius:99px;text-decoration:none;color:var(--text);font-size:.86rem}
+nav.indice a b{font-family:var(--f-mono);font-size:.72rem;color:var(--blue);margin-right:4px;font-weight:500}
+nav.indice a:hover,nav.indice a.activo{background:var(--blue-soft);color:var(--blue)}
+/* portada */
+.portada{padding:52px 0 36px;border-bottom:1px solid var(--line)}
+.etq{display:inline-block;font-size:.8rem;font-weight:600;color:var(--blue);border:1px solid var(--line);border-radius:99px;padding:3px 12px;margin-bottom:14px}
+.portada h1{font-size:clamp(2rem,5vw,3.1rem);margin:0 0 .4em}
+.portada .sub{font-size:1.15rem;color:var(--ink);font-weight:600;max-width:62ch;margin-bottom:.8em}
+.portada p{max-width:68ch}
+.mapa{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:26px 0 0;padding:0;list-style:none;counter-reset:m}
+.mapa a{display:block;height:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.95rem;line-height:1.3}
+.mapa a span{display:block;font-family:var(--f-mono);font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:4px}
+.mapa a:hover{border-color:var(--blue);background:var(--blue-soft)}
+/* secciones */
+section.bloque{padding:56px 0;border-bottom:1px solid var(--line)}
+.eb{display:block;font-size:.85rem;font-weight:600;color:var(--blue);margin-bottom:6px}
+.eb::after{content:"";display:block;width:44px;height:3px;background:var(--blue);border-radius:2px;margin-top:8px}
+.intro{font-size:1.08rem;max-width:68ch}
+.nota{background:var(--blue-soft);border-radius:12px;padding:16px 18px;margin:1.4em 0}
+.nota p:last-child{margin:0}
+.aviso{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 18px;margin:1.4em 0}
+.aviso p:last-child{margin:0}
+.def{border-left:4px solid var(--blue);padding:4px 0 4px 18px;margin:1.4em 0;font-size:1.1rem;color:var(--ink)}
+.def small{display:block;font-size:.85rem;color:var(--muted);margin-top:4px}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1.2em 0}
+.tarjeta{background:var(--panel);border-radius:12px;padding:16px 18px}
+.tarjeta h4{margin:0 0 6px;font-size:1rem;color:var(--ink)}
+.tarjeta p{margin:0;font-size:.95rem}
+.tarjeta .num{font-family:var(--f-mono);font-size:.75rem;color:var(--blue);display:block;margin-bottom:4px}
+/* comparación */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.2em 0}
+.versus>div{border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.versus .mal{background:var(--warn-soft);border-color:transparent}
+.versus .bien{background:var(--ok-soft);border-color:transparent}
+.versus h4{margin:0 0 8px;font-size:.9rem}
+.versus .mal h4{color:var(--warn)}.versus .bien h4{color:var(--ok)}
+.versus p{margin:0;font-size:.95rem}
+.versus .por{margin-top:10px;font-size:.88rem;color:var(--muted)}
+@media (max-width:700px){.versus{grid-template-columns:1fr}}
+/* anatomía */
+.anatomia{list-style:none;padding:0;margin:1.2em 0;display:grid;gap:8px}
+.anatomia li{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;background:var(--panel);border-radius:10px;padding:12px 16px}
+.anatomia li b{font-family:var(--f-mono);font-size:.82rem;color:var(--blue);font-weight:500;padding-top:2px}
+.anatomia li span{font-size:.95rem}
+.anatomia li em{display:block;color:var(--muted);font-size:.88rem;margin-top:3px}
+@media (max-width:600px){.anatomia li{grid-template-columns:1fr;gap:2px}}
+/* tablas */
+.scroll{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.93rem;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{background:var(--panel);color:var(--ink);font-weight:700;font-size:.85rem}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;color:var(--ink)}
+/* diagrama */
+figure.diag{margin:1.6em 0;background:var(--panel);border-radius:14px;padding:18px}
+figure.diag svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figure.diag figcaption{font-size:.88rem;color:var(--muted);text-align:center;margin-top:10px}
+.d-nodo{fill:var(--bg);stroke:var(--blue);stroke-width:2}
+.d-nodo2{fill:var(--blue)}
+.d-t{font-family:var(--f-body);font-size:15px;font-weight:700;fill:var(--ink)}
+.d-t2{font-family:var(--f-body);font-size:15px;font-weight:700;fill:#fff}
+.d-s{font-family:var(--f-body);font-size:12.5px;fill:var(--muted)}
+.d-f{stroke:var(--blue);stroke-width:2;fill:none}
+.d-fd{stroke:var(--soft);stroke-width:1.6;fill:none;stroke-dasharray:5 5}
+.d-cab{fill:var(--blue)}
+.d-hum{fill:var(--ok-soft);stroke:var(--ok);stroke-width:1.6}
+.d-th{font-family:var(--f-body);font-size:13px;font-weight:700;fill:var(--ok)}
+/* plantillas */
+.plantilla{margin:1.4em 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.plantilla .cab{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);padding:10px 14px;border-bottom:1px solid var(--line)}
+.plantilla .cab span{font-weight:700;color:var(--ink);font-size:.95rem}
+.plantilla pre{margin:0;padding:16px 18px;font-family:var(--f-mono);font-size:.84rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.copiar{font:inherit;font-size:.85rem;font-weight:700;color:#fff;background:var(--blue);border:0;border-radius:99px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+@media (prefers-color-scheme: dark){.copiar{color:#0f1218}}
+.copiar:hover{filter:brightness(1.1)}
+.pega{margin:10px 0 0;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.pega span{color:var(--blue);font-weight:700;margin-right:4px}
+ol.pasos{padding-left:0;list-style:none;counter-reset:p;margin:1.2em 0}
+ol.pasos>li{counter-increment:p;position:relative;padding:0 0 18px 48px}
+ol.pasos>li::before{content:counter(p);position:absolute;left:0;top:-2px;width:32px;height:32px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);font-weight:700;display:grid;place-items:center;font-size:.9rem}
+ol.pasos>li b{display:block}
+ul.check{list-style:none;padding:0;margin:1em 0}
+ul.check li{position:relative;padding:6px 0 6px 30px;border-bottom:1px solid var(--line)}
+ul.check li:last-child{border-bottom:0}
+ul.check li::before{content:"✓";position:absolute;left:4px;top:6px;color:var(--blue);font-weight:700}
+.cita{font-size:.9em;white-space:nowrap}
+/* referencias */
+ol.refs{padding-left:0;list-style:none}
+ol.refs li{padding:8px 0 8px 28px;text-indent:-28px;border-bottom:1px solid var(--line);font-size:.93rem}
+ol.refs a{word-break:break-all}
+.sigue{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.sigue a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);font-weight:600}
+.sigue a small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+.sigue a:hover{border-color:var(--blue)}
+@media (max-width:600px){.sigue{grid-template-columns:1fr}}
+footer{background:#0f1a24;color:#c9d2dc;padding:34px 0;font-size:.9rem}
+footer a{color:#a9c8e4}
+footer b{color:#fff}
+.lic{display:flex;gap:16px;align-items:center;border:1px solid #2a3846;border-radius:12px;padding:14px 16px;margin-top:14px}
+.lic .cc{flex:none;background:#000;color:#fff;border-radius:8px;padding:8px 10px;font-family:var(--f-mono);font-size:.72rem;line-height:1.3}
+@media (max-width:600px){.lic{flex-direction:column;align-items:flex-start}}
+@media print{header.top,.copiar,.mapa{display:none}section.bloque{padding:24px 0}}
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="top"><div class="wrap">
+  <div class="fila">
+    <a class="marca" href="./">Ruta de investigación con IA</a>
+    <a class="volver" href="./">← Volver a la Ruta</a>
+  </div>
+  <nav class="indice" aria-label="Secciones de esta página">
+    <a href="#prompt"><b>1</b>Prompt</a>
+    <a href="#loop"><b>2</b>Loop</a>
+    <a href="#agentica"><b>3</b>IA agéntica</a>
+    <a href="#estructura"><b>4</b>Estructura</a>
+    <a href="#ingenieria"><b>5</b>Ingeniería de prompts</a>
+    <a href="#redactar-prompt"><b>6</b>Redactar un prompt</a>
+    <a href="#redactar-agente"><b>7</b>Redactar un agente</a>
+    <a href="#referencias">Referencias</a>
+  </nav>
+</div></header>
+
+<main id="contenido">
+
+<section class="portada"><div class="wrap">
+  <span class="etq">Guía complementaria · Uso de la IA</span>
+  <h1>Prompts, loops y agentes de IA en la investigación</h1>
+  <p class="sub">Qué son, cómo operan dentro de un proyecto de investigación y cómo redactarlos para que la IA trabaje con rigor y usted conserve el criterio.</p>
+  <p>Cuando usted escribe una instrucción a una IA está redactando un <b>prompt</b>. Cuando revisa la respuesta y vuelve a pedir, está dentro de un <b>loop</b>. Y cuando la IA decide por sí misma qué buscar, qué leer y qué hacer después, está actuando como un <b>agente</b>. Esta página explica esos tres conceptos en orden, muestra cómo se estructuran y le entrega plantillas para redactar los suyos.</p>
+  <ul class="mapa">
+    <li><a href="#prompt"><span>01</span>Qué es un prompt</a></li>
+    <li><a href="#loop"><span>02</span>Qué es un loop</a></li>
+    <li><a href="#agentica"><span>03</span>Cómo opera la IA agéntica</a></li>
+    <li><a href="#estructura"><span>04</span>Cómo se estructuran</a></li>
+    <li><a href="#ingenieria"><span>05</span>Ingeniería de prompts</a></li>
+    <li><a href="#redactar-prompt"><span>06</span>Redactar un prompt</a></li>
+    <li><a href="#redactar-agente"><span>07</span>Redactar un agente</a></li>
+  </ul>
+</div></section>
+
+<!-- 1 PROMPT -->
+<section class="bloque" id="prompt"><div class="wrap"><div class="lectura">
+  <span class="eb">1 · Concepto</span>
+  <h2>Qué es un prompt</h2>
+  <div class="def">Un prompt es la entrada que usted le da a un modelo de lenguaje para orientar su respuesta: la instrucción, el contexto, los materiales y las condiciones de la tarea, escritos casi siempre en lenguaje natural.
+    <small>Definición de trabajo basada en Schulhoff et al. (2025) y Meskó (2023).</small></div>
+  <p>La IA no sabe nada de su proyecto salvo lo que usted le escribe. No conoce su pregunta, su programa, su director ni los criterios de su universidad. Por eso la calidad de la respuesta depende, en buena parte, de la calidad del prompt: un prompt vago produce una respuesta genérica; un prompt preciso produce una respuesta que se puede revisar contra criterios.</p>
+
+  <h3>Dos tipos de prompt</h3>
+  <div class="rejilla">
+    <div class="tarjeta"><span class="num">PROMPT DE USUARIO</span><h4>Lo que usted escribe en cada turno</h4><p>La petición concreta: «Revise la coherencia entre mi pregunta y mis objetivos».</p></div>
+    <div class="tarjeta"><span class="num">PROMPT DE SISTEMA O INSTRUCCIONES FIJAS</span><h4>Las reglas que valen para toda la conversación</h4><p>El rol, el contexto permanente y las reglas de integridad. En las herramientas aparece como «instrucciones personalizadas», «proyecto» o «Gem». Es la base de un agente.</p></div>
+  </div>
+
+  <h3>Un ejemplo: el mismo pedido, dos prompts</h3>
+  <div class="versus">
+    <div class="mal"><h4>Prompt débil</h4><p>«Hazme el planteamiento del problema sobre la IA y la escritura.»</p><p class="por">No dice para qué nivel, con qué enfoque ni con qué fuentes. La IA llenará los vacíos con generalidades y, posiblemente, con citas que no existen.</p></div>
+    <div class="bien"><h4>Prompt preciso</h4><p>«Soy estudiante de maestría en educación. Mi pregunta es: ¿cómo transforma el uso de IA generativa los procesos creativos de escritura académica en estudiantes de posgrado? A partir de los tres resúmenes que pego abajo, señale qué vacío comparten y qué no han estudiado. No agregue fuentes distintas a las que le doy. Responda en una tabla: estudio, hallazgo, lo que no aborda.»</p><p class="por">Delimita la tarea, entrega los insumos, prohíbe inventar y fija un formato que usted puede verificar.</p></div>
+  </div>
+  <p>Observe que el segundo prompt no le pide a la IA que escriba el planteamiento por usted: le pide un análisis que usted luego usa para escribirlo. Esa diferencia es la que sostiene la autoría.</p>
+</div></div></section>
+
+<!-- 2 LOOP -->
+<section class="bloque" id="loop"><div class="wrap"><div class="lectura">
+  <span class="eb">2 · Concepto</span>
+  <h2>Qué es un loop</h2>
+  <div class="def">Un loop (bucle o ciclo iterativo) es la repetición de un mismo ciclo, producir, evaluar y corregir, hasta que el resultado cumple un criterio o se alcanza un límite definido de antemano.</div>
+  <p>Casi nadie obtiene la respuesta útil en el primer intento, y los modelos tampoco. Por eso el trabajo con IA es iterativo. Lo importante es que el ciclo tenga una <b>meta</b>, un <b>criterio para evaluar</b> cada vuelta y una <b>condición de parada</b>; sin ellos, el loop se convierte en pedir «mejóralo» sin fin.</p>
+
+  <h3>Tres loops que usted encontrará</h3>
+  <div class="rejilla">
+    <div class="tarjeta"><span class="num">LOOP 1 · CONVERSACIÓN</span><h4>Usted ↔ IA</h4><p>Usted escribe, lee la respuesta, la contrasta con sus criterios y reformula. El evaluador es usted.</p></div>
+    <div class="tarjeta"><span class="num">LOOP 2 · AUTORREVISIÓN</span><h4>Generar → criticar → corregir</h4><p>La IA produce un borrador, lo critica con criterios que usted fija y lo corrige. Es la idea de Self-Refine <span class="cita">(Madaan et al., 2023)</span>.</p></div>
+    <div class="tarjeta"><span class="num">LOOP 3 · AGÉNTICO</span><h4>Pensar → actuar → observar</h4><p>La IA razona el siguiente paso, usa una herramienta (busca, lee un archivo, ejecuta un cálculo), observa el resultado y decide qué sigue. Es el patrón ReAct <span class="cita">(Yao et al., 2023)</span>.</p></div>
+  </div>
+
+  <figure class="diag" aria-labelledby="capLoop">
+    <svg viewBox="0 0 720 432" role="img" aria-label="Diagrama del loop agéntico: meta, pensar, actuar, observar, evaluar; si la meta no se cumple vuelve a pensar; si se cumple, entrega. Un punto de control humano revisa antes de entregar.">
+      <defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="d-cab"/></marker></defs>
+      <rect x="20" y="170" width="120" height="70" rx="12" class="d-nodo2"/>
+      <text x="80" y="200" text-anchor="middle" class="d-t2">Meta</text>
+      <text x="80" y="220" text-anchor="middle" class="d-t2" style="font-size:12px;font-weight:400">que usted define</text>
+      <path d="M80 170 V73 H190" class="d-f" marker-end="url(#fl)"/>
+      <rect x="195" y="40" width="150" height="66" rx="12" class="d-nodo"/>
+      <text x="270" y="68" text-anchor="middle" class="d-t">1. Pensar</text>
+      <text x="270" y="88" text-anchor="middle" class="d-s">planea el siguiente paso</text>
+      <rect x="415" y="40" width="150" height="66" rx="12" class="d-nodo"/>
+      <text x="490" y="68" text-anchor="middle" class="d-t">2. Actuar</text>
+      <text x="490" y="88" text-anchor="middle" class="d-s">usa una herramienta</text>
+      <rect x="415" y="300" width="150" height="66" rx="12" class="d-nodo"/>
+      <text x="490" y="328" text-anchor="middle" class="d-t">3. Observar</text>
+      <text x="490" y="348" text-anchor="middle" class="d-s">registra el resultado</text>
+      <rect x="195" y="300" width="150" height="66" rx="12" class="d-nodo"/>
+      <text x="270" y="328" text-anchor="middle" class="d-t">4. Evaluar</text>
+      <text x="270" y="348" text-anchor="middle" class="d-s">¿se cumplió la meta?</text>
+      <path d="M345 73 H410" class="d-f" marker-end="url(#fl)"/>
+      <path d="M490 106 V295" class="d-f" marker-end="url(#fl)"/>
+      <path d="M415 333 H350" class="d-f" marker-end="url(#fl)"/>
+      <path d="M270 300 V111" class="d-f" marker-end="url(#fl)"/>
+      <text x="282" y="210" class="d-s">no: otra vuelta</text>
+      <path d="M195 350 H100 V245" class="d-fd" marker-end="url(#fl)"/>
+      <rect x="600" y="150" width="110" height="110" rx="12" class="d-hum"/>
+      <text x="655" y="185" text-anchor="middle" class="d-th">Control</text>
+      <text x="655" y="203" text-anchor="middle" class="d-th">humano</text>
+      <text x="655" y="226" text-anchor="middle" class="d-s">usted revisa</text>
+      <text x="655" y="242" text-anchor="middle" class="d-s">y decide</text>
+      <path d="M270 366 V395 H655 V265" class="d-f" marker-end="url(#fl)"/>
+      <text x="462" y="420" text-anchor="middle" class="d-s">sí, o se alcanzó el límite: se detiene y entrega</text>
+      <text x="20" y="385" class="d-s">replantear la meta:</text>
+      <text x="20" y="401" class="d-s">solo con su autorización</text>
+    </svg>
+    <figcaption id="capLoop">El loop agéntico. Cada vuelta deja un registro; el ciclo termina cuando se cumple la meta o se alcanza el límite, y el resultado pasa por su revisión antes de usarse.</figcaption>
+  </figure>
+
+  <div class="nota"><p><b>Para su proyecto:</b> antes de iniciar cualquier loop, escriba en una línea qué cuenta como «terminado». Por ejemplo: «la tabla tiene 15 estudios con DOI verificado» o «el objetivo general tiene un solo verbo y corresponde a la pregunta». Ese criterio es el que usted y la IA usan para decidir si dar otra vuelta.</p></div>
+</div></div></section>
+
+<!-- 3 AGÉNTICA -->
+<section class="bloque" id="agentica"><div class="wrap"><div class="lectura">
+  <span class="eb">3 · Concepto y práctica</span>
+  <h2>Cómo opera la IA agéntica en un proceso de investigación</h2>
+  <div class="def">Un sistema de IA agéntico es aquel que puede perseguir metas complejas con supervisión directa limitada: planea, usa herramientas, observa los resultados y decide el siguiente paso.
+    <small>Basado en Shavit et al. (2023) y Wang et al. (2024).</small></div>
+  <p>La diferencia con un chat común no es la inteligencia del modelo, sino quién decide el camino. En un chat, usted decide cada paso. En un agente, usted fija la meta y los límites, y el modelo decide los pasos intermedios.</p>
+
+  <h3>Del chat al agente: tres niveles</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>Nivel</th><th>Quién decide los pasos</th><th>Ejemplo en investigación</th><th>Cuándo conviene</th></tr></thead>
+    <tbody>
+      <tr><td>Prompt único</td><td>Usted, en cada mensaje</td><td>Pedir tres alternativas de pregunta de investigación</td><td>Tareas cortas y acotadas</td></tr>
+      <tr><td>Flujo de trabajo (cadena de prompts)</td><td>Usted, de antemano: los pasos están fijos</td><td>Paso 1 extraer datos de cada resumen → paso 2 tabular → paso 3 señalar vacíos</td><td>Tareas repetibles con pasos conocidos; da previsibilidad</td></tr>
+      <tr><td>Agente</td><td>El modelo, dentro de los límites que usted fija</td><td>«Construya una tabla de evidencia sobre X con estudios 2019–2025 y verifique cada DOI»</td><td>Tareas abiertas cuyo camino no se puede prever</td></tr>
+    </tbody>
+  </table></div>
+  <p>Anthropic llama sistemas agénticos a ambos, flujos y agentes, pero los distingue: en los flujos el código o la persona predefine el recorrido; en los agentes el modelo dirige su propio proceso y el uso de herramientas. Su recomendación es empezar por lo más simple y agregar autonomía solo cuando se justifica <span class="cita">(Anthropic, 2024)</span>. En una tesis, eso significa: use flujos para lo que puede prever y reserve los agentes para búsquedas o tareas exploratorias, siempre con puntos de revisión.</p>
+
+  <h3>Los componentes de un agente</h3>
+  <div class="rejilla">
+    <div class="tarjeta"><span class="num">PERFIL</span><h4>Quién es y para qué</h4><p>Rol, meta y reglas. Se escribe en las instrucciones del sistema.</p></div>
+    <div class="tarjeta"><span class="num">MEMORIA</span><h4>Qué recuerda</h4><p>Los archivos del proyecto, la bitácora de lo ya hecho y lo decidido.</p></div>
+    <div class="tarjeta"><span class="num">PLANIFICACIÓN</span><h4>Cómo divide la meta</h4><p>Descompone la tarea en pasos y los ajusta según lo que observa.</p></div>
+    <div class="tarjeta"><span class="num">ACCIÓN</span><h4>Qué puede hacer</h4><p>Las herramientas: buscar en la web o en bases, leer archivos, ejecutar código.</p></div>
+  </div>
+  <p class="cita" style="white-space:normal;color:var(--muted)">Marco de cuatro módulos propuesto por Wang et al. (2024).</p>
+
+  <h3>El agente a lo largo de las seis etapas</h3>
+  <p>La tabla muestra qué puede hacer un agente en cada etapa del <a href="./#ruta">proceso de investigación</a>, qué decisiones siguen siendo suyas y qué riesgo vigilar.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Etapa</th><th>Lo que puede hacer el agente</th><th>Lo que decide usted</th><th>Riesgo a vigilar</th></tr></thead>
+    <tbody>
+      <tr><td>1. Formular la pregunta</td><td>Proponer alternativas, contrastarlas con literatura reciente, señalar ambigüedades</td><td>Qué pregunta es viable, pertinente y suya</td><td>Preguntas genéricas o ya respondidas</td></tr>
+      <tr><td>2. Revisar la literatura</td><td>Ejecutar cadenas de búsqueda, eliminar duplicados, hacer un precribado por título y resumen, extraer datos a una tabla, comprobar DOI</td><td>Criterios de inclusión, decisión final de cribado, valoración de calidad</td><td>Referencias inventadas o con errores; cobertura sesgada de bases</td></tr>
+      <tr><td>3. Diseñar la metodología</td><td>Comparar diseños, revisar la coherencia entre objetivos, técnicas e instrumentos</td><td>El diseño y su justificación</td><td>Recetas de manual sin relación con su contexto</td></tr>
+      <tr><td>4. Recoger los datos</td><td>Transcribir, anonimizar, organizar carpetas y versiones</td><td>Consentimiento, ética y custodia de los datos</td><td>Subir datos personales o sensibles a servicios externos</td></tr>
+      <tr><td>5. Analizar los datos</td><td>Codificación preliminar, scripts de análisis, comprobaciones de consistencia</td><td>La interpretación y sus límites</td><td>Códigos sin respaldo en los datos; errores de cálculo silenciosos</td></tr>
+      <tr><td>6. Escribir y revisar</td><td>Auditar la coherencia, marcar lo que falta con [FALTA], verificar referencias</td><td>La redacción y la autoría</td><td>Texto genérico, pérdida de su voz, plagio</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="aviso"><p><b>La autonomía no traslada la responsabilidad.</b> La IA no puede figurar como autora porque no puede responder por el trabajo; quien usa IA debe declarar cómo y con qué herramienta, y responde por todo el contenido <span class="cita">(COPE, 2023)</span>. Con un agente esto pesa más: hizo más pasos sin que usted los viera, así que la bitácora y la verificación son obligatorias, no opcionales. Revise las <a href="./#reglas">reglas de uso responsable</a> de la Ruta.</p></div>
+</div></div></section>
+
+<!-- 4 ESTRUCTURA -->
+<section class="bloque" id="estructura"><div class="wrap"><div class="lectura">
+  <span class="eb">4 · Estructura</span>
+  <h2>Cómo se estructura un prompt y un agente</h2>
+  <p class="intro">Un prompt y un agente se arman con piezas parecidas. El agente agrega las piezas que gobiernan su autonomía: herramientas, ciclo, controles y parada.</p>
+
+  <h3>Las partes de un prompt</h3>
+  <ul class="anatomia">
+    <li><b>ROL</b><span>Desde qué experticia debe responder la IA.<em>«Actúe como metodóloga en investigación cualitativa en educación.»</em></span></li>
+    <li><b>CONTEXTO</b><span>Lo que la IA necesita saber de su proyecto.<em>Nivel, programa, tema, pregunta, enfoque.</em></span></li>
+    <li><b>TAREA</b><span>Un verbo y un producto concreto. Una tarea por prompt.<em>«Proponga tres versiones del objetivo general.»</em></span></li>
+    <li><b>INSUMOS</b><span>El material sobre el que trabaja, separado de las instrucciones.<em>Resúmenes, su borrador, una tabla, delimitados con etiquetas.</em></span></li>
+    <li><b>RESTRICCIONES</b><span>Lo que no debe hacer y los límites.<em>«No invente fuentes. Máximo 150 palabras. Solo con los insumos.»</em></span></li>
+    <li><b>FORMATO</b><span>Cómo debe entregar la respuesta.<em>Tabla con columnas definidas, lista numerada, párrafo.</em></span></li>
+    <li><b>VERIFICACIÓN</b><span>Cómo debe comprobar su propia respuesta antes de entregarla.<em>«Marque con [VERIFICAR] lo que yo deba comprobar.»</em></span></li>
+  </ul>
+
+  <h3>Las partes de un agente</h3>
+  <ul class="anatomia">
+    <li><b>PROPÓSITO</b><span>La meta verificable y para qué sirve.<em>«Construir la tabla de evidencia del capítulo 2.»</em></span></li>
+    <li><b>CONOCIMIENTO</b><span>El contexto fijo del proyecto y los archivos que puede consultar.<em>Protocolo, criterios de inclusión, matriz de coherencia.</em></span></li>
+    <li><b>HERRAMIENTAS</b><span>Qué puede usar y qué tiene prohibido.<em>Puede buscar en Crossref; no puede borrar archivos ni enviar correos.</em></span></li>
+    <li><b>CICLO</b><span>Los pasos de cada vuelta del loop.<em>Planear → actuar → observar → evaluar.</em></span></li>
+    <li><b>CONTROLES HUMANOS</b><span>En qué momentos debe detenerse y pedirle confirmación.<em>Antes de excluir estudios; antes de redactar.</em></span></li>
+    <li><b>PARADA</b><span>Cuándo termina, aunque no haya llegado a la meta.<em>«Pare tras 20 búsquedas o si no puede verificar una fuente.»</em></span></li>
+    <li><b>ENTREGA Y BITÁCORA</b><span>Qué entrega y qué registro deja de cada decisión.<em>Tabla + bitácora con fecha, acción, fuente y resultado.</em></span></li>
+  </ul>
+</div></div></section>
+
+<!-- 5 INGENIERÍA -->
+<section class="bloque" id="ingenieria"><div class="wrap"><div class="lectura">
+  <span class="eb">5 · Método</span>
+  <h2>Ingeniería de prompts para investigación académica</h2>
+  <div class="def">La ingeniería de prompts es la práctica de diseñar, probar y refinar prompts para obtener de un modelo de lenguaje resultados útiles para una tarea.
+    <small>Meskó (2023); Giray (2023).</small></div>
+  <p>En investigación académica tiene un matiz: el objetivo no es que la IA «escriba mejor», sino que produzca resultados <b>trazables y verificables</b> que usted pueda evaluar, citar y defender ante un jurado. Por eso se trabaja como un método: se diseña, se prueba, se ajusta y se registra.</p>
+
+  <h3>Cinco principios: el marco CLEAR</h3>
+  <p>Lo (2023) propone cinco principios para redactar prompts en contextos académicos:</p>
+  <div class="rejilla">
+    <div class="tarjeta"><span class="num">C · CONCISO</span><p>Diga lo necesario, sin rodeos ni cortesías que diluyan la tarea.</p></div>
+    <div class="tarjeta"><span class="num">L · LÓGICO</span><p>Ordene la información para que la relación entre las partes sea clara.</p></div>
+    <div class="tarjeta"><span class="num">E · EXPLÍCITO</span><p>Especifique qué quiere recibir, con qué extensión y en qué formato.</p></div>
+    <div class="tarjeta"><span class="num">A · ADAPTATIVO</span><p>Ajuste el prompt según lo que obtiene; pruebe variantes.</p></div>
+    <div class="tarjeta"><span class="num">R · REFLEXIVO</span><p>Evalúe cada respuesta y aprenda qué funcionó para la próxima vez.</p></div>
+  </div>
+
+  <h3>Técnicas y cuándo usarlas</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>Técnica</th><th>En qué consiste</th><th>Uso en investigación</th></tr></thead>
+    <tbody>
+      <tr><td>Instrucción directa</td><td>Pedir la tarea sin ejemplos (zero-shot)</td><td>Resumir un artículo, reformular un párrafo propio</td></tr>
+      <tr><td>Con ejemplos</td><td>Incluir uno o varios modelos de la salida esperada (few-shot)</td><td>Extraer datos de estudios con el mismo formato de su tabla de evidencia</td></tr>
+      <tr><td>Razonamiento paso a paso</td><td>Pedir los pasos intermedios antes de la conclusión (cadena de pensamiento; Wei et al., 2022)</td><td>Evaluar si un estudio cumple los criterios de inclusión, criterio por criterio</td></tr>
+      <tr><td>Descomposición y encadenamiento</td><td>Dividir una tarea grande en prompts sucesivos; la salida de uno es la entrada del siguiente</td><td>Protocolo → cadena de búsqueda → cribado → síntesis</td></tr>
+      <tr><td>Rol</td><td>Asignar una perspectiva experta</td><td>«Actúe como jurado de tesis» para revisar la coherencia</td></tr>
+      <tr><td>Delimitadores y etiquetas</td><td>Separar instrucciones de materiales con etiquetas como &lt;documento&gt;</td><td>Evitar que la IA confunda su borrador con sus instrucciones</td></tr>
+      <tr><td>Autocrítica</td><td>Pedir que revise su respuesta con criterios dados y la corrija (Madaan et al., 2023)</td><td>Revisar una matriz contra los ocho criterios de coherencia</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Los riesgos que la ingeniería de prompts no elimina</h3>
+  <p>Un buen prompt reduce los errores, pero no los elimina. El más grave en investigación son las referencias inventadas: en un estudio con 636 citas generadas por ChatGPT, el 55 % de las de GPT-3.5 y el 18 % de las de GPT-4 no existían, y muchas de las reales tenían errores de autor, título o fecha <span class="cita">(Walters &amp; Wilder, 2023)</span>. Los modelos actuales fallan menos, pero ninguno garantiza cero errores.</p>
+  <ul class="check">
+    <li>Verifique cada referencia en la fuente original o con su DOI; la <a href="./#rsl">revisión de literatura</a> de la Ruta comprueba los DOI en Crossref.</li>
+    <li>Pida que la IA trabaje solo con los insumos que usted entrega y que marque [FALTA] en lugar de completar.</li>
+    <li>No pegue datos personales, entrevistas sin anonimizar ni información confidencial.</li>
+    <li>Guarde los prompts que usó y declare el uso de IA en su metodología o agradecimientos <span class="cita">(COPE, 2023)</span>.</li>
+  </ul>
+</div></div></section>
+
+<!-- 6 REDACTAR PROMPT -->
+<section class="bloque" id="redactar-prompt"><div class="wrap"><div class="lectura">
+  <span class="eb">6 · Práctica</span>
+  <h2>Cómo se redacta un prompt</h2>
+  <ol class="pasos">
+    <li><b>Defina el producto antes de escribir.</b>¿Qué quiere tener al final: una tabla, tres alternativas, una lista de problemas? Si no puede describirlo, la IA tampoco.</li>
+    <li><b>Dé el contexto mínimo suficiente.</b>Nivel, tema, pregunta y enfoque. Lo que un colega necesitaría saber para ayudarle.</li>
+    <li><b>Escriba una sola tarea con un verbo concreto.</b>Proponga, compare, extraiga, evalúe, señale. Evite «ayúdame con».</li>
+    <li><b>Separe los insumos con etiquetas.</b>Pegue el texto dentro de &lt;documento&gt; … &lt;/documento&gt; para que no se mezcle con la instrucción.</li>
+    <li><b>Ponga las restricciones de integridad.</b>No inventar fuentes, trabajar solo con los insumos, marcar [FALTA].</li>
+    <li><b>Fije el formato de salida.</b>Columnas de la tabla, extensión, idioma, registro.</li>
+    <li><b>Pruebe, evalúe y ajuste.</b>Lea la respuesta contra su criterio de «terminado». Corrija el prompt, no solo la respuesta, y guarde la versión que funcionó.</li>
+  </ol>
+
+  <div class="plantilla">
+    <div class="cab"><span>Plantilla de prompt para investigación</span><button class="copiar" type="button" data-copiar="tplPrompt">Copiar para su IA</button></div>
+<pre id="tplPrompt"># ROL
+Actúe como [rol: p. ej., metodólogo/a en investigación cualitativa en educación].
+
+# CONTEXTO
+Soy estudiante de [maestría/doctorado] en [programa].
+Tema: [tema].
+Pregunta de investigación: [pregunta].
+Enfoque: [cualitativo / cuantitativo / mixto].
+
+# TAREA
+[Un verbo + un producto: p. ej., «Compare los tres estudios y señale qué vacío comparten»].
+
+# INSUMOS
+&lt;documento&gt;
+[Pegue aquí el texto, los resúmenes o la tabla con la que debe trabajar]
+&lt;/documento&gt;
+
+# RESTRICCIONES
+- Use solo la información de los insumos. Si falta algo, escriba [FALTA: qué falta].
+- No invente autores, citas, DOI, cifras ni datos.
+- Español, registro académico, máximo [n] palabras.
+
+# FORMATO DE SALIDA
+[p. ej., Tabla con columnas: estudio | hallazgo principal | lo que no aborda]
+
+# VERIFICACIÓN
+Antes de responder, revise que cada afirmación se apoye en los insumos.
+Marque con [VERIFICAR] lo que yo deba comprobar en la fuente original.</pre>
+  </div>
+  <p class="pega"><span>↪</span>Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra), complete lo que está entre corchetes y lea la respuesta con criterio. Traiga a la Ruta solo lo que decida conservar.</p>
+
+  <h3>Ejemplo resuelto</h3>
+  <div class="plantilla">
+    <div class="cab"><span>Prompt para evaluar la coherencia de los objetivos</span><button class="copiar" type="button" data-copiar="ejPrompt">Copiar</button></div>
+<pre id="ejPrompt"># ROL
+Actúe como jurado de un proyecto de maestría en educación.
+
+# CONTEXTO
+Mi pregunta es: ¿cómo transforma el uso de IA generativa los procesos creativos de escritura académica en estudiantes de posgrado?
+Enfoque: cualitativo, estudio de caso.
+
+# TAREA
+Evalúe si mis objetivos específicos responden a la pregunta y si juntos permiten alcanzar el objetivo general.
+
+# INSUMOS
+&lt;objetivos&gt;
+General: Comprender las transformaciones que produce el uso de IA generativa en los procesos creativos de escritura académica de estudiantes de posgrado.
+1. Describir los usos de IA generativa que declaran los estudiantes al escribir.
+2. Analizar cómo cambian las fases de planeación, textualización y revisión cuando interviene la IA.
+3. Interpretar las tensiones que perciben los estudiantes entre autoría y asistencia.
+&lt;/objetivos&gt;
+
+# RESTRICCIONES
+- No reescriba los objetivos; solo evalúe y explique.
+- Si un objetivo no corresponde a la pregunta, dígalo con una razón concreta.
+
+# FORMATO DE SALIDA
+Tabla: objetivo | ¿responde a la pregunta? (sí / parcial / no) | razón | sugerencia en una línea.
+Al final, un párrafo de máximo 80 palabras sobre la coherencia del conjunto.</pre>
+  </div>
+</div></div></section>
+
+<!-- 7 REDACTAR AGENTE -->
+<section class="bloque" id="redactar-agente"><div class="wrap"><div class="lectura">
+  <span class="eb">7 · Práctica</span>
+  <h2>Cómo se redacta un agente</h2>
+  <p class="intro">Redactar un agente es escribir sus instrucciones de sistema: el documento que gobierna todas sus vueltas del loop. En la práctica, se pega en el espacio de instrucciones de un asistente personalizado (un proyecto, un GPT o un Gem, según la herramienta) junto con los archivos del proyecto, o en una herramienta con modo agente que pueda buscar y leer por su cuenta.</p>
+  <ol class="pasos">
+    <li><b>Escriba una meta verificable.</b>No «ayúdeme con la revisión», sino «una tabla con los estudios empíricos 2019–2025 que cumplan estos criterios, cada uno con DOI comprobado».</li>
+    <li><b>Entréguele el conocimiento fijo.</b>Pregunta, criterios de inclusión y exclusión, bases autorizadas y los archivos que puede consultar.</li>
+    <li><b>Liste las herramientas permitidas y las prohibidas.</b>Un agente solo debe poder hacer lo que la tarea necesita.</li>
+    <li><b>Describa el ciclo.</b>Qué hace en cada vuelta y qué registra.</li>
+    <li><b>Ponga puntos de control humano.</b>Los momentos en que debe detenerse y pedirle confirmación antes de seguir.</li>
+    <li><b>Defina cuándo parar.</b>Meta cumplida, número máximo de vueltas o un error que no puede resolver.</li>
+    <li><b>Exija entrega y bitácora.</b>El producto en un formato fijo y el registro de cada decisión, para que usted pueda auditarlo y declararlo.</li>
+    <li><b>Pruébelo con una tarea pequeña.</b>Revise la bitácora completa, corrija las instrucciones y solo entonces amplíe la tarea.</li>
+  </ol>
+
+  <div class="plantilla">
+    <div class="cab"><span>Plantilla de instrucciones para un agente de investigación</span><button class="copiar" type="button" data-copiar="tplAgente">Copiar para su IA</button></div>
+<pre id="tplAgente"># PROPÓSITO
+Usted es el asistente de investigación del proyecto «[título]».
+Su meta es: [meta verificable, p. ej., construir una tabla de evidencia con estudios empíricos publicados entre 2019 y 2025 sobre [tema]].
+Esta tabla servirá para [para qué: el capítulo de antecedentes].
+
+# CONOCIMIENTO DEL PROYECTO
+- Pregunta de investigación: [pregunta]
+- Criterios de inclusión: [lista]
+- Criterios de exclusión: [lista]
+- Idiomas: [español, inglés, portugués]
+- Archivos que puede consultar: [protocolo.docx, matriz_coherencia.docx]
+
+# HERRAMIENTAS
+Puede: [buscar en la web y en Crossref u OpenAlex; leer los archivos adjuntos].
+No puede: inventar datos, completar campos sin fuente, modificar mis archivos, enviar mensajes.
+
+# CICLO DE TRABAJO (repita en cada vuelta)
+1. PLANEAR: escriba en una línea el siguiente paso y por qué.
+2. ACTUAR: ejecute una sola acción (buscar, leer o extraer).
+3. OBSERVAR: registre lo que obtuvo y su fuente (DOI o enlace).
+4. EVALUAR: ¿el resultado cumple los criterios? ¿Me acerca a la meta?
+5. Siga con otra vuelta o deténgase según las condiciones de parada.
+
+# CONTROLES HUMANOS
+Deténgase y pídame confirmación:
+- al terminar la búsqueda, con el número de registros encontrados;
+- antes de excluir cualquier estudio, con la razón;
+- antes de redactar cualquier síntesis.
+
+# CONDICIONES DE PARADA
+Pare cuando ocurra lo primero:
+- la tabla tiene [n] estudios que cumplen los criterios;
+- llegó a [20] búsquedas;
+- no pudo verificar una fuente después de dos intentos (márquela [NO VERIFICADA] y avíseme).
+
+# ENTREGA
+1. Tabla: autor(es) | año | título | DOI verificado | diseño | población | hallazgo principal | limitación.
+2. Bitácora: fecha | acción | consulta o fuente | resultado | decisión.
+
+# REGLAS DE INTEGRIDAD
+- Cada referencia debe tener DOI o enlace comprobado; si no, va marcada [NO VERIFICADA].
+- Si algo no está en las fuentes, escriba [FALTA] en lugar de completarlo.
+- No redacte texto para que yo lo presente como propio; entregue análisis y evidencia.</pre>
+  </div>
+  <p class="pega"><span>↪</span>Pegue estas instrucciones en el espacio de instrucciones de su asistente o proyecto, adjunte sus archivos y complete lo que está entre corchetes. Empiece con una meta pequeña y revise la bitácora antes de confiar en la tabla.</p>
+
+  <h3>Lista de verificación antes de usar su agente</h3>
+  <ul class="check">
+    <li>La meta se puede comprobar: sé exactamente cuándo está cumplida.</li>
+    <li>Las herramientas permitidas son solo las que la tarea necesita.</li>
+    <li>Hay al menos un punto de control antes de cualquier decisión que afecte mis resultados.</li>
+    <li>Hay un límite de vueltas o de tiempo.</li>
+    <li>La entrega incluye una bitácora que puedo auditar y citar en mi metodología.</li>
+    <li>No le entregué datos personales ni información confidencial.</li>
+    <li>Revisaré y verificaré todo lo que entregue antes de usarlo en mi proyecto.</li>
+  </ul>
+
+  <div class="sigue">
+    <a href="https://investigium.github.io/libro-prompts-matriz/">Libro de prompts ↗<small>Fichas listas para construir su matriz de coherencia</small></a>
+    <a href="./#reglas">Uso responsable de la IA<small>Reglas de autoría y rigor de la Ruta</small></a>
+  </div>
+</div></div></section>
+
+<!-- REFERENCIAS -->
+<section class="bloque" id="referencias"><div class="wrap"><div class="lectura">
+  <span class="eb">Fuentes</span>
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>Anthropic. (2024). <i>Building effective agents</i>. <a href="https://www.anthropic.com/engineering/building-effective-agents">https://www.anthropic.com/engineering/building-effective-agents</a></li>
+    <li>Committee on Publication Ethics [COPE]. (2023). <i>Authorship and AI tools: COPE position statement</i>. <a href="https://publicationethics.org/cope-position-statements/ai-author">https://publicationethics.org/cope-position-statements/ai-author</a></li>
+    <li>Giray, L. (2023). Prompt engineering with ChatGPT: A guide for academic writers. <i>Annals of Biomedical Engineering, 51</i>(12), 2629–2633. <a href="https://doi.org/10.1007/s10439-023-03272-4">https://doi.org/10.1007/s10439-023-03272-4</a></li>
+    <li>Lo, L. S. (2023). The CLEAR path: A framework for enhancing information literacy through prompt engineering. <i>The Journal of Academic Librarianship, 49</i>(4), 102720. <a href="https://doi.org/10.1016/j.acalib.2023.102720">https://doi.org/10.1016/j.acalib.2023.102720</a></li>
+    <li>Madaan, A., Tandon, N., Gupta, P., Hallinan, S., Gao, L., Wiegreffe, S., Alon, U., Dziri, N., Prabhumoye, S., Yang, Y., Gupta, S., Majumder, B. P., Hermann, K., Welleck, S., Yazdanbakhsh, A., &amp; Clark, P. (2023). Self-Refine: Iterative refinement with self-feedback. <i>Advances in Neural Information Processing Systems, 36</i>. <a href="https://doi.org/10.48550/arXiv.2303.17651">https://doi.org/10.48550/arXiv.2303.17651</a></li>
+    <li>Meskó, B. (2023). Prompt engineering as an important emerging skill for medical professionals: Tutorial. <i>Journal of Medical Internet Research, 25</i>, e50638. <a href="https://doi.org/10.2196/50638">https://doi.org/10.2196/50638</a></li>
+    <li>Schulhoff, S., Ilie, M., Balepur, N., Kahadze, K., Liu, A., Si, C., Li, Y., Gupta, A., Han, H., Schulhoff, S., Dulepet, P. S., Vidyadhara, S., Ki, D., Agrawal, S., Pham, C., Kroiz, G., Li, F., Tao, H., Srivastava, A., … Resnik, P. (2025). <i>The Prompt Report: A systematic survey of prompt engineering techniques</i> (arXiv:2406.06608v6). <a href="https://doi.org/10.48550/arXiv.2406.06608">https://doi.org/10.48550/arXiv.2406.06608</a></li>
+    <li>Shavit, Y., Agarwal, S., Brundage, M., Adler, S., O'Keefe, C., Campbell, R., Lee, T., Mishkin, P., Eloundou, T., Hickey, A., Slama, K., &amp; Ahmad, L. (2023). <i>Practices for governing agentic AI systems</i> [Libro blanco]. OpenAI. <a href="https://openai.com/index/practices-for-governing-agentic-ai-systems/">https://openai.com/index/practices-for-governing-agentic-ai-systems/</a></li>
+    <li>Walters, W. H., &amp; Wilder, E. I. (2023). Fabrication and errors in the bibliographic citations generated by ChatGPT. <i>Scientific Reports, 13</i>, 14045. <a href="https://doi.org/10.1038/s41598-023-41032-5">https://doi.org/10.1038/s41598-023-41032-5</a></li>
+    <li>Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., Zhao, W. X., Wei, Z., &amp; Wen, J.-R. (2024). A survey on large language model based autonomous agents. <i>Frontiers of Computer Science, 18</i>(6), 186345. <a href="https://doi.org/10.1007/s11704-024-40231-1">https://doi.org/10.1007/s11704-024-40231-1</a></li>
+    <li>Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E., Le, Q. V., &amp; Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. <i>Advances in Neural Information Processing Systems, 35</i>. <a href="https://doi.org/10.48550/arXiv.2201.11903">https://doi.org/10.48550/arXiv.2201.11903</a></li>
+    <li>Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. <i>International Conference on Learning Representations (ICLR)</i>. <a href="https://doi.org/10.48550/arXiv.2210.03629">https://doi.org/10.48550/arXiv.2210.03629</a></li>
+  </ol>
+</div></div></section>
+</main>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 6px"><b>Ruta de investigación con IA</b> · Guía de trabajo para estudiantes de posgrado · Elver Chaparro Cardozo · <a href="./">Volver a la Ruta</a></p>
+  <div class="lic">
+    <div class="cc">CC BY · NC · SA<br>Creative Commons 4.0</div>
+    <p style="margin:0"><b>Ruta de investigación con IA</b> © 2026 Elver Chaparro Cardozo está bajo una licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>. Puede copiarla y adaptarla citando al autor, sin fines comerciales y compartiendo bajo la misma licencia.</p>
+  </div>
+</div></footer>
+
+<script>
+document.querySelectorAll("[data-copiar]").forEach(b=>{
+  b.addEventListener("click",async()=>{
+    const t=document.getElementById(b.dataset.copiar).innerText, txt=b.textContent;
+    try{await navigator.clipboard.writeText(t);b.textContent="Copiado ✓"}
+    catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.copiar));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Seleccionado: use Cmd/Ctrl+C"}
+    setTimeout(()=>{b.textContent=txt},2200);
+  });
+});
+const links=[...document.querySelectorAll("nav.indice a")], secs=links.map(a=>document.querySelector(a.getAttribute("href")));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("activo",a.getAttribute("href")==="#"+e.target.id))}})},{rootMargin:"-40% 0px -55% 0px"});
+secs.forEach(s=>s&&io.observe(s));
+</script>
+</body>
+</html>
