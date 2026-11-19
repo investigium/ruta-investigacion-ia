@@ -134,6 +134,8 @@ figure.diag figcaption{font-size:.88rem;color:var(--muted);text-align:center;mar
 .copiar{font:inherit;font-size:.85rem;font-weight:700;color:#fff;background:var(--blue);border:0;border-radius:99px;padding:7px 14px;cursor:pointer;white-space:nowrap}
 @media (prefers-color-scheme: dark){.copiar{color:#0f1218}}
 .copiar:hover{filter:brightness(1.1)}
+.btn-descarga{display:inline-block;font-weight:700;font-size:.92rem;color:#fff;background:var(--blue);border-radius:99px;padding:9px 18px;text-decoration:none}
+.btn-descarga:hover{filter:brightness(1.1)}
 .pega{margin:10px 0 0;font-size:.88rem;line-height:1.5;color:var(--muted)}
 .pega span{color:var(--blue);font-weight:700;margin-right:4px}
 ol.pasos{padding-left:0;list-style:none;counter-reset:p;margin:1.2em 0}
@@ -259,10 +261,11 @@ body.app section.vista.on{display:block}
     <a href="#agentica"><b>3</b>IA agéntica</a>
     <a href="#estructura"><b>4</b>Estructura</a>
     <a href="#ingenieria"><b>5</b>Ingeniería de prompts</a>
-    <a href="#redactar-prompt"><b>6</b>Redactar un prompt</a>
-    <a href="#redactar-agente"><b>7</b>Redactar un agente</a>
-    <a href="#taller"><b>8</b>Taller</a>
-    <a href="#mapa-prompts"><b>9</b>Mapa de prompts</a>
+    <a href="#trazabilidad"><b>6</b>Trazabilidad</a>
+    <a href="#redactar-prompt"><b>7</b>Redactar un prompt</a>
+    <a href="#redactar-agente"><b>8</b>Redactar un agente</a>
+    <a href="#taller"><b>9</b>Taller</a>
+    <a href="#mapa-prompts"><b>10</b>Mapa de prompts</a>
     <a href="#referencias">Referencias</a>
   </nav>
 </div></header>
@@ -280,10 +283,11 @@ body.app section.vista.on{display:block}
     <li><a href="#agentica"><span>03</span>Cómo opera la IA agéntica</a></li>
     <li><a href="#estructura"><span>04</span>Cómo se estructuran</a></li>
     <li><a href="#ingenieria"><span>05</span>Ingeniería de prompts</a></li>
-    <li><a href="#redactar-prompt"><span>06</span>Redactar un prompt</a></li>
-    <li><a href="#redactar-agente"><span>07</span>Redactar un agente</a></li>
-    <li><a href="#taller"><span>08</span>Taller práctico</a></li>
-    <li><a href="#mapa-prompts"><span>09</span>Mapa de prompts para la revisión</a></li>
+    <li><a href="#trazabilidad"><span>06</span>Trazabilidad del prompt</a></li>
+    <li><a href="#redactar-prompt"><span>07</span>Redactar un prompt</a></li>
+    <li><a href="#redactar-agente"><span>08</span>Redactar un agente</a></li>
+    <li><a href="#taller"><span>09</span>Taller práctico</a></li>
+    <li><a href="#mapa-prompts"><span>10</span>Mapa de prompts para la revisión</a></li>
   </ul>
 </div></section>
 
@@ -487,9 +491,78 @@ body.app section.vista.on{display:block}
   </ul>
 </div></div></section>
 
-<!-- 6 REDACTAR PROMPT -->
+<!-- 6 TRAZABILIDAD -->
+<section class="bloque vista" id="trazabilidad"><div class="wrap"><div class="lectura">
+  <span class="eb">6 · Método</span>
+  <h2>Trazabilidad del prompt</h2>
+  <p>Trazar un prompt es dejar registro de cómo usó la IA: qué le pidió, qué le respondió y qué decidió usted con esa respuesta. Con ese registro, su asesor o su jurado pueden seguir el camino desde una idea de su tesis hasta la conversación en la que apareció, y usted puede mostrar que la decisión fue suya.</p>
+
+  <h3>Por qué se la van a pedir</h3>
+  <ul class="check">
+    <li><b>Transparencia.</b> Revistas y comités piden declarar qué herramienta se usó, para qué y cómo <span class="cita">(COPE, 2023)</span>.</li>
+    <li><b>Reproducibilidad.</b> La IA no responde igual dos veces: lo único que queda es su registro del prompt y de la respuesta.</li>
+    <li><b>Autoría.</b> El registro muestra qué conservó, qué descartó y por qué. Es la evidencia de su criterio.</li>
+    <li><b>Verificación.</b> Si un dato o una referencia resulta errado, el registro dice de dónde salió.</li>
+  </ul>
+
+  <h3>Qué registrar en cada uso</h3>
+  <p>No hace falta registrar cada pregunta suelta. Registre los usos que influyen en su tesis: los que cambian una decisión, aportan un texto o una fuente, o alimentan la matriz.</p>
+  <div class="scroll" tabindex="0" role="region" aria-label="Campos del registro de trazabilidad"><table>
+    <thead><tr><th>Campo</th><th>Qué anotar</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Código</td><td>Un identificador corto</td><td>P-07</td></tr>
+      <tr><td>Fecha</td><td>El día del uso</td><td>2026-11-19</td></tr>
+      <tr><td>Herramienta y versión</td><td>Nombre y modelo, si la pantalla lo indica</td><td>ChatGPT, Gemini, Claude u otra · modelo</td></tr>
+      <tr><td>Etapa o ficha</td><td>En qué parte de su tesis lo usó</td><td>Ficha 3 · Técnicas e instrumentos</td></tr>
+      <tr><td>Prompt</td><td>El texto exacto, con su versión</td><td>P-07 v3 (texto completo en el anexo)</td></tr>
+      <tr><td>Insumos</td><td>Qué archivos o textos entregó</td><td>Matriz v3 y cuatro artículos, sin datos personales</td></tr>
+      <tr><td>Respuesta</td><td>Una copia o el enlace a la conversación</td><td>Enlace compartido de la conversación</td></tr>
+      <tr><td>Qué conservé</td><td>Lo que usó y lo que descartó</td><td>Conservé dos de cinco técnicas; descarté el grupo focal</td></tr>
+      <tr><td>Decisión y razón</td><td>Qué decidió usted y por qué</td><td>Entrevista semiestructurada: el objetivo 2 pide relatos de experiencia</td></tr>
+      <tr><td>Verificación</td><td>Cómo lo comprobó</td><td>DOI revisados en Crossref; conversado con el asesor</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Las versiones de un prompt</h3>
+  <p>Un prompt mejora por versiones. No lo sobrescriba: numere cada versión y anote qué cambió y por qué. Así sabrá cuál funcionó y podrá repetirla.</p>
+  <div class="scroll" tabindex="0" role="region" aria-label="Ejemplo de versiones de un prompt"><table>
+    <thead><tr><th>Versión</th><th>Qué cambió</th><th>Qué pasó</th></tr></thead>
+    <tbody>
+      <tr><td>P-07 v1</td><td>Pedido inicial, sin contexto</td><td>Respuesta genérica, válida para cualquier tesis</td></tr>
+      <tr><td>P-07 v2</td><td>Se agregaron la pregunta, la población y el enfoque</td><td>Respuesta ajustada, pero con autores sin verificar</td></tr>
+      <tr><td>P-07 v3</td><td>Se pidió trabajar solo con los adjuntos y marcar [FALTA]</td><td>Respuesta usable: queda como versión final</td></tr>
+    </tbody>
+  </table></div>
+  <p>Guarde los prompts con su código y versión en un archivo de su carpeta mi_proyecto, junto al cuaderno del proyecto.</p>
+
+  <h3>Pídale a la IA que deje el rastro</h3>
+  <p>Agregue este párrafo al final de sus prompts importantes. El registro que hace la IA le ayuda a completar el suyo, pero no lo reemplaza: la decisión y la razón las escribe usted.</p>
+  <div class="plantilla">
+    <div class="cab"><span>Bloque de registro para pegar al final del prompt</span><button class="copiar" type="button" data-copiar="tplRegistro">Copiar para su IA</button></div>
+<pre id="tplRegistro">Al final de tu respuesta agrega un bloque llamado «Registro» con:
+1. La tarea que entendiste, en una línea.
+2. Los insumos que usaste (solo los que te entregué).
+3. Los supuestos que hiciste.
+4. Lo que no pudiste verificar, marcado [NO VERIFICADO].
+No agregues fuentes que no estén en los insumos.</pre>
+  </div>
+
+  <h3>Cómo declararlo en la metodología</h3>
+  <p>En el capítulo de metodología, o en una nota sobre el uso de IA, diga qué herramienta usó, en qué etapas, para qué tareas, cómo verificó y quién tomó las decisiones. Los prompts y las respuestas completas van en un anexo. Si cita una respuesta textual, siga la norma de su programa: APA 7 propone citar a la empresa como autora y la herramienta como software <span class="cita">(McAdoo, 2023)</span>.</p>
+  <div class="plantilla">
+    <div class="cab"><span>Borrador de declaración para la metodología</span><button class="copiar" type="button" data-copiar="tplDeclara">Copiar</button></div>
+<pre id="tplDeclara">Para [tareas: p. ej., organizar la idea inicial, revisar la coherencia de la matriz y proponer cadenas de búsqueda] se usó [herramienta y modelo], entre [mes] y [mes] de [año]. Los prompts se registraron con código y versión (anexo [X]). Las respuestas se contrastaron con [fuentes, asesor o criterios] y las referencias se verificaron por su DOI. La IA no redactó resultados ni conclusiones; las decisiones metodológicas fueron tomadas por quien investiga.</pre>
+  </div>
+
+  <div class="nota">
+    <p><b>Plantilla de registro en Word.</b> Trae la tabla de usos, la tabla de versiones y el borrador de declaración, con un ejemplo resuelto en cada una.</p>
+    <p><a class="btn-descarga" href="plantilla-trazabilidad.docx" download>Descargar la plantilla de registro (Word)</a></p>
+  </div>
+</div></div></section>
+
+<!-- 7 REDACTAR PROMPT -->
 <section class="bloque vista" id="redactar-prompt"><div class="wrap"><div class="lectura">
-  <span class="eb">6 · Práctica</span>
+  <span class="eb">7 · Práctica</span>
   <h2>Cómo se redacta un prompt</h2>
   <ol class="pasos">
     <li><b>Defina el producto antes de escribir.</b>¿Qué quiere tener al final: una tabla, tres alternativas, una lista de problemas? Si no puede describirlo, la IA tampoco.</li>
@@ -565,9 +638,9 @@ Al final, un párrafo de máximo 80 palabras sobre la coherencia del conjunto.</
   </div>
 </div></div></section>
 
-<!-- 7 REDACTAR AGENTE -->
+<!-- 8 REDACTAR AGENTE -->
 <section class="bloque vista" id="redactar-agente"><div class="wrap"><div class="lectura">
-  <span class="eb">7 · Práctica</span>
+  <span class="eb">8 · Práctica</span>
   <h2>Cómo se redacta un agente</h2>
   <p class="intro">Redactar un agente es escribir sus instrucciones de sistema: el documento que gobierna todas sus vueltas del loop. En la práctica, se pega en el espacio de instrucciones de un asistente personalizado (un proyecto, un GPT o un Gem, según la herramienta) junto con los archivos del proyecto, o en una herramienta con modo agente que pueda buscar y leer por su cuenta.</p>
   <ol class="pasos">
@@ -646,9 +719,9 @@ Pare cuando ocurra lo primero:
   </div>
 </div></div></section>
 
-<!-- 8 TALLER -->
+<!-- 9 TALLER -->
 <section class="bloque vista" id="taller"><div class="wrap"><div class="lectura">
-  <span class="eb">8 · Taller práctico</span>
+  <span class="eb">9 · Taller práctico</span>
   <h2>Taller: construir y evaluar un prompt para búsqueda bibliográfica</h2>
   <p class="intro">En este taller usted aplica lo que vio en los temas anteriores: arma un prompt, lo ejecuta, evalúa con criterio lo que la IA le entrega, verifica que cada artículo exista y mejora el prompt hasta tener su mejor versión.</p>
   <div class="nota"><p><b>Objetivo.</b> Desarrollar un prompt eficaz para identificar literatura científica relevante sobre un tema de investigación, evaluar la calidad de las fuentes obtenidas y refinar el proceso de búsqueda.</p></div>
@@ -687,9 +760,9 @@ Pare cuando ocurra lo primero:
   </div>
 </div></div></section>
 
-<!-- 9 MAPA DE PROMPTS -->
+<!-- 10 MAPA DE PROMPTS -->
 <section class="bloque vista" id="mapa-prompts"><div class="wrap"><div class="lectura">
-  <span class="eb">9 · Banco de prompts</span>
+  <span class="eb">10 · Banco de prompts</span>
   <h2>Mapa de prompts para la revisión de literatura</h2>
   <p class="intro">Cinco prompts encadenados que acompañan la revisión de literatura de principio a fin: la salida de cada uno es la entrada del siguiente. Es la técnica de descomposición y encadenamiento del <a href="#ingenieria">tema 5</a> aplicada a una tarea real.</p>
   <div class="rejilla cadena">
@@ -813,6 +886,7 @@ Por favor:
     <li>Committee on Publication Ethics [COPE]. (2023). <i>Authorship and AI tools: COPE position statement</i>. <a href="https://publicationethics.org/cope-position-statements/ai-author">https://publicationethics.org/cope-position-statements/ai-author</a></li>
     <li>Giray, L. (2023). Prompt engineering with ChatGPT: A guide for academic writers. <i>Annals of Biomedical Engineering, 51</i>(12), 2629–2633. <a href="https://doi.org/10.1007/s10439-023-03272-4">https://doi.org/10.1007/s10439-023-03272-4</a></li>
     <li>Lo, L. S. (2023). The CLEAR path: A framework for enhancing information literacy through prompt engineering. <i>The Journal of Academic Librarianship, 49</i>(4), 102720. <a href="https://doi.org/10.1016/j.acalib.2023.102720">https://doi.org/10.1016/j.acalib.2023.102720</a></li>
+    <li>McAdoo, T. (2023, 7 de abril). <i>How to cite ChatGPT</i>. APA Style. <a href="https://apastyle.apa.org/blog/how-to-cite-chatgpt">https://apastyle.apa.org/blog/how-to-cite-chatgpt</a></li>
     <li>Madaan, A., Tandon, N., Gupta, P., Hallinan, S., Gao, L., Wiegreffe, S., Alon, U., Dziri, N., Prabhumoye, S., Yang, Y., Gupta, S., Majumder, B. P., Hermann, K., Welleck, S., Yazdanbakhsh, A., &amp; Clark, P. (2023). Self-Refine: Iterative refinement with self-feedback. <i>Advances in Neural Information Processing Systems, 36</i>. <a href="https://doi.org/10.48550/arXiv.2303.17651">https://doi.org/10.48550/arXiv.2303.17651</a></li>
     <li>Meskó, B. (2023). Prompt engineering as an important emerging skill for medical professionals: Tutorial. <i>Journal of Medical Internet Research, 25</i>, e50638. <a href="https://doi.org/10.2196/50638">https://doi.org/10.2196/50638</a></li>
     <li>Schulhoff, S., Ilie, M., Balepur, N., Kahadze, K., Liu, A., Si, C., Li, Y., Gupta, A., Han, H., Schulhoff, S., Dulepet, P. S., Vidyadhara, S., Ki, D., Agrawal, S., Pham, C., Kroiz, G., Li, F., Tao, H., Srivastava, A., … Resnik, P. (2025). <i>The Prompt Report: A systematic survey of prompt engineering techniques</i> (arXiv:2406.06608v6). <a href="https://doi.org/10.48550/arXiv.2406.06608">https://doi.org/10.48550/arXiv.2406.06608</a></li>
