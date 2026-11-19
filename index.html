@@ -460,6 +460,8 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
 .et-acc a{font-size:.88rem;font-weight:600;color:var(--blue);text-decoration:none;border-bottom:1px solid currentColor}
 .et-acc a:hover{color:var(--ink)}
 .et-apoyo{font-size:.84rem;font-weight:600;color:var(--muted)}
+.pega{margin:10px 0 0;font-size:.86rem;line-height:1.5;color:var(--muted);max-width:68ch}
+.pega span{color:var(--blue);font-weight:700;margin-right:4px}
 </style>
 </head>
 <body>
@@ -660,7 +662,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
         <p class="rot">Prompt · Ficha B</p>
         <h3 class="t">Criterios con ayuda de la IA</h3>
         <pre tabindex="0" class="prompt" data-prompt="B"></pre>
-        <div class="acc"><button class="btn primario" type="button" data-copy="B">Copiar el prompt</button></div>
+        <div class="acc"><button class="btn primario" type="button" data-copy="B">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
       </div>
     </div>
 
@@ -678,7 +680,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
           <p class="rot">Prompt · Ficha A</p>
           <h3 class="t">Cadena de búsqueda</h3>
           <pre tabindex="0" class="prompt" data-prompt="A"></pre>
-          <div class="acc"><button class="btn primario" type="button" data-copy="A">Copiar el prompt</button></div>
+          <div class="acc"><button class="btn primario" type="button" data-copy="A">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
           <ul class="chk" style="margin-top:6px">
             <li><label><input type="checkbox" data-c="a1"> Verifiqué los descriptores en el tesauro oficial (decs.bvsalud.org, meshb.nlm.nih.gov, eric.ed.gov/?ti=all).</label></li>
             <li><label><input type="checkbox" data-c="a2"> Corrí la cadena en al menos dos bases y anoté los resultados abajo.</label></li>
@@ -701,7 +703,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
           <h3 class="t">Cribado de títulos y resúmenes</h3>
           <p class="nota">Pegue al final hasta 20 títulos y resúmenes numerados por vez. Ante la duda, no se excluye.</p>
           <pre tabindex="0" class="prompt" data-prompt="C"></pre>
-          <div class="acc"><button class="btn primario" type="button" data-copy="C">Copiar el prompt</button></div>
+          <div class="acc"><button class="btn primario" type="button" data-copy="C">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
           <ul class="chk" style="margin-top:6px">
             <li><label><input type="checkbox" data-c="c1"> Revisé a mano todos los marcados «duda».</label></li>
             <li><label><input type="checkbox" data-c="c2"> Revisé a mano al menos cinco «excluye».</label></li>
@@ -738,7 +740,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
         <p class="rot">Prompt · Ficha D</p>
         <h3 class="t">Extracción con la IA</h3>
         <pre tabindex="0" class="prompt" data-prompt="D"></pre>
-        <div class="acc"><button class="btn primario" type="button" data-copy="D">Copiar el prompt</button></div>
+        <div class="acc"><button class="btn primario" type="button" data-copy="D">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
       </div>
     </div>
 
@@ -764,7 +766,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
         <h3 class="t">La IA aplica la lista; usted decide el juicio</h3>
         <p class="nota">Cargue el PDF del estudio. Pídale a la IA que responda pregunta por pregunta y cite el pasaje del artículo que sostiene cada respuesta. Revise al menos las respuestas «No» y «No se puede saber».</p>
         <pre tabindex="0" class="prompt" data-prompt="G"></pre>
-        <div class="acc"><button class="btn primario" type="button" data-copy="G">Copiar el prompt</button></div>
+        <div class="acc"><button class="btn primario" type="button" data-copy="G">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
       </div>
     </div>
 
@@ -798,7 +800,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
           <h3 class="t">Redactar el estado del arte con sus fuentes</h3>
           <p class="nota">Para NotebookLM u otra herramienta con sus PDF cargados. Resumir es ir estudio por estudio; sintetizar es organizar por hallazgos y terminar en el vacío.</p>
           <pre tabindex="0" class="prompt" data-prompt="E"></pre>
-          <div class="acc"><button class="btn primario" type="button" data-copy="E">Copiar el prompt</button></div>
+          <div class="acc"><button class="btn primario" type="button" data-copy="E">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
           <ul class="chk" style="margin-top:6px">
             <li><label><input type="checkbox" data-c="e1"> Abrí tres citas y confirmé que el pasaje dice lo que afirma el párrafo.</label></li>
             <li><label><input type="checkbox" data-c="e2"> Revisé si el vacío es real o efecto de una búsqueda incompleta.</label></li>
@@ -841,7 +843,7 @@ section h3,.apoyo h3,.matriz-intro h3{font-family:var(--f-display);font-size:1.2
           <h3 class="t">Bitácora de búsqueda</h3>
           <p class="nota">Al final de la conversación de trabajo, pídale a la IA que llene la bitácora con lo hecho. Compárela con lo que usted registró aquí.</p>
           <pre tabindex="0" class="prompt" data-prompt="F"></pre>
-          <div class="acc"><button class="btn primario" type="button" data-copy="F">Copiar el prompt</button></div>
+          <div class="acc"><button class="btn primario" type="button" data-copy="F">Copiar para su IA</button></div><p class="pega"><span aria-hidden="true">↪</span> Pegue este prompt en su IA de preferencia (ChatGPT, Gemini, Claude, Copilot u otra). Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.</p>
         </div>
       </div>
       <div class="tj" style="margin-top:14px">
@@ -922,7 +924,7 @@ Reglas:
 - Si una sección no tiene sustento en la carpeta, escribe [FALTA] y di qué documento la completaría.
 - No inventes referencias ni datos.
 - Al final, lista las [FALTA] en orden de prioridad.</pre>
-      <div class="acc"><button class="btn primario" type="button" id="copyEng">Copiar el prompt</button></div>
+      <div class="acc"><button class="btn primario" type="button" id="copyEng">Copiar para su IA</button></div>
     </div>
   </div>
 </section>
@@ -1105,7 +1107,7 @@ function lib(n){if(window[n])return Promise.resolve(window[n]);if(libP[n])return
 const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function load(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==="object"?v:d}catch(e){return d}}
-async function copyText(btn,txt){const old=btn.textContent;try{await navigator.clipboard.writeText(txt);btn.textContent="Copiado"}catch(e){btn.textContent="No se pudo copiar: seleccione el texto"}setTimeout(()=>btn.textContent=old,2000)}
+async function copyText(btn,txt){const old=btn.textContent;try{await navigator.clipboard.writeText(txt);btn.textContent=btn.matches("[data-copy],#copyEng")?"Copiado: péguelo en su IA":"Copiado"}catch(e){btn.textContent="No se pudo copiar: seleccione el texto"}setTimeout(()=>btn.textContent=old,2000)}
 
 /* ---------- Rúbrica y casillas ---------- */
 const CRIT=[
