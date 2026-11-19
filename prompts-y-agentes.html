@@ -159,6 +159,27 @@ footer b{color:#fff}
 .lic{display:flex;gap:16px;align-items:center;border:1px solid #2a3846;border-radius:12px;padding:14px 16px;margin-top:14px}
 .lic .cc{flex:none;background:#000;color:#fff;border-radius:8px;padding:8px 10px;font-family:var(--f-mono);font-size:.72rem;line-height:1.3}
 @media (max-width:600px){.lic{flex-direction:column;align-items:flex-start}}
+/* taller */
+.hoja{background:var(--panel);border-radius:14px;padding:18px;margin:1em 0}
+.campo{margin:0 0 16px}
+.campo label,.campo .lbl{display:block;font-weight:700;color:var(--ink);font-size:.95rem;margin:0 0 6px}
+.hoja input,.hoja textarea,.hoja select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.hoja textarea{resize:vertical;font-family:var(--f-mono);font-size:.88rem;line-height:1.5}
+.hoja .scroll{background:var(--bg)}
+table.arts{min-width:760px}
+table.arts td{padding:6px 8px;vertical-align:middle}
+table.arts td:first-child{width:28px;text-align:center}
+table.arts input,table.arts select{padding:6px 8px;font-size:.9rem}
+table.arts .crit{display:flex;gap:6px;flex-wrap:nowrap}
+table.arts .crit label{display:flex;align-items:center;gap:2px;font-size:.8rem;font-weight:600;color:var(--muted);margin:0}
+table.arts .crit input{width:auto}
+.mas,.sec{font:inherit;font-size:.88rem;font-weight:700;color:var(--blue);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer;margin-top:10px}
+.ayuda{font-size:.85rem;color:var(--muted);margin:8px 0 0}
+.acciones{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#tEstado{font-size:.88rem;color:var(--ok);font-weight:600}
+.plantilla .cab small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.cadena{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.cadena .tarjeta{position:relative}
 /* una pantalla por tema */
 body.app section.vista{display:none;border-bottom:0;min-height:calc(100vh - 230px)}
 body.app section.vista.on{display:block}
@@ -189,6 +210,8 @@ body.app section.vista.on{display:block}
     <a href="#ingenieria"><b>5</b>Ingeniería de prompts</a>
     <a href="#redactar-prompt"><b>6</b>Redactar un prompt</a>
     <a href="#redactar-agente"><b>7</b>Redactar un agente</a>
+    <a href="#taller"><b>8</b>Taller</a>
+    <a href="#mapa-prompts"><b>9</b>Mapa de prompts</a>
     <a href="#referencias">Referencias</a>
   </nav>
 </div></header>
@@ -199,7 +222,7 @@ body.app section.vista.on{display:block}
   <span class="etq">Guía complementaria · Uso de la IA</span>
   <h1>Prompts, loops y agentes de IA en la investigación</h1>
   <p class="sub">Qué son, cómo operan dentro de un proyecto de investigación y cómo redactarlos para que la IA trabaje con rigor y usted conserve el criterio.</p>
-  <p>Cuando usted escribe una instrucción a una IA está redactando un <b>prompt</b>. Cuando revisa la respuesta y vuelve a pedir, está dentro de un <b>loop</b>. Y cuando la IA decide por sí misma qué buscar, qué leer y qué hacer después, está actuando como un <b>agente</b>. Esta página explica esos tres conceptos en orden, muestra cómo se estructuran y le entrega plantillas para redactar los suyos.</p>
+  <p>Cuando usted escribe una instrucción a una IA está redactando un <b>prompt</b>. Cuando revisa la respuesta y vuelve a pedir, está dentro de un <b>loop</b>. Y cuando la IA decide por sí misma qué buscar, qué leer y qué hacer después, está actuando como un <b>agente</b>. Esta página explica esos tres conceptos en orden, muestra cómo se estructuran, le entrega plantillas para redactar los suyos y cierra con un taller práctico y un banco de prompts para la revisión de literatura.</p>
   <ul class="mapa">
     <li><a href="#prompt"><span>01</span>Qué es un prompt</a></li>
     <li><a href="#loop"><span>02</span>Qué es un loop</a></li>
@@ -208,6 +231,8 @@ body.app section.vista.on{display:block}
     <li><a href="#ingenieria"><span>05</span>Ingeniería de prompts</a></li>
     <li><a href="#redactar-prompt"><span>06</span>Redactar un prompt</a></li>
     <li><a href="#redactar-agente"><span>07</span>Redactar un agente</a></li>
+    <li><a href="#taller"><span>08</span>Taller práctico</a></li>
+    <li><a href="#mapa-prompts"><span>09</span>Mapa de prompts para la revisión</a></li>
   </ul>
 </div></section>
 
@@ -564,6 +589,164 @@ Pare cuando ocurra lo primero:
   </div>
 </div></div></section>
 
+<!-- 8 TALLER -->
+<section class="bloque vista" id="taller"><div class="wrap"><div class="lectura">
+  <span class="eb">8 · Taller práctico</span>
+  <h2>Taller: construir y evaluar un prompt para búsqueda bibliográfica</h2>
+  <p class="intro">En este taller usted aplica lo que vio en los temas anteriores: arma un prompt, lo ejecuta, evalúa con criterio lo que la IA le entrega, verifica que cada artículo exista y mejora el prompt hasta tener su mejor versión.</p>
+  <div class="nota"><p><b>Objetivo.</b> Desarrollar un prompt eficaz para identificar literatura científica relevante sobre un tema de investigación, evaluar la calidad de las fuentes obtenidas y refinar el proceso de búsqueda.</p></div>
+  <p class="cita" style="white-space:normal;color:var(--muted)">Actividad del Seminario de trabajo de grado I · Maestría, UPTC · Elver Chaparro Cardozo.</p>
+
+  <h3>Instrucciones</h3>
+  <ol class="pasos">
+    <li><b>Elija un tema de investigación.</b>Uno concreto dentro de su disciplina: por ejemplo, bienestar digital, motivación académica o inteligencia artificial aplicada a la educación.</li>
+    <li><b>Redacte un prompt con los lineamientos vistos.</b>Debe incluir como mínimo <b style="display:inline">rol, objetivo, contexto, restricciones y formato de salida</b> (vea <a href="#estructura">Cómo se estructuran</a>). El prompt debe permitirle identificar al menos cinco artículos científicos con sus datos básicos: autor, año, título y revista o congreso.</li>
+    <li><b>Ejecútelo en un modelo de IA.</b>ChatGPT, Gemini, Copilot, Claude u otra herramienta, para obtener un conjunto preliminar de artículos.</li>
+    <li><b>Examine los artículos obtenidos.</b>Revise su pertinencia con el tema, su rigor académico, su actualidad, la fiabilidad de la fuente y su adecuación metodológica. Decida cuáles son realmente útiles y descarte los que no cumplan criterios académicos.</li>
+    <li><b>Verifique y amplíe la búsqueda.</b>Confirme que cada artículo exista: contraste título, autores y DOI en Google Scholar, Scopus, OpenAlex, Semantic Scholar o las bases de su universidad. Si hace falta, amplíe con nuevos términos o autores.</li>
+    <li><b>Escriba su mejor prompt.</b>Itere: corrija el prompt, no solo la respuesta, y registre la versión final que considera más efectiva.</li>
+  </ol>
+
+  <div class="aviso"><p><b>Lo que va a encontrar.</b> Es probable que algunos artículos no existan o tengan datos errados: los modelos generan referencias plausibles, no verificadas <span class="cita">(Walters &amp; Wilder, 2023)</span>. Ese hallazgo es parte del aprendizaje del taller: regístrelo en la hoja de trabajo.</p></div>
+
+  <h3>Hoja de trabajo</h3>
+  <p>Complete la hoja aquí mismo. Se guarda solo en este navegador; al terminar, copie todo para pegarlo en su documento o enviarlo a su docente.</p>
+  <div class="hoja">
+    <div class="campo"><label for="tTema">1. Tema de investigación</label><input id="tTema" data-t="tema" type="text" placeholder="Ej.: uso de IA generativa en la escritura académica de posgrado"></div>
+    <div class="campo"><label for="tP1">2. Primer prompt (con rol, objetivo, contexto, restricciones y formato de salida)</label><textarea id="tP1" data-t="p1" rows="7"></textarea></div>
+    <div class="campo"><label for="tIA">3. IA que usó</label><input id="tIA" data-t="ia" type="text" placeholder="Ej.: Claude, ChatGPT, Gemini, Copilot"></div>
+    <div class="campo"><span class="lbl">4 y 5. Evaluación y verificación de los artículos</span>
+      <div class="scroll"><table class="arts">
+        <thead><tr><th>#</th><th>Autor, año y título</th><th>¿Existe?</th><th>DOI o enlace comprobado</th><th>Criterios que cumple</th><th>Decisión</th></tr></thead>
+        <tbody id="tArts"></tbody>
+      </table></div>
+      <button class="mas" type="button" id="tMas">+ Agregar artículo</button>
+      <p class="ayuda">Criterios: <b>P</b> pertinencia · <b>R</b> rigor · <b>A</b> actualidad · <b>F</b> fiabilidad de la fuente · <b>M</b> adecuación metodológica.</p>
+    </div>
+    <div class="campo"><label for="tAmp">Términos o autores nuevos para ampliar la búsqueda</label><textarea id="tAmp" data-t="amp" rows="3"></textarea></div>
+    <div class="campo"><label for="tPF">6. Mi mejor prompt (versión final)</label><textarea id="tPF" data-t="pf" rows="8"></textarea></div>
+    <div class="campo"><label for="tRef">Qué cambié entre el primer prompt y el final, y por qué</label><textarea id="tRef" data-t="ref" rows="3"></textarea></div>
+    <div class="acciones"><button class="copiar" type="button" id="tCopiar">Copiar mi taller</button><button class="sec" type="button" id="tBorrar">Borrar la hoja</button><span id="tEstado" role="status"></span></div>
+  </div>
+</div></div></section>
+
+<!-- 9 MAPA DE PROMPTS -->
+<section class="bloque vista" id="mapa-prompts"><div class="wrap"><div class="lectura">
+  <span class="eb">9 · Banco de prompts</span>
+  <h2>Mapa de prompts para la revisión de literatura</h2>
+  <p class="intro">Cinco prompts encadenados que acompañan la revisión de literatura de principio a fin: la salida de cada uno es la entrada del siguiente. Es la técnica de descomposición y encadenamiento del <a href="#ingenieria">tema 5</a> aplicada a una tarea real.</p>
+  <div class="rejilla cadena">
+    <div class="tarjeta"><span class="num">1</span><p>Refinar la pregunta y mapear conceptos</p></div>
+    <div class="tarjeta"><span class="num">2</span><p>Diseñar la estrategia de búsqueda</p></div>
+    <div class="tarjeta"><span class="num">3</span><p>Analizar la relevancia de los resúmenes</p></div>
+    <div class="tarjeta"><span class="num">4</span><p>Categorizar la literatura seleccionada</p></div>
+    <div class="tarjeta"><span class="num">5</span><p>Identificar temas emergentes</p></div>
+  </div>
+  <div class="aviso"><p><b>Antes de usarlos.</b> Complete lo que está entre corchetes. En los prompts 3, 4 y 5 pegue resúmenes o referencias que usted ya verificó: la IA analiza lo que usted le entrega, no busca por usted. Puede llevar los resultados al <a href="./#rsl">taller de revisión sistemática</a> de la Ruta, que comprueba los DOI en Crossref.</p></div>
+  <p class="cita" style="white-space:normal;color:var(--muted)">Material del Seminario de trabajo de grado I · Maestría, UPTC · Elver Chaparro Cardozo. Cada prompt indica el modelo con que se probó.</p>
+
+  <div class="plantilla">
+    <div class="cab"><span>1 · Refinamiento de la pregunta y mapeo conceptual <small>Probado en Gemini 2.5 Pro</small></span><button class="copiar" type="button" data-copiar="mp1">Copiar para su IA</button></div>
+<pre id="mp1">Soy un investigador en [tu campo específico] desarrollando una revisión de literatura sobre [tema general]. Mi pregunta preliminar es: [tu pregunta inicial].
+
+Por favor, ayúdame a refinar esta pregunta y desarrollar un mapa conceptual:
+
+1. Analiza la claridad, especificidad y enfoque de mi pregunta actual.
+2. Proporciona 3–4 reformulaciones alternativas con diferentes niveles de especificidad.
+3. Para cada reformulación, identifica:
+   - Conceptos clave que deberían definirse
+   - Alcance implícito (temporal, geográfico, poblacional)
+   - Implicaciones metodológicas para la revisión
+4. Desarrolla un mapa conceptual que incluya:
+   - 5–7 conceptos principales relacionados con este tema
+   - Para cada concepto: definición concisa, subconceptos relacionados y términos alternativos
+   - Interrelaciones entre estos conceptos principales
+   - Disciplinas académicas que abordan estos conceptos y sus perspectivas distintivas
+5. Sugiere una estructura jerárquica o relacional para organizar estos conceptos en mi revisión.
+6. Identifica conceptos potencialmente relevantes que podrían no ser obvios inicialmente.</pre>
+  </div>
+
+  <div class="plantilla">
+    <div class="cab"><span>2 · Generador de estrategias de búsqueda optimizadas <small>Probado en Gemini 2.5 Pro</small></span><button class="copiar" type="button" data-copiar="mp2">Copiar para su IA</button></div>
+<pre id="mp2">Soy un investigador en [tu campo específico]. Necesito desarrollar una estrategia de búsqueda bibliográfica sobre [tema específico] para [base de datos: PubMed / Scopus / Web of Science / LILACS].
+
+Mi pregunta de investigación es: [tu pregunta refinada]
+Los conceptos principales identificados son: [enumera los conceptos clave de tu mapa conceptual]
+
+Por favor:
+1. Identifica los componentes principales que deben incluirse en la búsqueda.
+2. Para cada componente, proporciona:
+   - Términos controlados apropiados (MeSH, DeCS, Emtree o el tesauro de la base, según corresponda)
+   - Palabras clave en lenguaje natural y sus variaciones
+   - Sinónimos relevantes y términos relacionados
+3. Construye una estrategia de búsqueda completa utilizando operadores booleanos (AND, OR, NOT).
+4. Sugiere filtros apropiados (temporales, tipos de publicación, idioma).
+5. Proporciona la sintaxis final adaptada específicamente para [base de datos].
+6. Sugiere 2–3 estrategias alternativas con diferentes balances de precisión y exhaustividad.
+7. Recomienda bases de datos adicionales o fuentes de literatura gris relevantes para este tema.</pre>
+  </div>
+
+  <div class="plantilla">
+    <div class="cab"><span>3 · Analizador de relevancia de resúmenes <small>Probado en Gemini 2.5 Pro</small></span><button class="copiar" type="button" data-copiar="mp3">Copiar para su IA</button></div>
+<pre id="mp3">Soy un investigador en [tu campo específico]. Estoy realizando una revisión sobre [tema específico] con los siguientes criterios de inclusión:
+- [Criterio 1]
+- [Criterio 2]
+- [Criterio 3]
+
+A continuación hay [número] resúmenes de artículos identificados en mi búsqueda:
+
+[Pegar resúmenes numerados]
+
+Por favor, para cada uno:
+1. Extrae y sintetiza la información clave sobre: objetivo, metodología, población y hallazgos principales.
+2. Evalúa su relevancia para mi revisión en una escala de 1 a 5, justificando la puntuación.
+3. Identifica si cumple con los criterios de inclusión especificados.
+4. Extrae términos o conceptos clave que podrían ser útiles para refinar búsquedas posteriores.
+5. Señala cualquier conexión con otros resúmenes de esta lista (estudios relacionados, contradictorios o complementarios).</pre>
+  </div>
+
+  <div class="plantilla">
+    <div class="cab"><span>4 · Categorizador de literatura seleccionada <small>Probado en Claude Sonnet 4</small></span><button class="copiar" type="button" data-copiar="mp4">Copiar para su IA</button></div>
+<pre id="mp4">Soy un investigador en [tu campo específico]. He seleccionado [número] artículos para mi revisión sobre [tema]. Necesito organizarlos en categorías significativas para facilitar el análisis.
+
+[Lista de referencias con títulos completos]
+
+Por favor, para cada artículo de la lista:
+1. Identifica la metodología principal utilizada.
+2. Extrae la población o el contexto estudiado.
+3. Identifica el enfoque teórico o conceptual (si es explícito).
+4. Determina los resultados o variables principales analizadas.
+
+Con base en este análisis:
+5. Propón 4–6 categorías temáticas que emerjan naturalmente de esta literatura.
+6. Sugiere una estructura lógica para organizar estos artículos (cronológica, metodológica, conceptual, etc.).
+7. Identifica clústeres de artículos estrechamente relacionados.
+8. Señala áreas donde la literatura parece ser más densa o más escasa.
+9. Sugiere un esquema visual (mapa conceptual o diagrama de flujo) que represente la organización propuesta.</pre>
+  </div>
+
+  <div class="plantilla">
+    <div class="cab"><span>5 · Identificador de temas emergentes <small>Probado en Gemini 2.5 Pro</small></span><button class="copiar" type="button" data-copiar="mp5">Copiar para su IA</button></div>
+<pre id="mp5">Soy un investigador en [tu campo específico]. He analizado [número] estudios sobre [tema específico] y necesito identificar temas emergentes para estructurar mi síntesis. Con base en la siguiente información extraída:
+
+[Resumen de los hallazgos principales de los estudios]
+
+Por favor:
+1. Identifica 4–6 temas o patrones principales que emergen de estos estudios.
+2. Para cada tema:
+   - Proporciona una descripción concisa
+   - Identifica los estudios que contribuyen a este tema
+   - Señala convergencias y divergencias dentro del tema
+   - Sugiere posibles explicaciones para los patrones observados
+3. Propón una estructura lógica para presentar estos temas en mi revisión.
+4. Identifica conexiones o relaciones entre los diferentes temas.
+5. Señala áreas donde la evidencia parece ser particularmente sólida o notablemente débil.
+6. Sugiere preguntas no resueltas o direcciones futuras que emergen de este análisis.
+7. Proporciona un diagrama conceptual que ilustre la relación entre los temas identificados.</pre>
+  </div>
+  <p class="pega"><span>↪</span>Pegue cada prompt en su IA de preferencia, en orden. Lea cada respuesta con criterio y verifique todo dato bibliográfico antes de usarlo.</p>
+</div></div></section>
+
 <!-- REFERENCIAS -->
 <section class="bloque vista" id="referencias"><div class="wrap"><div class="lectura">
   <span class="eb">Fuentes</span>
@@ -627,6 +810,43 @@ function mostrar(){
   document.title=(act==="inicio"?"":nombre(act)+" · ")+"Prompts, loops y agentes de IA en la investigación";
 }
 addEventListener("hashchange",mostrar);mostrar();
+}
+
+{
+const K="ruta-ia-taller-prompt-v1";
+let st={};try{st=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(_){st={}}
+if(!Array.isArray(st.arts)||!st.arts.length)st.arts=[{},{},{},{},{}];
+const guardar=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(_){}};
+const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const CR=["P","R","A","F","M"];
+const tb=document.getElementById("tArts");
+function pintar(){
+  tb.innerHTML=st.arts.map((a,i)=>'<tr data-i="'+i+'"><td>'+(i+1)+'</td>'+
+  '<td><input data-c="ref" aria-label="Artículo '+(i+1)+': autor, año y título" value="'+esc(a.ref)+'"></td>'+
+  '<td><select data-c="existe" aria-label="¿Existe el artículo '+(i+1)+'?">'+["","Sí","No","Con datos errados"].map(o=>'<option'+(a.existe===o?" selected":"")+'>'+o+'</option>').join("")+'</select></td>'+
+  '<td><input data-c="doi" aria-label="DOI o enlace del artículo '+(i+1)+'" value="'+esc(a.doi)+'"></td>'+
+  '<td><div class="crit">'+CR.map(c=>'<label><input type="checkbox" data-k="'+c+'"'+((a.cr||[]).includes(c)?" checked":"")+'>'+c+'</label>').join("")+'</div></td>'+
+  '<td><select data-c="dec" aria-label="Decisión sobre el artículo '+(i+1)+'">'+["","Útil","Descartado"].map(o=>'<option'+(a.dec===o?" selected":"")+'>'+o+'</option>').join("")+'</select></td></tr>').join("");
+}
+pintar();
+tb.addEventListener("input",e=>{const tr=e.target.closest("tr");if(!tr)return;const a=st.arts[+tr.dataset.i];
+  if(e.target.dataset.c)a[e.target.dataset.c]=e.target.value;
+  else if(e.target.dataset.k){a.cr=[...tr.querySelectorAll("[data-k]:checked")].map(x=>x.dataset.k)}
+  guardar()});
+document.querySelectorAll("[data-t]").forEach(el=>{el.value=st[el.dataset.t]||"";el.addEventListener("input",()=>{st[el.dataset.t]=el.value;guardar()})});
+document.getElementById("tMas").addEventListener("click",()=>{st.arts.push({});guardar();pintar();tb.querySelector("tr:last-child input").focus()});
+const est=document.getElementById("tEstado");
+document.getElementById("tBorrar").addEventListener("click",function(){
+  if(!this.dataset.armed){this.dataset.armed="1";this.textContent="Confirmar: borrar todo";setTimeout(()=>{delete this.dataset.armed;this.textContent="Borrar la hoja"},6000);return}
+  st={arts:[{},{},{},{},{}]};guardar();document.querySelectorAll("[data-t]").forEach(el=>el.value="");pintar();delete this.dataset.armed;this.textContent="Borrar la hoja";est.textContent="Hoja borrada."});
+document.getElementById("tCopiar").addEventListener("click",async()=>{
+  const L=["TALLER: CONSTRUCCIÓN Y EVALUACIÓN DE UN PROMPT PARA BÚSQUEDA BIBLIOGRÁFICA","","1. Tema: "+(st.tema||""),"","2. Primer prompt:",st.p1||"","","3. IA usada: "+(st.ia||""),"","4-5. Artículos evaluados (P pertinencia, R rigor, A actualidad, F fiabilidad, M adecuación metodológica):"];
+  st.arts.forEach((a,i)=>{if(a.ref||a.doi)L.push((i+1)+". "+(a.ref||"")+" | ¿Existe?: "+(a.existe||"—")+" | DOI/enlace: "+(a.doi||"—")+" | Criterios: "+((a.cr||[]).join(", ")||"—")+" | Decisión: "+(a.dec||"—"))});
+  L.push("","Términos o autores para ampliar:",st.amp||"","","6. Mi mejor prompt:",st.pf||"","","Qué cambié y por qué:",st.ref||"");
+  const t=L.join("\n");
+  try{await navigator.clipboard.writeText(t);est.textContent="Copiado. Péguelo en su documento."}
+  catch(_){const ta=document.createElement("textarea");ta.value=t;document.body.append(ta);ta.select();try{document.execCommand("copy");est.textContent="Copiado. Péguelo en su documento."}catch(__){est.textContent="No se pudo copiar en este navegador."}ta.remove()}
+});
 }
 </script>
 </body>
