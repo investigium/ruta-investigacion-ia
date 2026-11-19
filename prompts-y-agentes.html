@@ -160,6 +160,52 @@ footer b{color:#fff}
 .lic{display:flex;gap:16px;align-items:center;border:1px solid #2a3846;border-radius:12px;padding:14px 16px;margin-top:14px}
 .lic .cc{flex:none;background:#000;color:#fff;border-radius:8px;padding:8px 10px;font-family:var(--f-mono);font-size:.72rem;line-height:1.3}
 @media (max-width:600px){.lic{flex-direction:column;align-items:flex-start}}
+/* anatomía interactiva */
+.anat{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:1.4em 0}
+.anat-tabs{display:flex;gap:6px;padding:10px;background:var(--panel);border-bottom:1px solid var(--line)}
+.anat-tabs button{font:inherit;font-size:.95rem;font-weight:600;border:0;border-radius:99px;padding:9px 18px;background:transparent;color:var(--text);cursor:pointer}
+.anat-tabs button[aria-selected="true"]{background:var(--blue);color:#fff}
+@media (prefers-color-scheme: dark){.anat-tabs button[aria-selected="true"]{color:#0f1218}}
+.anat-cuerpo{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:0}
+.anat-lista{list-style:none;margin:0;padding:12px;border-right:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.anat-lista button{width:100%;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;text-align:left;font:inherit;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;color:var(--ink);transition:transform .12s,border-color .12s,background .12s}
+.anat-lista button:hover{border-color:var(--c);transform:translateX(2px)}
+.anat-lista button .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.85rem;color:#fff;background:var(--c)}
+.anat-lista button b{display:block;font-size:.98rem}
+.anat-lista button small{display:block;color:var(--muted);font-size:.84rem;line-height:1.35}
+.anat-lista button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 9%,var(--bg));box-shadow:inset 4px 0 0 var(--c)}
+.anat-der{padding:18px;display:grid;gap:14px;align-content:start}
+.anat-doc{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:1rem;line-height:1.65;color:var(--ink)}
+.anat-doc .cab{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:var(--muted);margin:0 0 10px}
+.anat-doc .cab i{width:9px;height:9px;border-radius:50%;background:#e06c5a;box-shadow:14px 0 0 #e6b450,28px 0 0 #6cbf7a;margin-right:34px}
+.anat-doc .blq{display:block;border-left:4px solid var(--c);background:color-mix(in srgb,var(--c) 7%,transparent);border-radius:0 8px 8px 0;padding:6px 10px;margin:6px 0;cursor:pointer;transition:opacity .15s,background .15s}
+.anat-doc .blq em{display:block;font-style:normal;font-size:.75rem;font-weight:700;color:var(--c);letter-spacing:.02em}
+.anat-doc.foco .blq{opacity:.32}
+.anat-doc.foco .blq.on{opacity:1;background:color-mix(in srgb,var(--c) 15%,transparent)}
+.anat-info{border-radius:14px;padding:16px 18px;background:color-mix(in srgb,var(--c,#2b6693) 8%,var(--panel));border:1px solid color-mix(in srgb,var(--c,#2b6693) 30%,transparent)}
+.anat-info h4{margin:0 0 6px;font-size:1.05rem;color:var(--ink)}
+.anat-info .par{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.anat-info .par div{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.93rem}
+.anat-info .par b{display:block;font-size:.82rem;margin-bottom:3px}
+.anat-info .par .si b{color:var(--ok)}.anat-info .par .no b{color:var(--warn)}
+.anat-info p{margin:0}
+@media (max-width:820px){.anat-cuerpo{grid-template-columns:1fr}.anat-lista{border-right:0;border-bottom:1px solid var(--line);grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.anat-lista button small{display:none}.anat-info .par{grid-template-columns:1fr}}
+.armar{border:1px solid var(--line);border-radius:16px;margin:2em 0 0;overflow:hidden}
+.armar-cab{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.medidor{min-width:200px;font-size:.88rem;font-weight:600;color:var(--blue)}
+.medidor .barra{height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden}
+.medidor .barra i{display:block;height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .25s}
+.armar-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.armar-campos{padding:16px 18px;display:grid;gap:12px;border-right:1px solid var(--line)}
+.armar-campos label{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.92rem;color:var(--ink);margin-bottom:4px}
+.armar-campos label i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.armar-campos textarea{width:100%;font:inherit;font-size:16px;line-height:1.45;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:8px 10px;resize:vertical;min-height:44px}
+.armar-vista{padding:16px 18px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+.armar-vista pre{flex:1;margin:0;min-height:260px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;font-family:var(--f-mono);font-size:.84rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.armar-vista pre .vacio{color:var(--soft)}
+.armar-campos textarea::placeholder{color:var(--soft);font-style:italic}
+#armarEstado{font-size:.88rem;color:var(--ok);font-weight:600}
+@media (max-width:820px){.armar-cuerpo{grid-template-columns:1fr}.armar-campos{border-right:0;border-bottom:1px solid var(--line)}}
 /* taller */
 .hoja{background:var(--panel);border-radius:14px;padding:18px;margin:1em 0}
 .campo{margin:0 0 16px}
@@ -364,29 +410,35 @@ body.app section.vista.on{display:block}
 <section class="bloque vista" id="estructura"><div class="wrap"><div class="lectura">
   <span class="eb">4 · Estructura</span>
   <h2>Cómo se estructura un prompt y un agente</h2>
-  <p class="intro">Un prompt y un agente se arman con piezas parecidas. El agente agrega las piezas que gobiernan su autonomía: herramientas, ciclo, controles y parada.</p>
+  <p class="intro">Un prompt y un agente se arman con piezas parecidas. El agente agrega las piezas que gobiernan su autonomía: herramientas, ciclo, controles y parada. Toque cada pieza para verla dentro de un ejemplo real.</p>
 
-  <h3>Las partes de un prompt</h3>
-  <ul class="anatomia">
-    <li><b>Rol</b><span>Desde qué experticia debe responder la IA.<em>«Actúe como metodóloga en investigación cualitativa en educación.»</em></span></li>
-    <li><b>Contexto</b><span>Lo que la IA necesita saber de su proyecto.<em>Nivel, programa, tema, pregunta, enfoque.</em></span></li>
-    <li><b>Tarea</b><span>Un verbo y un producto concreto. Una tarea por prompt.<em>«Proponga tres versiones del objetivo general.»</em></span></li>
-    <li><b>Insumos</b><span>El material sobre el que trabaja, separado de las instrucciones.<em>Resúmenes, su borrador, una tabla, delimitados con etiquetas.</em></span></li>
-    <li><b>Restricciones</b><span>Lo que no debe hacer y los límites.<em>«No invente fuentes. Máximo 150 palabras. Solo con los insumos.»</em></span></li>
-    <li><b>Formato</b><span>Cómo debe entregar la respuesta.<em>Tabla con columnas definidas, lista numerada, párrafo.</em></span></li>
-    <li><b>Verificación</b><span>Cómo debe comprobar su propia respuesta antes de entregarla.<em>«Marque con [VERIFICAR] lo que yo deba comprobar.»</em></span></li>
-  </ul>
+  <div class="anat" id="anat">
+    <div class="anat-tabs" role="tablist" aria-label="Qué quiere desarmar">
+      <button type="button" role="tab" data-modo="prompt" aria-selected="true">Partes de un prompt</button>
+      <button type="button" role="tab" data-modo="agente" aria-selected="false">Partes de un agente</button>
+    </div>
+    <div class="anat-cuerpo">
+      <ol class="anat-lista" id="anatLista"></ol>
+      <div class="anat-der">
+        <div class="anat-doc" id="anatDoc" aria-live="polite"></div>
+        <div class="anat-info" id="anatInfo"></div>
+      </div>
+    </div>
+  </div>
 
-  <h3>Las partes de un agente</h3>
-  <ul class="anatomia">
-    <li><b>Propósito</b><span>La meta verificable y para qué sirve.<em>«Construir la tabla de evidencia del capítulo 2.»</em></span></li>
-    <li><b>Conocimiento</b><span>El contexto fijo del proyecto y los archivos que puede consultar.<em>Protocolo, criterios de inclusión, matriz de coherencia.</em></span></li>
-    <li><b>Herramientas</b><span>Qué puede usar y qué tiene prohibido.<em>Puede buscar en Crossref; no puede borrar archivos ni enviar correos.</em></span></li>
-    <li><b>Ciclo</b><span>Los pasos de cada vuelta del loop.<em>Planear → actuar → observar → evaluar.</em></span></li>
-    <li><b>Controles humanos</b><span>En qué momentos debe detenerse y pedirle confirmación.<em>Antes de excluir estudios; antes de redactar.</em></span></li>
-    <li><b>Parada</b><span>Cuándo termina, aunque no haya llegado a la meta.<em>«Pare tras 20 búsquedas o si no puede verificar una fuente.»</em></span></li>
-    <li><b>Entrega y bitácora</b><span>Qué entrega y qué registro deja de cada decisión.<em>Tabla + bitácora con fecha, acción, fuente y resultado.</em></span></li>
-  </ul>
+  <div class="armar" id="armar">
+    <div class="armar-cab">
+      <div><h3 style="margin:0">Arme su propio prompt</h3><p style="margin:4px 0 0">Escriba cada pieza; el prompt se arma a la derecha mientras escribe.</p></div>
+      <div class="medidor" aria-live="polite"><span id="armarCuenta">0 de 7 piezas</span><div class="barra"><i id="armarBarra"></i></div></div>
+    </div>
+    <div class="armar-cuerpo">
+      <div class="armar-campos" id="armarCampos"></div>
+      <div class="armar-vista">
+        <pre id="armarPre" aria-label="Prompt armado"></pre>
+        <div class="acciones"><button class="copiar" type="button" id="armarCopiar">Copiar para su IA</button><button class="sec" type="button" id="armarEjemplo">Llenar con el ejemplo</button><button class="sec" type="button" id="armarLimpiar">Limpiar</button><span id="armarEstado" role="status"></span></div>
+      </div>
+    </div>
+  </div>
 </div></div></section>
 
 <!-- 5 INGENIERÍA -->
@@ -848,6 +900,59 @@ document.getElementById("tCopiar").addEventListener("click",async()=>{
   try{await navigator.clipboard.writeText(t);est.textContent="Copiado. Péguelo en su documento."}
   catch(_){const ta=document.createElement("textarea");ta.value=t;document.body.append(ta);ta.select();try{document.execCommand("copy");est.textContent="Copiado. Péguelo en su documento."}catch(__){est.textContent="No se pudo copiar en este navegador."}ta.remove()}
 });
+}
+
+{
+const COL=["#2b6693","#7a4fb0","#c47f17","#2b9ac4","#a23b5d","#4a5866","#1d7a52"];
+const D={
+prompt:{titulo:"Prompt para reformular el objetivo general",partes:[
+ ["Rol","Desde qué experticia responde la IA","Actúe como metodóloga en investigación cualitativa en educación.","Orienta el vocabulario, el nivel de exigencia y los criterios con que la IA juzga.","«Eres un experto» sin decir en qué: no cambia nada."],
+ ["Contexto","Lo que la IA necesita saber de su proyecto","Soy estudiante de maestría en educación. Mi pregunta es: ¿cómo transforma el uso de IA generativa los procesos creativos de escritura académica en estudiantes de posgrado? Enfoque cualitativo.","Sin contexto, la IA responde para un estudiante promedio y no para su proyecto.","Pegar todo el documento: la IA se pierde en lo que no importa."],
+ ["Tarea","Un verbo y un producto concreto","Proponga tres versiones del objetivo general que respondan a esa pregunta.","Un verbo claro y un producto definido permiten juzgar si la respuesta cumplió.","«Ayúdame con mis objetivos»: no dice qué entregar."],
+ ["Insumos","El material, separado de las instrucciones","<borrador>Mi objetivo actual: Analizar la IA en la escritura.</borrador>","Las etiquetas evitan que la IA confunda su texto con las órdenes.","Mezclar el borrador con la instrucción en un mismo párrafo."],
+ ["Restricciones","Lo que no debe hacer y los límites","Un solo verbo en infinitivo por objetivo. No invente autores ni citas. Máximo 40 palabras por versión.","Cierran la puerta a las respuestas genéricas y a las referencias inventadas.","No decir nada sobre fuentes: la IA rellena con citas plausibles."],
+ ["Formato","Cómo entrega la respuesta","Tabla: versión | verbo | qué cambia frente a mi borrador.","Un formato fijo se compara y se revisa en segundos.","Dejar el formato libre y recibir tres párrafos difíciles de comparar."],
+ ["Verificación","Cómo comprueba su respuesta","Antes de responder, compruebe que cada versión corresponde a la pregunta y marque con [VERIFICAR] lo que yo deba revisar.","Hace visible lo dudoso en lugar de esconderlo en un texto seguro.","Confiar en la respuesta porque «suena bien»."]]},
+agente:{titulo:"Instrucciones de un agente de revisión de literatura",partes:[
+ ["Propósito","La meta verificable","Su meta: construir la tabla de evidencia del capítulo 2 con estudios empíricos 2019–2025 sobre IA y escritura académica.","Sin una meta comprobable, el agente no sabe cuándo terminó.","«Ayúdeme con la revisión»: el agente da vueltas sin rumbo."],
+ ["Conocimiento","El contexto fijo y los archivos","Consulte protocolo.docx y matriz_coherencia.docx. Incluya solo estudios empíricos con población de posgrado, en español o inglés.","El agente decide con sus criterios, no con los suyos propios.","Dejar los criterios de inclusión para después."],
+ ["Herramientas","Lo que puede usar y lo prohibido","Puede buscar en Crossref y OpenAlex y leer los archivos adjuntos. No puede modificar archivos ni enviar mensajes.","Limitar las herramientas limita los errores que puede cometer.","Darle acceso a todo «por si acaso»."],
+ ["Ciclo","Los pasos de cada vuelta","En cada vuelta: planee el paso, ejecute una acción, registre el resultado con su fuente y evalúe si se acerca a la meta.","Un ciclo explícito deja rastro de cada decisión.","No pedir registro: el agente entrega resultados sin camino."],
+ ["Controles humanos","Cuándo debe pedirle permiso","Pídame confirmación antes de excluir un estudio y antes de redactar la síntesis.","Las decisiones que afectan sus resultados siguen siendo suyas.","Revisar solo al final, cuando ya es tarde para corregir."],
+ ["Parada","Cuándo termina","Pare al reunir 15 estudios verificados, tras 20 búsquedas o si no puede verificar una fuente dos veces.","Evita bucles infinitos y trabajo innecesario.","No poner límite: el agente sigue aunque ya no aporte."],
+ ["Entrega y bitácora","Qué entrega y qué registro deja","Entregue la tabla (autor, año, DOI verificado, diseño, hallazgo, limitación) y una bitácora de cada decisión.","Le permite auditar el trabajo y declararlo en su metodología.","Aceptar una tabla sin saber de dónde salió cada dato."]]}};
+const lista=document.getElementById("anatLista"),doc=document.getElementById("anatDoc"),info=document.getElementById("anatInfo"),tabs=[...document.querySelectorAll(".anat-tabs button")];
+let modo="prompt",act=0;
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function pinta(){const M=D[modo];
+  lista.innerHTML=M.partes.map((p,i)=>`<li><button type="button" data-i="${i}" aria-pressed="${i===act}" style="--c:${COL[i]}"><span class="n">${i+1}</span><span><b>${p[0]}</b><small>${p[1]}</small></span></button></li>`).join("");
+  doc.className="anat-doc foco";
+  doc.innerHTML=`<p class="cab"><i></i>${esc(M.titulo)}</p>`+M.partes.map((p,i)=>`<span class="blq${i===act?" on":""}" data-i="${i}" style="--c:${COL[i]}"><em>${p[0]}</em>${esc(p[2])}</span>`).join("");
+  const p=M.partes[act];info.style.setProperty("--c",COL[act]);
+  info.innerHTML=`<h4>${act+1}. ${p[0]}</h4><p>${p[1]}.</p><div class="par"><div class="si"><b>Por qué importa</b>${p[3]}</div><div class="no"><b>Error frecuente</b>${p[4]}</div></div>`;
+}
+lista.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;act=+b.dataset.i;pinta()});
+doc.addEventListener("click",e=>{const b=e.target.closest(".blq");if(!b)return;act=+b.dataset.i;pinta()});
+tabs.forEach(t=>t.addEventListener("click",()=>{modo=t.dataset.modo;act=0;tabs.forEach(x=>x.setAttribute("aria-selected",x===t));pinta()}));
+pinta();
+/* armar */
+const K="ruta-ia-armar-prompt-v1";let v={};try{v=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(_){v={}}
+const P=D.prompt.partes,campos=document.getElementById("armarCampos"),pre=document.getElementById("armarPre");
+campos.innerHTML=P.map((p,i)=>`<div style="--c:${COL[i]}"><label for="ap${i}"><i></i>${p[0]}</label><textarea id="ap${i}" data-i="${i}" rows="2" placeholder="${esc(p[2])}"></textarea></div>`).join("");
+const tas=[...campos.querySelectorAll("textarea")];tas.forEach(t=>t.value=v[t.dataset.i]||"");
+function texto(){return P.map((p,i)=>{const x=(v[i]||"").trim();return x?"# "+p[0].toUpperCase()+"\n"+x:""}).filter(Boolean).join("\n\n")}
+function arma(){const n=P.filter((_,i)=>(v[i]||"").trim()).length;
+  document.getElementById("armarCuenta").textContent=n+" de 7 piezas"+(n===7?" · completo":"");
+  document.getElementById("armarBarra").style.width=(n/7*100)+"%";
+  pre.innerHTML=P.map((p,i)=>{const x=(v[i]||"").trim();return x?"# "+esc(p[0].toUpperCase())+"\n"+esc(x):`<span class="vacio"># ${esc(p[0].toUpperCase())}\n[${esc(p[1].charAt(0).toLowerCase()+p[1].slice(1))}]</span>`}).join("\n\n");
+  try{localStorage.setItem(K,JSON.stringify(v))}catch(_){}}
+campos.addEventListener("input",e=>{v[e.target.dataset.i]=e.target.value;arma()});
+const est=document.getElementById("armarEstado");
+document.getElementById("armarEjemplo").addEventListener("click",()=>{P.forEach((p,i)=>{v[i]=p[2];tas[i].value=p[2]});arma();est.textContent=""});
+document.getElementById("armarLimpiar").addEventListener("click",()=>{v={};tas.forEach(t=>t.value="");arma();est.textContent=""});
+document.getElementById("armarCopiar").addEventListener("click",async()=>{const t=texto();if(!t){est.textContent="Escriba al menos una pieza.";return}
+  try{await navigator.clipboard.writeText(t);est.textContent="Copiado ✓"}catch(_){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);est.textContent="Seleccionado: use Cmd/Ctrl+C"}});
+arma();
 }
 </script>
 </body>
