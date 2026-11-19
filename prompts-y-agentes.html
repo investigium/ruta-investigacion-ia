@@ -949,8 +949,13 @@ function arma(){const n=P.filter((_,i)=>(v[i]||"").trim()).length;
   try{localStorage.setItem(K,JSON.stringify(v))}catch(_){}}
 campos.addEventListener("input",e=>{v[e.target.dataset.i]=e.target.value;arma()});
 const est=document.getElementById("armarEstado");
-document.getElementById("armarEjemplo").addEventListener("click",()=>{P.forEach((p,i)=>{v[i]=p[2];tas[i].value=p[2]});arma();est.textContent=""});
-document.getElementById("armarLimpiar").addEventListener("click",()=>{v={};tas.forEach(t=>t.value="");arma();est.textContent=""});
+let previo=null;const hay=()=>P.some((_,i)=>(v[i]||"").trim());
+const deshacer=()=>{if(!previo)return;v=previo;previo=null;tas.forEach(t=>t.value=v[t.dataset.i]||"");arma();est.textContent="Recuperado."};
+function reemplazar(nuevo,msg){previo={...v};v=nuevo;tas.forEach(t=>t.value=v[t.dataset.i]||"");arma();est.innerHTML=msg+' <button type="button" class="sec" id="armarDeshacer">Deshacer</button>';document.getElementById("armarDeshacer").addEventListener("click",deshacer)}
+function confirmar(btn,txt,fn){if(hay()&&!btn.dataset.armed){const o=btn.textContent;btn.dataset.armed="1";btn.textContent=txt;setTimeout(()=>{delete btn.dataset.armed;btn.textContent=o},6000);return}delete btn.dataset.armed;fn()}
+const bE=document.getElementById("armarEjemplo"),bL=document.getElementById("armarLimpiar"),oE=bE.textContent,oL=bL.textContent;
+bE.addEventListener("click",()=>confirmar(bE,"Confirmar: reemplazar lo mío",()=>{bE.textContent=oE;const n={};P.forEach((p,i)=>n[i]=p[2]);reemplazar(n,"Se llenó con el ejemplo.")}));
+bL.addEventListener("click",()=>confirmar(bL,"Confirmar: borrar todo",()=>{bL.textContent=oL;reemplazar({},"Se borró el prompt.")}));
 document.getElementById("armarCopiar").addEventListener("click",async()=>{const t=texto();if(!t){est.textContent="Escriba al menos una pieza.";return}
   try{await navigator.clipboard.writeText(t);est.textContent="Copiado ✓"}catch(_){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);est.textContent="Seleccionado: use Cmd/Ctrl+C"}});
 arma();
