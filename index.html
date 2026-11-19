@@ -334,7 +334,9 @@ nav.top ul a[aria-current]{background:var(--blue-soft);color:var(--blue)}
   .herr{padding:14px}
   .herr .hd{font-size:.86rem}
   .pasos-nav{grid-template-columns:1fr}.pn.sig{text-align:left}
-  .portada .contador{display:none}
+  .portada .contador{display:grid;grid-template-rows:auto auto;grid-template-columns:auto auto;grid-auto-flow:column;column-gap:18px;row-gap:0;justify-items:center}
+  .portada .contador .circ{display:none}
+  .portada .contador .cnum{font-size:1.15rem}
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .herr:hover{box-shadow:none}}
 @media (max-width:760px){
