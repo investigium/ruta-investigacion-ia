@@ -1127,5 +1127,25 @@ document.getElementById("armarCopiar").addEventListener("click",async()=>{const 
 arma();
 }
 </script>
+<script>(function(){
+  var ul=document.querySelector('#inicio ul.mapa');if(!ul)return;
+  var esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var items=[].slice.call(ul.querySelectorAll('a')).map(function(a,i){var id=a.getAttribute('href').slice(1),sec=document.getElementById(id);var sp=a.querySelector('span');var t=a.textContent.replace(sp?sp.textContent:'','').trim();
+    var eb=sec&&sec.querySelector('.eb'),df=sec&&(sec.querySelector('.def')||sec.querySelector('.lectura>p'));var d='';if(df){var c=df.cloneNode(true);c.querySelectorAll('small').forEach(function(x){x.remove()});d=c.textContent.replace(/\s+/g,' ').trim();if(d.length>260)d=d.slice(0,d.lastIndexOf(' ',250))+'…'}
+    return {id:id,n:i+1,t:t,eb:eb?eb.textContent.replace(/^\d+\s*·\s*/,'').trim():'',d:d}});
+  var col=function(n){return 'var(--p'+(((n-1)%7)+1)+')'};
+  var pv=document.createElement('div');pv.className='pv';
+  var h='<div class="pv-grid"><ol class="pv-list">';
+  items.forEach(function(it,i){h+='<li><button type="button" class="pv-part" data-i="'+i+'" aria-current="false" aria-controls="pv0Win"><span class="pv-num" style="--c:'+col(it.n)+'">'+it.n+'</span><span><b>'+esc(it.t)+'</b><small>'+esc(it.eb)+'</small></span></button></li>'});
+  h+='</ol><div class="pv-win" id="pv0Win" aria-live="polite"></div></div>';pv.innerHTML=h;
+  ul.parentNode.insertBefore(pv,ul);ul.hidden=true;ul.style.display='none';
+  var win=pv.querySelector('#pv0Win');win.style.position='relative';win.style.top='0';var parts=[].slice.call(pv.querySelectorAll('.pv-part')),K='pya-pv-sel',sel=0;try{var v=+localStorage.getItem(K);if(v>=0&&v<items.length)sel=v}catch(_){}
+  function pintar(i){var it=items[i];sel=i;try{localStorage.setItem(K,i)}catch(_){}parts.forEach(function(b,j){b.setAttribute('aria-current',String(j===i))});
+    win.innerHTML='<div class="pv-whead"><span class="pv-dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Tema '+it.n+' de '+items.length+(it.eb?' · '+esc(it.eb):'')+'</b></div><div class="pv-wbody"><h3>'+esc(it.t)+'</h3><p>'+esc(it.d)+'</p><a class="pv-btn" href="#'+esc(it.id)+'">Abrir el tema '+it.n+' →</a></div>';
+    if(matchMedia('(max-width:860px)').matches)parts[i].parentNode.appendChild(win);else pv.querySelector('.pv-grid').appendChild(win)}
+  parts.forEach(function(b,i){b.addEventListener('click',function(){pintar(i)});b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var j=Math.max(0,Math.min(parts.length-1,i+(e.key==='ArrowDown'?1:-1)));parts[j].focus();pintar(j)}})});
+  pintar(sel);
+})();
+</script>
 </body>
 </html>

@@ -547,6 +547,26 @@ html body nav.top nav.indice a.activo b{color:#C9D4E0}
 </style>
 <style>@media (max-width:760px){html body nav.top .idioma svg{display:none}html body nav.top .idioma{padding:2px!important;gap:0!important}html body nav.top .idioma button{padding:3px 7px!important;font-size:.72rem!important;min-height:0!important}html body nav.top .brand{max-width:calc(100vw - 205px)}html body nav.top .brand>span{min-width:0;overflow:hidden}html body nav.top .brand b{overflow:hidden;text-overflow:ellipsis}html body nav.top>.wrap,html body nav.top>.nav-in{flex-wrap:wrap;row-gap:4px}html body nav.top .pv-save{padding:4px 6px}}
 </style>
+<style>/* ===== Fase 3: taller de revisión, explorador y Paso 0 ===== */
+.pv-taller{display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;align-items:start;border:1px solid var(--pv-line);border-radius:16px;background:var(--pv-panel);padding:18px;margin-top:8px}
+.pv-taller>.panel{min-width:0;overflow-x:auto;position:relative;background:#fff;border:1px solid var(--pv-line);border-radius:14px;padding:18px}
+html body .pv-taller #tabs{flex-direction:column;flex-wrap:nowrap;gap:8px;margin:0;position:sticky;top:130px;overflow:visible}
+html body .pv-taller #tabs button{display:flex;align-items:flex-start;gap:12px;text-align:left;width:100%;white-space:normal;border-radius:12px;border:1px solid var(--pv-line);background:#fff;color:var(--pv-text);padding:12px 14px;font-size:.95rem;box-shadow:0 1px 2px rgb(20 32 43 / .06)}
+html body .pv-taller #tabs button:hover{border-color:#9FB4C9}
+html body .pv-taller #tabs button[aria-selected="true"]{background:var(--pv-brand-soft);border:2px solid var(--pv-brand);padding:11px 13px;color:var(--pv-ink)}
+.pv-taller #tabs .pv-num{width:32px;height:32px;font-size:.9rem}
+.pv-taller #tabs b{display:block;color:var(--pv-ink);font-size:1rem;line-height:1.3}
+.pv-taller #tabs small{display:block;color:var(--pv-muted);font-size:.84rem;line-height:1.35;margin-top:1px;font-weight:500}
+@media (max-width:860px){.pv-taller{grid-template-columns:1fr;padding:10px}html body .pv-taller #tabs{flex-direction:row;overflow-x:auto;position:static;padding-bottom:6px}html body .pv-taller #tabs button{width:auto;flex:none;padding:8px 12px;align-items:center}.pv-taller #tabs small{display:none}.pv-taller #tabs .pv-num{width:26px;height:26px;font-size:.78rem}.pv-taller>.panel{padding:12px}}
+.tj.pv-wtj{background:#fff;border:1px solid var(--pv-line);border-radius:16px;box-shadow:0 8px 24px rgb(20 32 43 / .08)}
+.tj.pv-wtj .rot{display:flex;align-items:center;gap:10px}
+.tj.pv-wtj pre.prompt{background:#F7F9FB}
+.pega .pv-ai{display:inline-block;font-size:.78rem;font-weight:600;color:var(--pv-ink);background:#fff;border:1px solid var(--pv-line);border-radius:999px;padding:0 8px;margin:0 2px}
+.fase .tj .rot.pv-rf{display:flex;align-items:center;gap:8px;font-family:var(--f-body)!important;letter-spacing:0!important;text-transform:none!important;font-weight:700;font-size:.85rem!important}
+.fase .tj .rot.pv-rf .pv-num{width:28px;height:28px;font-size:.82rem}
+.es-carpeta.on{background:var(--pv-brand-soft)!important;box-shadow:inset 0 0 0 2px var(--pv-brand);border-radius:12px}
+.es-panel .rot{color:var(--pv-muted)}
+</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -1878,6 +1898,23 @@ b.addEventListener("click",()=>{let hay=false;try{const v=JSON.parse(localStorag
   pv.querySelectorAll('.pv-pills button').forEach(function(b){b.addEventListener('click',function(){pv.querySelectorAll('.pv-pills button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});pv.querySelectorAll('[data-p]').forEach(function(p){p.hidden=p.getAttribute('data-p')!==b.dataset.v})})});
   pintar(sel);
   var mq=matchMedia('(max-width:860px)');(mq.addEventListener?mq.addEventListener('change',function(){pintar(sel)}):mq.addListener(function(){pintar(sel)}));
+})();
+</script>
+<script>(function(){
+  var esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var DESC={protocolo:'Pregunta y criterios',busqueda:'Términos, cadena y registro',cribado:'Títulos, resúmenes y diagrama',evidencia:'Un estudio por fila',calidad:'Valorar cada estudio',verificar:'DOI y exactitud de la IA',sintesis:'Estado del arte y vacío',reporte:'Bitácora y reporte en Word'};
+  var tabs=document.getElementById('tabs');
+  if(tabs){var bs=[].slice.call(tabs.querySelectorAll('[data-tab]'));
+    bs.forEach(function(b,i){var t=b.textContent.replace(/^\s*\d+\s*·\s*/,'').trim();var n=i+1;var c=n<=7?'var(--p'+n+')':'var(--p0)';
+      b.innerHTML='<span class="pv-num" style="--c:'+c+'">'+n+'</span><span><b>'+esc(t)+'</b><small>'+esc(DESC[b.dataset.tab]||'')+'</small></span>'});
+    var g=document.createElement('div');g.className='pv-taller';tabs.parentNode.insertBefore(g,tabs);g.appendChild(tabs);
+    var sib=g.nextElementSibling;while(sib&&sib.classList&&sib.classList.contains('panel')){var nx=sib.nextElementSibling;g.appendChild(sib);sib=nx}
+    // los comentarios HTML intermedios no son elementos; seguir buscando paneles sueltos
+    document.querySelectorAll('#rsl .panel[role=tabpanel]').forEach(function(p){if(p.parentNode!==g)g.appendChild(p)});
+  }
+  document.querySelectorAll('.tj').forEach(function(tj){if(!tj.querySelector(':scope>pre.prompt'))return;tj.classList.add('pv-wtj');var r=tj.querySelector(':scope>.rot');if(r&&!r.querySelector('.pv-dots')){var d=document.createElement('span');d.className='pv-dots';d.setAttribute('aria-hidden','true');d.innerHTML='<i></i><i></i><i></i>';r.insertBefore(d,r.firstChild)}});
+  document.querySelectorAll('.pega').forEach(function(pg){if(/Pegue este prompt en su IA de preferencia/.test(pg.textContent)){pg.innerHTML='<span aria-hidden="true">↪</span> Péguelo en su IA: <span class="pv-ai">ChatGPT</span><span class="pv-ai">Gemini</span><span class="pv-ai">Claude</span><span class="pv-ai">Copilot</span> u otra. Lea la respuesta con criterio y traiga a la Ruta solo lo que decida conservar.'}});
+  document.querySelectorAll('#rsl .fase .tj').forEach(function(tj,i){var r=tj.querySelector('.rot');if(!r)return;r.classList.add('pv-rf');r.innerHTML='<span class="pv-num" style="--c:var(--p'+(i+1)+')">'+(i+1)+'</span>'+esc(r.textContent)});
 })();
 </script>
 </body>
