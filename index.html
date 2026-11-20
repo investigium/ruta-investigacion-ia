@@ -577,6 +577,7 @@ html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{max-
 @media (min-width:1100px){html body .wrap,html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{padding-left:32px;padding-right:32px}}
 html body .portada .sub,html body .reflexion{max-width:74ch}
 </style>
+<style>.pv-donde{background:var(--pv-brand-soft,#EAF1F8);border-radius:12px;padding:14px 16px;margin:0 0 16px;line-height:1.6;color:var(--pv-ink,#14202B)}.pv-donde a{font-weight:600}</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -718,15 +719,15 @@ html body .portada .sub,html body .reflexion{max-width:74ch}
     <div class="scroll"><table>
       <thead><tr><th>Herramienta</th><th>Pregunta que responde</th><th>Límite que hay que tener presente</th></tr></thead>
       <tbody>
-        <tr><td>Scopus, Web of Science, ERIC, PubMed</td><td>¿Qué se ha publicado con mi cadena de búsqueda?</td><td>Cobertura parcial de revistas latinoamericanas y en español.</td></tr>
-        <tr><td>SciELO, Redalyc, Dialnet, La Referencia</td><td>¿Qué se ha publicado en Iberoamérica?</td><td>Buscadores menos precisos con operadores booleanos.</td></tr>
-        <tr><td>OpenAlex, Semantic Scholar, Google Scholar</td><td>¿Qué hay en bases abiertas y quién cita a quién?</td><td>Mucho ruido; Google Scholar no permite reproducir la búsqueda con exactitud.</td></tr>
-        <tr><td>Consensus</td><td>¿Hacia dónde apunta la evidencia?</td><td>Lee títulos y resúmenes, no los diseños.</td></tr>
-        <tr><td>Elicit</td><td>¿Qué dicen estos estudios, en una tabla?</td><td>La extracción de hallazgos coincide solo en parte con la humana.</td></tr>
-        <tr><td>Connected Papers, ResearchRabbit, Litmaps</td><td>¿Qué hay alrededor de un artículo semilla?</td><td>Estar cerca en el grafo no significa decir lo mismo.</td></tr>
-        <tr><td>NotebookLM</td><td>¿Qué dicen mis propios documentos?</td><td>Solo sabe lo que usted cargó.</td></tr>
-        <tr><td>scite</td><td>¿Alguien apoyó o contradijo este hallazgo?</td><td>Sin plan gratuito permanente.</td></tr>
-        <tr><td>Crossref y doi.org</td><td>¿Existe esta referencia?</td><td>Confirma que existe, no que sea buena ni que diga lo que se cree.</td></tr>
+        <tr><td><a href="https://www.scopus.com" target="_blank" rel="noopener">Scopus</a>, <a href="https://www.webofscience.com" target="_blank" rel="noopener">Web of Science</a>, <a href="https://eric.ed.gov" target="_blank" rel="noopener">ERIC</a>, <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener">PubMed</a></td><td>¿Qué se ha publicado con mi cadena de búsqueda?</td><td>Cobertura parcial de revistas latinoamericanas y en español.</td></tr>
+        <tr><td><a href="https://scielo.org/es/" target="_blank" rel="noopener">SciELO</a>, <a href="https://www.redalyc.org" target="_blank" rel="noopener">Redalyc</a>, <a href="https://dialnet.unirioja.es" target="_blank" rel="noopener">Dialnet</a>, <a href="https://www.lareferencia.info" target="_blank" rel="noopener">La Referencia</a></td><td>¿Qué se ha publicado en Iberoamérica?</td><td>Buscadores menos precisos con operadores booleanos.</td></tr>
+        <tr><td><a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, <a href="https://www.semanticscholar.org" target="_blank" rel="noopener">Semantic Scholar</a>, <a href="https://scholar.google.com" target="_blank" rel="noopener">Google Scholar</a></td><td>¿Qué hay en bases abiertas y quién cita a quién?</td><td>Mucho ruido; Google Scholar no permite reproducir la búsqueda con exactitud.</td></tr>
+        <tr><td><a href="https://consensus.app" target="_blank" rel="noopener">Consensus</a></td><td>¿Hacia dónde apunta la evidencia?</td><td>Lee títulos y resúmenes, no los diseños.</td></tr>
+        <tr><td><a href="https://elicit.com" target="_blank" rel="noopener">Elicit</a></td><td>¿Qué dicen estos estudios, en una tabla?</td><td>La extracción de hallazgos coincide solo en parte con la humana.</td></tr>
+        <tr><td><a href="https://www.connectedpapers.com" target="_blank" rel="noopener">Connected Papers</a>, <a href="https://www.researchrabbit.ai" target="_blank" rel="noopener">ResearchRabbit</a>, <a href="https://www.litmaps.com" target="_blank" rel="noopener">Litmaps</a></td><td>¿Qué hay alrededor de un artículo semilla?</td><td>Estar cerca en el grafo no significa decir lo mismo.</td></tr>
+        <tr><td><a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a></td><td>¿Qué dicen mis propios documentos?</td><td>Solo sabe lo que usted cargó.</td></tr>
+        <tr><td><a href="https://scite.ai" target="_blank" rel="noopener">scite</a></td><td>¿Alguien apoyó o contradijo este hallazgo?</td><td>Sin plan gratuito permanente.</td></tr>
+        <tr><td><a href="https://search.crossref.org" target="_blank" rel="noopener">Crossref</a> y <a href="https://www.doi.org" target="_blank" rel="noopener">doi.org</a></td><td>¿Existe esta referencia?</td><td>Confirma que existe, no que sea buena ni que diga lo que se cree.</td></tr>
       </tbody>
     </table></div>
 
@@ -783,6 +784,7 @@ html body .portada .sub,html body .reflexion{max-width:74ch}
 
     <!-- 2 Búsqueda -->
     <div class="panel" id="p-busqueda" role="tabpanel" hidden>
+      <div class="pv-donde"><b>Dónde buscar.</b> Empiece por las bases abiertas de la región: <a href="https://scielo.org/es/" target="_blank" rel="noopener">SciELO</a>, <a href="https://www.redalyc.org" target="_blank" rel="noopener">Redalyc</a>, <a href="https://dialnet.unirioja.es" target="_blank" rel="noopener">Dialnet</a> y <a href="https://www.lareferencia.info" target="_blank" rel="noopener">La Referencia</a>. Siga con <a href="https://scholar.google.com" target="_blank" rel="noopener">Google Académico</a> y <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>. Si su universidad tiene acceso, entre a <a href="https://www.scopus.com" target="_blank" rel="noopener">Scopus</a> y <a href="https://www.webofscience.com" target="_blank" rel="noopener">Web of Science</a> desde la red o la biblioteca de su universidad. Arme aquí sus términos y su cadena, péguela en cada base y anote en el registro cuántos resultados obtuvo.</div>
       <div class="rej c2">
         <div class="tj">
           <p class="rot">Paso 2 · Conceptos y términos</p>

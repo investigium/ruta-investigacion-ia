@@ -330,6 +330,7 @@ html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{max-
 @media (min-width:1100px){html body .wrap,html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{padding-left:32px;padding-right:32px}}
 html body .portada .sub,html body .reflexion{max-width:74ch}
 </style>
+<style>.pv-tag.pv-min{background:#E6F3EC!important;color:#1D7A52!important}.pv-min-nota{margin:18px 0 0;color:var(--pv-text,#3D4A5C)}</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -1150,6 +1151,12 @@ arma();
     if(matchMedia('(max-width:860px)').matches)parts[i].parentNode.appendChild(win);else pv.querySelector('.pv-grid').appendChild(win)}
   parts.forEach(function(b,i){b.addEventListener('click',function(){pintar(i)});b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var j=Math.max(0,Math.min(parts.length-1,i+(e.key==='ArrowDown'?1:-1)));parts[j].focus();pintar(j)}})});
   pintar(sel);
+})();
+</script>
+<script>(function(){
+  var pv=document.querySelector('#inicio .pv');if(!pv)return;
+  [0,3,5].forEach(function(i){var b=pv.querySelector('.pv-part[data-i="'+i+'"] b');if(b&&!b.parentNode.querySelector('.pv-tag')){var t=document.createElement('span');t.className='pv-tag pv-min';t.textContent='Mínimo';b.parentNode.appendChild(t)}});
+  var p=document.createElement('p');p.className='pv-min-nota';p.innerHTML='<b>¿Poco tiempo?</b> Lea al menos los temas 1, 4 y 6, marcados como <span class="pv-tag pv-min">Mínimo</span>: qué es un prompt, cómo se estructura y cómo dejar su rastro.';pv.parentNode.insertBefore(p,pv);
 })();
 </script>
 </body>
