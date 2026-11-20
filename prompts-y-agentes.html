@@ -182,7 +182,7 @@ footer b{color:#fff}
 .anat-doc .cab i{width:9px;height:9px;border-radius:50%;background:#e06c5a;box-shadow:14px 0 0 #e6b450,28px 0 0 #6cbf7a;margin-right:34px}
 .anat-doc .blq{display:block;background:color-mix(in srgb,var(--c) 7%,transparent);border-radius:10px;padding:8px 12px;margin:6px 0;cursor:pointer;transition:opacity .15s,background .15s}
 .anat-doc .blq em{display:block;font-style:normal;font-size:.75rem;font-weight:700;color:var(--c);letter-spacing:.02em}
-.anat-doc.foco .blq{opacity:.32}
+.anat-doc.foco .blq{opacity:1;background:transparent;color:#56637A}.anat-doc.foco .blq:not(.on) em{color:#56637A}
 .anat-doc.foco .blq.on{opacity:1;background:color-mix(in srgb,var(--c) 15%,transparent)}
 .anat-info{border-radius:14px;padding:16px 18px;background:color-mix(in srgb,var(--c,#2b6693) 8%,var(--panel));border:1px solid color-mix(in srgb,var(--c,#2b6693) 30%,transparent)}
 .anat-info h4{margin:0 0 6px;font-size:1.05rem;color:var(--ink)}
@@ -204,7 +204,7 @@ footer b{color:#fff}
 .armar-campos textarea{width:100%;font:inherit;font-size:16px;line-height:1.45;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;resize:vertical;min-height:44px}
 .armar-vista{padding:16px 18px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
 .armar-vista pre{flex:1;margin:0;min-height:260px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;font-family:var(--f-mono);font-size:.84rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
-.armar-vista pre .vacio{color:var(--soft)}
+.armar-vista pre .vacio{color:#6B7684}
 .armar-campos textarea::placeholder{color:var(--soft);font-style:italic}
 #armarEstado{font-size:.88rem;color:var(--ok);font-weight:600}
 @media (max-width:820px){.armar-cuerpo{grid-template-columns:1fr}.armar-campos{border-right:0;border-bottom:1px solid var(--line)}}
@@ -244,8 +244,7 @@ body.app section.vista.on{display:block}
 .progreso{font-size:.82rem;color:var(--muted);margin:0 0 10px}
 @media (max-width:600px){.paginador{grid-template-columns:1fr}.paginador a.sig{grid-column:1}}
 @media print{body.app section.vista{display:block!important}.paginador,.progreso{display:none}header.top,.copiar,.mapa{display:none}section.bloque{padding:24px 0}}
-</style>
-<style>/* ===== Capa de diseño «Partes a la vista» (común a Ruta, Paso 0 y Matriz) ===== */
+/* ===== Capa de diseño «Partes a la vista» (común a Ruta, Paso 0 y Matriz) ===== */
 :root{--p0:#1F4E79;--p1:#2B6693;--p2:#7A4FB0;--p3:#9A6210;--p4:#1B7499;--p5:#A23B5D;--p6:#4A5866;--p7:#1D7A52;--pv-ink:#14202B;--pv-text:#3D4A5C;--pv-muted:#56637A;--pv-line:#DDE3EA;--pv-panel:#F4F6F9;--pv-brand:#1F4E79;--pv-brand-soft:#EAF1F8;--pv-ok:#1D7A52;--pv-ok-soft:#E6F3EC}
 html body nav.top{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--pv-line);box-shadow:none}
 html body nav.top>.wrap,html body nav.top>.nav-in{max-width:1200px;margin:0 auto;padding:8px 24px 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
@@ -322,21 +321,19 @@ html body nav.top nav.indice a b{color:var(--pv-muted);font-weight:700;backgroun
 html body nav.top nav.indice a.activo{background:var(--pv-ink);border-color:var(--pv-ink);color:#fff}
 html body nav.top nav.indice a.activo b{color:#C9D4E0}
 @media (max-width:760px){html body nav.top .pv-sub{padding:0 14px 8px}}
-</style>
-<style>@media (max-width:760px){html body nav.top .idioma svg{display:none}html body nav.top .idioma{padding:2px!important;gap:0!important}html body nav.top .idioma button{padding:3px 7px!important;font-size:.72rem!important;min-height:0!important}html body nav.top .brand{max-width:calc(100vw - 205px)}html body nav.top .brand>span{min-width:0;overflow:hidden}html body nav.top .brand b{overflow:hidden;text-overflow:ellipsis}html body nav.top>.wrap,html body nav.top>.nav-in{flex-wrap:wrap;row-gap:4px}html body nav.top .pv-save{padding:4px 6px}}
-</style>
-<style>html body .wrap{max-width:1360px}
+@media (max-width:760px){html body nav.top .idioma svg{display:none}html body nav.top .idioma{padding:2px!important;gap:0!important}html body nav.top .idioma button{padding:3px 7px!important;font-size:.72rem!important;min-height:0!important}html body nav.top .brand{max-width:calc(100vw - 205px)}html body nav.top .brand>span{min-width:0;overflow:hidden}html body nav.top .brand b{overflow:hidden;text-overflow:ellipsis}html body nav.top>.wrap,html body nav.top>.nav-in{flex-wrap:wrap;row-gap:4px}html body nav.top .pv-save{padding:4px 6px}}
+html body .wrap{max-width:1360px}
 html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{max-width:1360px}
 @media (min-width:1100px){html body .wrap,html body nav.top>.wrap,html body nav.top>.nav-in,html body nav.top .pv-sub{padding-left:32px;padding-right:32px}}
 html body .portada .sub,html body .reflexion{max-width:74ch}
+.pv-tag.pv-min{background:#E6F3EC!important;color:#1D7A52!important}.pv-min-nota{margin:18px 0 0;color:var(--pv-text,#3D4A5C)}
 </style>
-<style>.pv-tag.pv-min{background:#E6F3EC!important;color:#1D7A52!important}.pv-min-nota{margin:18px 0 0;color:var(--pv-text,#3D4A5C)}</style>
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 
 <nav class="top" aria-label="Recorrido"><div class="wrap">
-  <a class="brand" href="./" aria-label="Ruta de investigación con IA, inicio"><svg viewBox="88 30 92 92" aria-hidden="true"><path d="M151 93L174 116" stroke="#2b6693" stroke-width="10.5" stroke-linecap="round"/><circle cx="128" cy="70" r="34.5" fill="#2b6693"/><circle cx="128" cy="70" r="26" fill="none" stroke="#fff" stroke-width="2.9"/><path fill="#fff" d="M125 85.5L113 55h7.5l8 22.5 8-22.5H144l-12.5 30.5z"/></svg><span><b>Ruta de investigación con IA</b><small>Investigium Lab · Elver Chaparro Cardozo</small></span></a><span class="pv-save"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="2" fill="currentColor"/><path d="M5 7V5a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Guardado en este navegador</span></span>
+  <a class="brand" href="./"><svg viewBox="88 30 92 92" aria-hidden="true"><path d="M151 93L174 116" stroke="#2b6693" stroke-width="10.5" stroke-linecap="round"/><circle cx="128" cy="70" r="34.5" fill="#2b6693"/><circle cx="128" cy="70" r="26" fill="none" stroke="#fff" stroke-width="2.9"/><path fill="#fff" d="M125 85.5L113 55h7.5l8 22.5 8-22.5H144l-12.5 30.5z"/></svg><span><b>Ruta de investigación con IA</b><small>Investigium Lab · Elver Chaparro Cardozo</small></span></a><span class="pv-save"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="2" fill="currentColor"/><path d="M5 7V5a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Guardado en este navegador</span></span>
   <ul>
     <li><a href="./">Inicio</a></li>
     <li><a href="prompts-y-agentes.html" aria-current="page"><b data-n="0">0</b> Prompts</a></li>
@@ -1133,7 +1130,11 @@ document.getElementById("armarCopiar").addEventListener("click",async()=>{const 
 arma();
 }
 </script>
-<script>(function(){
+<script>
+/* ===== Capa de diseño «Partes a la vista» ===== */
+/* -- Temas con vista previa -- */
+try{
+(function(){
   var ul=document.querySelector('#inicio ul.mapa');if(!ul)return;
   var esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
   var items=[].slice.call(ul.querySelectorAll('a')).map(function(a,i){var id=a.getAttribute('href').slice(1),sec=document.getElementById(id);var sp=a.querySelector('span');var t=a.textContent.replace(sp?sp.textContent:'','').trim();
@@ -1152,12 +1153,15 @@ arma();
   parts.forEach(function(b,i){b.addEventListener('click',function(){pintar(i)});b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var j=Math.max(0,Math.min(parts.length-1,i+(e.key==='ArrowDown'?1:-1)));parts[j].focus();pintar(j)}})});
   pintar(sel);
 })();
-</script>
-<script>(function(){
+}catch(e){console.error("Capa de diseño: Temas con vista previa",e)}
+/* -- Temas mínimos -- */
+try{
+(function(){
   var pv=document.querySelector('#inicio .pv');if(!pv)return;
   [0,3,5].forEach(function(i){var b=pv.querySelector('.pv-part[data-i="'+i+'"] b');if(b&&!b.parentNode.querySelector('.pv-tag')){var t=document.createElement('span');t.className='pv-tag pv-min';t.textContent='Mínimo';b.parentNode.appendChild(t)}});
   var p=document.createElement('p');p.className='pv-min-nota';p.innerHTML='<b>¿Poco tiempo?</b> Lea al menos los temas 1, 4 y 6, marcados como <span class="pv-tag pv-min">Mínimo</span>: qué es un prompt, cómo se estructura y cómo dejar su rastro.';pv.parentNode.insertBefore(p,pv);
 })();
+}catch(e){console.error("Capa de diseño: Temas mínimos",e)}
 </script>
 </body>
 </html>
