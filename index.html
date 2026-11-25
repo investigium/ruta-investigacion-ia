@@ -756,6 +756,55 @@ html body .portada .sub,html body .reflexion{max-width:74ch}
       </tbody>
     </table></div>
 
+    <h3 id="buscadores-ia" style="margin:32px 0 6px;font-size:1.25rem;scroll-margin-top:110px">Repositorios y buscadores con IA: seis herramientas, seis roles</h3>
+    <p class="nota" style="margin:0 0 14px">Plataformas para encontrar, leer y sintetizar evidencia académica. Cada una cumple un papel distinto; ninguna reemplaza la búsqueda documentada en las bases de la tabla anterior.</p>
+    <div class="pasos">
+      <div class="paso"><div><b>SciSpace · <a href="https://scispace.com" target="_blank" rel="noopener">scispace.com</a></b>Buscar, leer y extraer datos de artículos con un asistente que explica el texto.</div></div>
+      <div class="paso"><div><b>alphaXiv · <a href="https://www.alphaxiv.org" target="_blank" rel="noopener">alphaxiv.org</a></b>Discusión abierta e IA sobre preprints de arXiv: comentarios en línea, resaltados y un asistente que responde citando secciones del artículo.</div></div>
+      <div class="paso"><div><b>Consensus · <a href="https://consensus.app" target="_blank" rel="noopener">consensus.app</a></b>Respuestas con IA basadas en estudios revisados por pares, con un indicador de hacia dónde apunta la evidencia.</div></div>
+      <div class="paso"><div><b>PubMed · <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov</a></b>Base de datos biomédica gratuita del NIH. Útil en educación para la salud, psicología y bienestar.</div></div>
+      <div class="paso"><div><b>Elicit · <a href="https://elicit.com" target="_blank" rel="noopener">elicit.com</a></b>Revisiones sistemáticas y extracción de datos en tablas (revise cada celda: vea la evidencia de la sección anterior).</div></div>
+      <div class="paso"><div><b>Jenni AI · <a href="https://jenni.ai" target="_blank" rel="noopener">jenni.ai</a></b>Escritura académica con citas rastreables. Es apoyo de redacción: declare su uso y verifique cada cita.</div></div>
+    </div>
+
+    <div class="rej c2" style="margin-top:16px">
+      <div class="tj">
+        <p class="rot">02 · Discusión abierta sobre preprints</p>
+        <h3 class="t">alphaXiv: arXiv con una capa social y de IA</h3>
+        <p>Creada en Stanford por Rehaan Ahmad y Raj Palleti. Basta cambiar <code>arxiv</code> por <code>alphaxiv</code> en la dirección de un artículo para abrirlo con comentarios y asistente.</p>
+        <div class="cita" style="margin-top:6px"><b>Ten en cuenta:</b> los preprints no tienen revisión por pares, y los artículos de nicho pueden tener poca discusión.</div>
+      </div>
+      <div class="tj azul">
+        <p class="rot">Agente de búsqueda profunda</p>
+        <h3 class="t">Undermind</h3>
+        <p><a href="https://www.undermind.ai" target="_blank" rel="noopener">Undermind</a> recibe una pregunta descrita en lenguaje natural, busca de forma iterativa durante varios minutos y entrega una lista de artículos ordenados por relevancia, con una estimación de cuánto de lo pertinente ya encontró.</p>
+        <p>Úselo para descubrir estudios que la cadena booleana no capturó. Lo que encuentre se vuelve a buscar en Scopus, WoS o SciELO para dejar rastro en el diagrama PRISMA.</p>
+        <p class="nota">Para entender qué hace un agente por dentro (objetivo, herramientas, memoria y ciclo de decisión), lea <a href="https://www.itnove.com/blog/anatomia-de-un-agente-de-ia" target="_blank" rel="noopener">«Anatomía de un agente de IA»</a> y el <a href="prompts-y-agentes.html">Paso 0 · Prompts, loops y agentes</a>.</p>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:1.25rem">Bibliometría sin licencias costosas: Bibliometrix + Claude</h3>
+    <div class="rej c2">
+      <div class="tj">
+        <p class="rot">La alternativa</p>
+        <p><a href="https://www.thevantagepoint.com" target="_blank" rel="noopener">The VantagePoint</a> es software comercial de minería de textos para datos bibliográficos. Su flujo profesional (limpiar, contar, mapear, interpretar) puede replicarse sin costo combinando dos herramientas:</p>
+        <ul>
+          <li><b><a href="https://www.bibliometrix.org" target="_blank" rel="noopener">Bibliometrix</a> (Biblioshiny):</b> paquete de R con interfaz web que hace el cálculo estadístico y el mapeo de redes: coautoría, cocitación, acoplamiento, mapas temáticos y evolución de términos (<a href="https://doi.org/10.1016/j.joi.2017.08.007" target="_blank" rel="noopener">Aria y Cuccurullo, 2017</a>).</li>
+          <li><b>Claude:</b> asistente de limpieza de datos y analista cualitativo de los resultados.</li>
+        </ul>
+      </div>
+      <div class="tj azul">
+        <p class="rot">El flujo</p>
+        <ol style="margin:.2em 0 0;padding-left:1.2em">
+          <li>Exporte los registros de Scopus o Web of Science (BibTeX o texto plano, con todos los campos).</li>
+          <li>Pida a Claude un diccionario de sinónimos para unificar palabras clave, autores e instituciones escritos de varias formas. Revíselo antes de usarlo.</li>
+          <li>Cargue los datos y el diccionario en Biblioshiny y genere indicadores, redes y mapas.</li>
+          <li>Entregue a Claude las tablas y los grupos de cada mapa para que proponga una lectura de los clústeres. La interpretación final es suya.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="banda">Bibliometrix <strong>calcula</strong>; Claude <strong>limpia y propone lecturas</strong>; el investigador <strong>decide</strong>. Reporte herramienta, versión, fecha y propósito de cada uso de IA.</div>
+
     <h3 style="margin:28px 0 12px;font-size:1.25rem">La IA como segundo revisor: lo que muestra la evidencia</h3>
     <div class="scroll"><table>
       <thead><tr><th>Estudio</th><th>Tarea</th><th>Resultado</th></tr></thead>
@@ -1720,6 +1769,7 @@ $$("[data-doc]").forEach(b=>b.addEventListener("click",async()=>{if(!(await lib(
     e.textContent="Listo: se borró todo. La página se recargará.";setTimeout(()=>location.reload(),1200)});
 })();
 (function(){const R=[
+["Aria, M., y Cuccurullo, C. (2017). bibliometrix: An R-tool for comprehensive science mapping analysis. Journal of Informetrics, 11(4), 959–975.","10.1016/j.joi.2017.08.007"],
 ["Bianchi, J., et al. (2025). Data extractions using a large language model (Elicit) and human reviewers in randomized controlled trials: A systematic comparison. Cochrane Evidence Synthesis and Methods, 3(4), e70033.","10.1002/cesm.70033"],
 ["Braun, V. y Clarke, V. (2006). Using thematic analysis in psychology. Qualitative Research in Psychology, 3(2), 77–101.","10.1191/1478088706qp063oa"],
 ["Chafe, R. (2024). Different paradigm conceptions and their implications for qualitative research. International Journal of Qualitative Methods, 23.","10.1177/16094069241282871"],
